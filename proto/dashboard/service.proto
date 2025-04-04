@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package dashboard;
+
+import "dashboard/project.proto";
+import "dashboard/application.proto";
+import "dashboard/endpoint.proto";
+
+service DashboardService {
+    rpc GetListProject(GetListProjectRequest) returns (GetListProjectResponse);
+    rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
+    rpc UpdateProject(UpdateProjectRequest) returns (UpdateProjectResponse);
+    rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
+
+    rpc GetListApplication(GetListApplicationRequest) returns (GetListApplicationResponse);
+    rpc CreateApplication(CreateApplicationRequest) returns (CreateApplicationResponse);
+    rpc UpdateApplication(UpdateApplicationRequest) returns (UpdateApplicationResponse);
+    rpc DeleteApplication(DeleteApplicationRequest) returns (DeleteApplicationResponse);
+
+    rpc GetListEndpoint(GetListEndpointRequest) returns (GetListEndpointResponse);
+}

@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package endpoint;
+
+import "google/protobuf/timestamp.proto";
+
+message Endpoint {
+    string id = 1;
+    string application_id = 2;
+    string project_id = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+    EndpointType type = 6;
+    string name = 7;
+    string description = 8;
+
+    oneof settings {
+        SettingRest setting_rest = 101;
+        SettingCron setting_cron = 102;
+    }
+}
+
+enum EndpointType {
+    ENDPOINT_TYPE_UNSPECIFIED = 0;
+    ENDPOINT_TYPE_REST = 1;
+    ENDPOINT_TYPE_CRON = 2;
+}
+
+message Variable {
+    VariableType type = 1;
+    bool required = 2;
+    string value = 3;
+    string default = 4;
+}
+
+enum VariableType {
+    VARIABLE_TYPE_UNSPECIFIED = 0;
+    VARIABLE_TYPE_STRING = 1;
+    VARIABLE_TYPE_INT = 2;
+    VARIABLE_TYPE_FLOAT = 3;
+    VARIABLE_TYPE_BOOL = 4;
+    VARIABLE_TYPE_OBJECT = 5;
+}
+
+message SettingRest {
+    string method = 1;
+    string path = 2;
+    int64 timeout_ms = 3;
+    int32 num_workers = 4;
+    map<string, Variable> query = 5;
+    map<string, Variable> json = 6;
+}
+
+message SettingCron {
+    string cron = 1;
+    int64 timeout_ms = 2;
+}
+
+message Workflow {
+    repeated Step steps = 1;
+    repeated Edge edges = 2;
+}
+
+message Step {
+    string id = 1;
+    string name = 2;
+    StepType type = 3;
+    map<string, Variable> variables = 4;
+    Action action = 5;
+    map<string, Variable> outputs = 6;
+    repeated Return returns = 7;
+}
+
+enum StepType {
+    STEP_TYPE_UNSPECIFIED = 0;
+    STEP_TYPE_START = 1;
+    STEP_TYPE_END = 2;
+    STEP_TYPE_SLEEP = 3;
+    STEP_TYPE_SCRIPT_JS = 4;
+    STEP_TYPE_CONDITION = 5;
+    STEP_TYPE_REST = 6;
+    STEP_TYPE_MYSQL = 7;
+    STEP_TYPE_POSTGRESQL = 8;
+    STEP_TYPE_REDIS = 9;
+}
+
+message Action {
+    string data_source_id = 1;
+    ActionEnd end = 2;
+    ActionMysql mysql = 3;
+    ActionRest rest = 4;
+    ActionSleep sleep = 5;
+}
+
+message ActionEnd {
+    repeated string return_data_from_step_ids = 1;
+}
+
+message ActionMysql {
+    repeated Query queries = 1;
+}
+
+message ActionRest {
+    Variable path = 1;
+    string method = 2;
+    map<string, Variable> headers = 3;
+    string request_type = 4;
+    string request_body = 5;
+}
+
+message ActionSleep {
+    int64 timeout_ms = 1;
+}
+
+message Query {
+    Variable query = 1;
+    repeated Variable parameters = 2;
+}
+
+message Return {
+    string id = 1;
+    string name = 2;
+    string is_finish_condition = 3;
+    string next_step_id = 4;
+}
+
+message Edge {
+    string id = 1;
+    string condition_id = 2;
+    string source = 3;
+    string dest = 4;
+}
