@@ -7,7 +7,7 @@
 package v1
 
 import (
-	endpoint "github.com/bayu-aditya/ideagate/backend/model/gen-go/core/endpoint"
+	endpoint "github.com/ideagate/model/gen-go/core/endpoint"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -204,8 +204,8 @@ const file_client_controller_v1_service_proto_rawDesc = "" +
 	"\bworkflow\x18\x01 \x01(\v2\x12.endpoint.WorkflowR\bworkflow2\x9f\x01\n" +
 	"\x11ControllerService\x12J\n" +
 	"\x0fGetListEndpoint\x12\x1a.v1.GetListEndpointRequest\x1a\x1b.v1.GetListEndpointResponse\x12>\n" +
-	"\vGetWorkflow\x12\x16.v1.GetWorkflowRequest\x1a\x17.v1.GetWorkflowResponseB\x89\x01\n" +
-	"\x06com.v1B\fServiceProtoP\x01ZIgithub.com/bayu-aditya/ideagate/backend/model/gen-go/client/controller/v1\xa2\x02\x03VXX\xaa\x02\x02V1\xca\x02\x02V1\xe2\x02\x0eV1\\GPBMetadata\xea\x02\x02V1b\x06proto3"
+	"\vGetWorkflow\x12\x16.v1.GetWorkflowRequest\x1a\x17.v1.GetWorkflowResponseBu\n" +
+	"\x06com.v1B\fServiceProtoP\x01Z5github.com/ideagate/model/gen-go/client/controller/v1\xa2\x02\x03VXX\xaa\x02\x02V1\xca\x02\x02V1\xe2\x02\x0eV1\\GPBMetadata\xea\x02\x02V1b\x06proto3"
 
 var (
 	file_client_controller_v1_service_proto_rawDescOnce sync.Once

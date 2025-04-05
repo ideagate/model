@@ -34,8 +34,8 @@ const file_dashboard_service_proto_rawDesc = "" +
 	"\x11CreateApplication\x12#.dashboard.CreateApplicationRequest\x1a$.dashboard.CreateApplicationResponse\x12^\n" +
 	"\x11UpdateApplication\x12#.dashboard.UpdateApplicationRequest\x1a$.dashboard.UpdateApplicationResponse\x12^\n" +
 	"\x11DeleteApplication\x12#.dashboard.DeleteApplicationRequest\x1a$.dashboard.DeleteApplicationResponse\x12X\n" +
-	"\x0fGetListEndpoint\x12!.dashboard.GetListEndpointRequest\x1a\".dashboard.GetListEndpointResponseB\xa1\x01\n" +
-	"\rcom.dashboardB\fServiceProtoP\x01Z>github.com/bayu-aditya/ideagate/backend/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
+	"\x0fGetListEndpoint\x12!.dashboard.GetListEndpointRequest\x1a\".dashboard.GetListEndpointResponseB\x8d\x01\n" +
+	"\rcom.dashboardB\fServiceProtoP\x01Z*github.com/ideagate/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
 
 var file_dashboard_service_proto_goTypes = []any{
 	(*GetListProjectRequest)(nil),      // 0: dashboard.GetListProjectRequest

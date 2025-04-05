@@ -7,7 +7,7 @@
 package dashboard
 
 import (
-	application "github.com/bayu-aditya/ideagate/backend/model/gen-go/core/application"
+	application "github.com/ideagate/model/gen-go/core/application"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
@@ -426,8 +426,8 @@ const file_dashboard_application_proto_rawDesc = "" +
 	"\n" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
 	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\"\x1b\n" +
-	"\x19DeleteApplicationResponseB\xa5\x01\n" +
-	"\rcom.dashboardB\x10ApplicationProtoP\x01Z>github.com/bayu-aditya/ideagate/backend/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
+	"\x19DeleteApplicationResponseB\x91\x01\n" +
+	"\rcom.dashboardB\x10ApplicationProtoP\x01Z*github.com/ideagate/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
 
 var (
 	file_dashboard_application_proto_rawDescOnce sync.Once

@@ -161,8 +161,8 @@ const file_client_controller_v1_pod_proto_rawDesc = "" +
 	"\x12POD_STATUS_PENDING\x10\x01\x12\x16\n" +
 	"\x12POD_STATUS_RUNNING\x10\x02\x12\x18\n" +
 	"\x14POD_STATUS_SUCCEEDED\x10\x03\x12\x15\n" +
-	"\x11POD_STATUS_FAILED\x10\x04B\x85\x01\n" +
-	"\x06com.v1B\bPodProtoP\x01ZIgithub.com/bayu-aditya/ideagate/backend/model/gen-go/client/controller/v1\xa2\x02\x03VXX\xaa\x02\x02V1\xca\x02\x02V1\xe2\x02\x0eV1\\GPBMetadata\xea\x02\x02V1b\x06proto3"
+	"\x11POD_STATUS_FAILED\x10\x04Bq\n" +
+	"\x06com.v1B\bPodProtoP\x01Z5github.com/ideagate/model/gen-go/client/controller/v1\xa2\x02\x03VXX\xaa\x02\x02V1\xca\x02\x02V1\xe2\x02\x0eV1\\GPBMetadata\xea\x02\x02V1b\x06proto3"
 
 var (
 	file_client_controller_v1_pod_proto_rawDescOnce sync.Once

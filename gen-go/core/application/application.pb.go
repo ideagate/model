@@ -120,8 +120,8 @@ const file_core_application_application_proto_rawDesc = "" +
 	"\n" +
 	"project_id\x18\x04 \x01(\tR\tprojectId\x12\x12\n" +
 	"\x04name\x18\x05 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x06 \x01(\tR\vdescriptionB\xb6\x01\n" +
-	"\x0fcom.applicationB\x10ApplicationProtoP\x01ZEgithub.com/bayu-aditya/ideagate/backend/model/gen-go/core/application\xa2\x02\x03AXX\xaa\x02\vApplication\xca\x02\vApplication\xe2\x02\x17Application\\GPBMetadata\xea\x02\vApplicationb\x06proto3"
+	"\vdescription\x18\x06 \x01(\tR\vdescriptionB\xa2\x01\n" +
+	"\x0fcom.applicationB\x10ApplicationProtoP\x01Z1github.com/ideagate/model/gen-go/core/application\xa2\x02\x03AXX\xaa\x02\vApplication\xca\x02\vApplication\xe2\x02\x17Application\\GPBMetadata\xea\x02\vApplicationb\x06proto3"
 
 var (
 	file_core_application_application_proto_rawDescOnce sync.Once

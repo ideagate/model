@@ -110,8 +110,8 @@ const file_core_project_project_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x03 \x01(\tR\vdescriptionB\x9a\x01\n" +
-	"\vcom.projectB\fProjectProtoP\x01ZAgithub.com/bayu-aditya/ideagate/backend/model/gen-go/core/project\xa2\x02\x03PXX\xaa\x02\aProject\xca\x02\aProject\xe2\x02\x13Project\\GPBMetadata\xea\x02\aProjectb\x06proto3"
+	"\vdescription\x18\x03 \x01(\tR\vdescriptionB\x86\x01\n" +
+	"\vcom.projectB\fProjectProtoP\x01Z-github.com/ideagate/model/gen-go/core/project\xa2\x02\x03PXX\xaa\x02\aProject\xca\x02\aProject\xe2\x02\x13Project\\GPBMetadata\xea\x02\aProjectb\x06proto3"
 
 var (
 	file_core_project_project_proto_rawDescOnce sync.Once

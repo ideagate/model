@@ -4,7 +4,7 @@ managed:
   enabled: true
   override:
     - file_option: go_package_prefix
-      value: github.com/bayu-aditya/ideagate/backend/model/gen-go
+      value: github.com/ideagate/model/gen-go
 plugins:
   - remote: buf.build/protocolbuffers/go
     out: gen-go

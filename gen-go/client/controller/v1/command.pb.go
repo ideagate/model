@@ -108,8 +108,8 @@ const file_client_controller_v1_command_proto_rawDesc = "" +
 	"\"client/controller/v1/command.proto\x12\x02v1\x1a\x1eclient/controller/v1/pod.proto\"\x13\n" +
 	"\x11GetListPodRequest\"1\n" +
 	"\x12GetListPodResponse\x12\x1b\n" +
-	"\x04pods\x18\x01 \x03(\v2\a.v1.PodR\x04podsB\x89\x01\n" +
-	"\x06com.v1B\fCommandProtoP\x01ZIgithub.com/bayu-aditya/ideagate/backend/model/gen-go/client/controller/v1\xa2\x02\x03VXX\xaa\x02\x02V1\xca\x02\x02V1\xe2\x02\x0eV1\\GPBMetadata\xea\x02\x02V1b\x06proto3"
+	"\x04pods\x18\x01 \x03(\v2\a.v1.PodR\x04podsBu\n" +
+	"\x06com.v1B\fCommandProtoP\x01Z5github.com/ideagate/model/gen-go/client/controller/v1\xa2\x02\x03VXX\xaa\x02\x02V1\xca\x02\x02V1\xe2\x02\x0eV1\\GPBMetadata\xea\x02\x02V1b\x06proto3"
 
 var (
 	file_client_controller_v1_command_proto_rawDescOnce sync.Once

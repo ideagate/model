@@ -128,8 +128,8 @@ const file_core_user_user_proto_rawDesc = "" +
 	"\x04name\x18\x04 \x01(\tR\x04name\x12\x14\n" +
 	"\x05email\x18\x05 \x01(\tR\x05email\x12\x1a\n" +
 	"\bpassword\x18\x06 \x01(\tR\bpassword\x12'\n" +
-	"\x0fprofile_picture\x18\a \x01(\tR\x0eprofilePictureB\x85\x01\n" +
-	"\bcom.userB\tUserProtoP\x01Z>github.com/bayu-aditya/ideagate/backend/model/gen-go/core/user\xa2\x02\x03UXX\xaa\x02\x04User\xca\x02\x04User\xe2\x02\x10User\\GPBMetadata\xea\x02\x04Userb\x06proto3"
+	"\x0fprofile_picture\x18\a \x01(\tR\x0eprofilePictureBq\n" +
+	"\bcom.userB\tUserProtoP\x01Z*github.com/ideagate/model/gen-go/core/user\xa2\x02\x03UXX\xaa\x02\x04User\xca\x02\x04User\xe2\x02\x10User\\GPBMetadata\xea\x02\x04Userb\x06proto3"
 
 var (
 	file_core_user_user_proto_rawDescOnce sync.Once

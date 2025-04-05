@@ -7,7 +7,7 @@
 package dashboard
 
 import (
-	project "github.com/bayu-aditya/ideagate/backend/model/gen-go/core/project"
+	project "github.com/ideagate/model/gen-go/core/project"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	structpb "google.golang.org/protobuf/types/known/structpb"
@@ -380,8 +380,8 @@ const file_dashboard_project_proto_rawDesc = "" +
 	"\x14DeleteProjectRequest\x12\x1d\n" +
 	"\n" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\"\x17\n" +
-	"\x15DeleteProjectResponseB\xa1\x01\n" +
-	"\rcom.dashboardB\fProjectProtoP\x01Z>github.com/bayu-aditya/ideagate/backend/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
+	"\x15DeleteProjectResponseB\x8d\x01\n" +
+	"\rcom.dashboardB\fProjectProtoP\x01Z*github.com/ideagate/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
 
 var (
 	file_dashboard_project_proto_rawDescOnce sync.Once

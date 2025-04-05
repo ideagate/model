@@ -1288,8 +1288,8 @@ const file_core_endpoint_endpoint_proto_rawDesc = "" +
 	"\x0eSTEP_TYPE_REST\x10\x06\x12\x13\n" +
 	"\x0fSTEP_TYPE_MYSQL\x10\a\x12\x18\n" +
 	"\x14STEP_TYPE_POSTGRESQL\x10\b\x12\x13\n" +
-	"\x0fSTEP_TYPE_REDIS\x10\tB\xa1\x01\n" +
-	"\fcom.endpointB\rEndpointProtoP\x01ZBgithub.com/bayu-aditya/ideagate/backend/model/gen-go/core/endpoint\xa2\x02\x03EXX\xaa\x02\bEndpoint\xca\x02\bEndpoint\xe2\x02\x14Endpoint\\GPBMetadata\xea\x02\bEndpointb\x06proto3"
+	"\x0fSTEP_TYPE_REDIS\x10\tB\x8d\x01\n" +
+	"\fcom.endpointB\rEndpointProtoP\x01Z.github.com/ideagate/model/gen-go/core/endpoint\xa2\x02\x03EXX\xaa\x02\bEndpoint\xca\x02\bEndpoint\xe2\x02\x14Endpoint\\GPBMetadata\xea\x02\bEndpointb\x06proto3"
 
 var (
 	file_core_endpoint_endpoint_proto_rawDescOnce sync.Once
