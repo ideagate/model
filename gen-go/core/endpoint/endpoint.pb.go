@@ -602,14 +602,20 @@ func (x *Workflow) GetEdges() []*Edge {
 }
 
 type Step struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Type          StepType               `protobuf:"varint,3,opt,name=type,proto3,enum=endpoint.StepType" json:"type,omitempty"`
-	Variables     map[string]*Variable   `protobuf:"bytes,4,rep,name=variables,proto3" json:"variables,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Action        *Action                `protobuf:"bytes,5,opt,name=action,proto3" json:"action,omitempty"`
-	Outputs       map[string]*Variable   `protobuf:"bytes,6,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Returns       []*Return              `protobuf:"bytes,7,rep,name=returns,proto3" json:"returns,omitempty"`
+	state     protoimpl.MessageState `protogen:"open.v1"`
+	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name      string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Type      StepType               `protobuf:"varint,3,opt,name=type,proto3,enum=endpoint.StepType" json:"type,omitempty"`
+	Variables map[string]*Variable   `protobuf:"bytes,4,rep,name=variables,proto3" json:"variables,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Outputs   map[string]*Variable   `protobuf:"bytes,5,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Returns   []*Return              `protobuf:"bytes,6,rep,name=returns,proto3" json:"returns,omitempty"`
+	// Types that are valid to be assigned to Action:
+	//
+	//	*Step_ActionEnd
+	//	*Step_ActionMysql
+	//	*Step_ActionRest
+	//	*Step_ActionSleep
+	Action        isStep_Action `protobuf_oneof:"action"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -672,13 +678,6 @@ func (x *Step) GetVariables() map[string]*Variable {
 	return nil
 }
 
-func (x *Step) GetAction() *Action {
-	if x != nil {
-		return x.Action
-	}
-	return nil
-}
-
 func (x *Step) GetOutputs() map[string]*Variable {
 	if x != nil {
 		return x.Outputs
@@ -693,81 +692,76 @@ func (x *Step) GetReturns() []*Return {
 	return nil
 }
 
-type Action struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	DataSourceId  string                 `protobuf:"bytes,1,opt,name=data_source_id,json=dataSourceId,proto3" json:"data_source_id,omitempty"`
-	End           *ActionEnd             `protobuf:"bytes,2,opt,name=end,proto3" json:"end,omitempty"`
-	Mysql         *ActionMysql           `protobuf:"bytes,3,opt,name=mysql,proto3" json:"mysql,omitempty"`
-	Rest          *ActionRest            `protobuf:"bytes,4,opt,name=rest,proto3" json:"rest,omitempty"`
-	Sleep         *ActionSleep           `protobuf:"bytes,5,opt,name=sleep,proto3" json:"sleep,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Action) Reset() {
-	*x = Action{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Action) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Action) ProtoMessage() {}
-
-func (x *Action) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[6]
+func (x *Step) GetAction() isStep_Action {
 	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
+		return x.Action
+	}
+	return nil
+}
+
+func (x *Step) GetActionEnd() *ActionEnd {
+	if x != nil {
+		if x, ok := x.Action.(*Step_ActionEnd); ok {
+			return x.ActionEnd
 		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Action.ProtoReflect.Descriptor instead.
-func (*Action) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *Action) GetDataSourceId() string {
-	if x != nil {
-		return x.DataSourceId
-	}
-	return ""
-}
-
-func (x *Action) GetEnd() *ActionEnd {
-	if x != nil {
-		return x.End
 	}
 	return nil
 }
 
-func (x *Action) GetMysql() *ActionMysql {
+func (x *Step) GetActionMysql() *ActionMysql {
 	if x != nil {
-		return x.Mysql
+		if x, ok := x.Action.(*Step_ActionMysql); ok {
+			return x.ActionMysql
+		}
 	}
 	return nil
 }
 
-func (x *Action) GetRest() *ActionRest {
+func (x *Step) GetActionRest() *ActionRest {
 	if x != nil {
-		return x.Rest
+		if x, ok := x.Action.(*Step_ActionRest); ok {
+			return x.ActionRest
+		}
 	}
 	return nil
 }
 
-func (x *Action) GetSleep() *ActionSleep {
+func (x *Step) GetActionSleep() *ActionSleep {
 	if x != nil {
-		return x.Sleep
+		if x, ok := x.Action.(*Step_ActionSleep); ok {
+			return x.ActionSleep
+		}
 	}
 	return nil
 }
+
+type isStep_Action interface {
+	isStep_Action()
+}
+
+type Step_ActionEnd struct {
+	ActionEnd *ActionEnd `protobuf:"bytes,7,opt,name=action_end,json=actionEnd,proto3,oneof"`
+}
+
+type Step_ActionMysql struct {
+	ActionMysql *ActionMysql `protobuf:"bytes,8,opt,name=action_mysql,json=actionMysql,proto3,oneof"`
+}
+
+type Step_ActionRest struct {
+	ActionRest *ActionRest `protobuf:"bytes,9,opt,name=action_rest,json=actionRest,proto3,oneof"`
+}
+
+type Step_ActionSleep struct {
+	ActionSleep *ActionSleep `protobuf:"bytes,10,opt,name=action_sleep,json=actionSleep,proto3,oneof"`
+}
+
+func (*Step_ActionEnd) isStep_Action() {}
+
+func (*Step_ActionMysql) isStep_Action() {}
+
+func (*Step_ActionRest) isStep_Action() {}
+
+func (*Step_ActionSleep) isStep_Action() {}
 
 type ActionEnd struct {
 	state                 protoimpl.MessageState `protogen:"open.v1"`
@@ -778,7 +772,7 @@ type ActionEnd struct {
 
 func (x *ActionEnd) Reset() {
 	*x = ActionEnd{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[7]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -790,7 +784,7 @@ func (x *ActionEnd) String() string {
 func (*ActionEnd) ProtoMessage() {}
 
 func (x *ActionEnd) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[7]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -803,7 +797,7 @@ func (x *ActionEnd) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionEnd.ProtoReflect.Descriptor instead.
 func (*ActionEnd) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{7}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ActionEnd) GetReturnDataFromStepIds() []string {
@@ -815,14 +809,15 @@ func (x *ActionEnd) GetReturnDataFromStepIds() []string {
 
 type ActionMysql struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Queries       []*Query               `protobuf:"bytes,1,rep,name=queries,proto3" json:"queries,omitempty"`
+	DataSourceId  string                 `protobuf:"bytes,1,opt,name=data_source_id,json=dataSourceId,proto3" json:"data_source_id,omitempty"`
+	Queries       []*Query               `protobuf:"bytes,2,rep,name=queries,proto3" json:"queries,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ActionMysql) Reset() {
 	*x = ActionMysql{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[8]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -834,7 +829,7 @@ func (x *ActionMysql) String() string {
 func (*ActionMysql) ProtoMessage() {}
 
 func (x *ActionMysql) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[8]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -847,7 +842,14 @@ func (x *ActionMysql) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionMysql.ProtoReflect.Descriptor instead.
 func (*ActionMysql) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{8}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ActionMysql) GetDataSourceId() string {
+	if x != nil {
+		return x.DataSourceId
+	}
+	return ""
 }
 
 func (x *ActionMysql) GetQueries() []*Query {
@@ -870,7 +872,7 @@ type ActionRest struct {
 
 func (x *ActionRest) Reset() {
 	*x = ActionRest{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[9]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -882,7 +884,7 @@ func (x *ActionRest) String() string {
 func (*ActionRest) ProtoMessage() {}
 
 func (x *ActionRest) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[9]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -895,7 +897,7 @@ func (x *ActionRest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionRest.ProtoReflect.Descriptor instead.
 func (*ActionRest) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{9}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ActionRest) GetPath() *Variable {
@@ -942,7 +944,7 @@ type ActionSleep struct {
 
 func (x *ActionSleep) Reset() {
 	*x = ActionSleep{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[10]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -954,7 +956,7 @@ func (x *ActionSleep) String() string {
 func (*ActionSleep) ProtoMessage() {}
 
 func (x *ActionSleep) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[10]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -967,7 +969,7 @@ func (x *ActionSleep) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ActionSleep.ProtoReflect.Descriptor instead.
 func (*ActionSleep) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{10}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ActionSleep) GetTimeoutMs() int64 {
@@ -987,7 +989,7 @@ type Query struct {
 
 func (x *Query) Reset() {
 	*x = Query{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[11]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -999,7 +1001,7 @@ func (x *Query) String() string {
 func (*Query) ProtoMessage() {}
 
 func (x *Query) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[11]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1012,7 +1014,7 @@ func (x *Query) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Query.ProtoReflect.Descriptor instead.
 func (*Query) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{11}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *Query) GetQuery() *Variable {
@@ -1041,7 +1043,7 @@ type Return struct {
 
 func (x *Return) Reset() {
 	*x = Return{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[12]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1053,7 +1055,7 @@ func (x *Return) String() string {
 func (*Return) ProtoMessage() {}
 
 func (x *Return) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[12]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1066,7 +1068,7 @@ func (x *Return) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Return.ProtoReflect.Descriptor instead.
 func (*Return) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{12}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Return) GetId() string {
@@ -1109,7 +1111,7 @@ type Edge struct {
 
 func (x *Edge) Reset() {
 	*x = Edge{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[13]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1121,7 +1123,7 @@ func (x *Edge) String() string {
 func (*Edge) ProtoMessage() {}
 
 func (x *Edge) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[13]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1134,7 +1136,7 @@ func (x *Edge) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Edge.ProtoReflect.Descriptor instead.
 func (*Edge) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{13}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *Edge) GetId() string {
@@ -1213,31 +1215,33 @@ const file_core_endpoint_endpoint_proto_rawDesc = "" +
 	"timeout_ms\x18\x02 \x01(\x03R\ttimeoutMs\"V\n" +
 	"\bWorkflow\x12$\n" +
 	"\x05steps\x18\x01 \x03(\v2\x0e.endpoint.StepR\x05steps\x12$\n" +
-	"\x05edges\x18\x02 \x03(\v2\x0e.endpoint.EdgeR\x05edges\"\xbe\x03\n" +
+	"\x05edges\x18\x02 \x03(\v2\x0e.endpoint.EdgeR\x05edges\"\x85\x05\n" +
 	"\x04Step\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12&\n" +
 	"\x04type\x18\x03 \x01(\x0e2\x12.endpoint.StepTypeR\x04type\x12;\n" +
-	"\tvariables\x18\x04 \x03(\v2\x1d.endpoint.Step.VariablesEntryR\tvariables\x12(\n" +
-	"\x06action\x18\x05 \x01(\v2\x10.endpoint.ActionR\x06action\x125\n" +
-	"\aoutputs\x18\x06 \x03(\v2\x1b.endpoint.Step.OutputsEntryR\aoutputs\x12*\n" +
-	"\areturns\x18\a \x03(\v2\x10.endpoint.ReturnR\areturns\x1aP\n" +
+	"\tvariables\x18\x04 \x03(\v2\x1d.endpoint.Step.VariablesEntryR\tvariables\x125\n" +
+	"\aoutputs\x18\x05 \x03(\v2\x1b.endpoint.Step.OutputsEntryR\aoutputs\x12*\n" +
+	"\areturns\x18\x06 \x03(\v2\x10.endpoint.ReturnR\areturns\x124\n" +
+	"\n" +
+	"action_end\x18\a \x01(\v2\x13.endpoint.ActionEndH\x00R\tactionEnd\x12:\n" +
+	"\faction_mysql\x18\b \x01(\v2\x15.endpoint.ActionMysqlH\x00R\vactionMysql\x127\n" +
+	"\vaction_rest\x18\t \x01(\v2\x14.endpoint.ActionRestH\x00R\n" +
+	"actionRest\x12:\n" +
+	"\faction_sleep\x18\n" +
+	" \x01(\v2\x15.endpoint.ActionSleepH\x00R\vactionSleep\x1aP\n" +
 	"\x0eVariablesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12(\n" +
 	"\x05value\x18\x02 \x01(\v2\x12.endpoint.VariableR\x05value:\x028\x01\x1aN\n" +
 	"\fOutputsEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12(\n" +
-	"\x05value\x18\x02 \x01(\v2\x12.endpoint.VariableR\x05value:\x028\x01\"\xd9\x01\n" +
-	"\x06Action\x12$\n" +
-	"\x0edata_source_id\x18\x01 \x01(\tR\fdataSourceId\x12%\n" +
-	"\x03end\x18\x02 \x01(\v2\x13.endpoint.ActionEndR\x03end\x12+\n" +
-	"\x05mysql\x18\x03 \x01(\v2\x15.endpoint.ActionMysqlR\x05mysql\x12(\n" +
-	"\x04rest\x18\x04 \x01(\v2\x14.endpoint.ActionRestR\x04rest\x12+\n" +
-	"\x05sleep\x18\x05 \x01(\v2\x15.endpoint.ActionSleepR\x05sleep\"E\n" +
+	"\x05value\x18\x02 \x01(\v2\x12.endpoint.VariableR\x05value:\x028\x01B\b\n" +
+	"\x06action\"E\n" +
 	"\tActionEnd\x128\n" +
-	"\x19return_data_from_step_ids\x18\x01 \x03(\tR\x15returnDataFromStepIds\"8\n" +
-	"\vActionMysql\x12)\n" +
-	"\aqueries\x18\x01 \x03(\v2\x0f.endpoint.QueryR\aqueries\"\x9f\x02\n" +
+	"\x19return_data_from_step_ids\x18\x01 \x03(\tR\x15returnDataFromStepIds\"^\n" +
+	"\vActionMysql\x12$\n" +
+	"\x0edata_source_id\x18\x01 \x01(\tR\fdataSourceId\x12)\n" +
+	"\aqueries\x18\x02 \x03(\v2\x0f.endpoint.QueryR\aqueries\"\x9f\x02\n" +
 	"\n" +
 	"ActionRest\x12&\n" +
 	"\x04path\x18\x01 \x01(\v2\x12.endpoint.VariableR\x04path\x12\x16\n" +
@@ -1304,7 +1308,7 @@ func file_core_endpoint_endpoint_proto_rawDescGZIP() []byte {
 }
 
 var file_core_endpoint_endpoint_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_core_endpoint_endpoint_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
+var file_core_endpoint_endpoint_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
 var file_core_endpoint_endpoint_proto_goTypes = []any{
 	(EndpointType)(0),             // 0: endpoint.EndpointType
 	(VariableType)(0),             // 1: endpoint.VariableType
@@ -1315,56 +1319,54 @@ var file_core_endpoint_endpoint_proto_goTypes = []any{
 	(*SettingCron)(nil),           // 6: endpoint.SettingCron
 	(*Workflow)(nil),              // 7: endpoint.Workflow
 	(*Step)(nil),                  // 8: endpoint.Step
-	(*Action)(nil),                // 9: endpoint.Action
-	(*ActionEnd)(nil),             // 10: endpoint.ActionEnd
-	(*ActionMysql)(nil),           // 11: endpoint.ActionMysql
-	(*ActionRest)(nil),            // 12: endpoint.ActionRest
-	(*ActionSleep)(nil),           // 13: endpoint.ActionSleep
-	(*Query)(nil),                 // 14: endpoint.Query
-	(*Return)(nil),                // 15: endpoint.Return
-	(*Edge)(nil),                  // 16: endpoint.Edge
-	nil,                           // 17: endpoint.SettingRest.QueryEntry
-	nil,                           // 18: endpoint.SettingRest.JsonEntry
-	nil,                           // 19: endpoint.Step.VariablesEntry
-	nil,                           // 20: endpoint.Step.OutputsEntry
-	nil,                           // 21: endpoint.ActionRest.HeadersEntry
-	(*timestamppb.Timestamp)(nil), // 22: google.protobuf.Timestamp
+	(*ActionEnd)(nil),             // 9: endpoint.ActionEnd
+	(*ActionMysql)(nil),           // 10: endpoint.ActionMysql
+	(*ActionRest)(nil),            // 11: endpoint.ActionRest
+	(*ActionSleep)(nil),           // 12: endpoint.ActionSleep
+	(*Query)(nil),                 // 13: endpoint.Query
+	(*Return)(nil),                // 14: endpoint.Return
+	(*Edge)(nil),                  // 15: endpoint.Edge
+	nil,                           // 16: endpoint.SettingRest.QueryEntry
+	nil,                           // 17: endpoint.SettingRest.JsonEntry
+	nil,                           // 18: endpoint.Step.VariablesEntry
+	nil,                           // 19: endpoint.Step.OutputsEntry
+	nil,                           // 20: endpoint.ActionRest.HeadersEntry
+	(*timestamppb.Timestamp)(nil), // 21: google.protobuf.Timestamp
 }
 var file_core_endpoint_endpoint_proto_depIdxs = []int32{
-	22, // 0: endpoint.Endpoint.created_at:type_name -> google.protobuf.Timestamp
-	22, // 1: endpoint.Endpoint.updated_at:type_name -> google.protobuf.Timestamp
+	21, // 0: endpoint.Endpoint.created_at:type_name -> google.protobuf.Timestamp
+	21, // 1: endpoint.Endpoint.updated_at:type_name -> google.protobuf.Timestamp
 	0,  // 2: endpoint.Endpoint.type:type_name -> endpoint.EndpointType
 	5,  // 3: endpoint.Endpoint.setting_rest:type_name -> endpoint.SettingRest
 	6,  // 4: endpoint.Endpoint.setting_cron:type_name -> endpoint.SettingCron
 	1,  // 5: endpoint.Variable.type:type_name -> endpoint.VariableType
-	17, // 6: endpoint.SettingRest.query:type_name -> endpoint.SettingRest.QueryEntry
-	18, // 7: endpoint.SettingRest.json:type_name -> endpoint.SettingRest.JsonEntry
+	16, // 6: endpoint.SettingRest.query:type_name -> endpoint.SettingRest.QueryEntry
+	17, // 7: endpoint.SettingRest.json:type_name -> endpoint.SettingRest.JsonEntry
 	8,  // 8: endpoint.Workflow.steps:type_name -> endpoint.Step
-	16, // 9: endpoint.Workflow.edges:type_name -> endpoint.Edge
+	15, // 9: endpoint.Workflow.edges:type_name -> endpoint.Edge
 	2,  // 10: endpoint.Step.type:type_name -> endpoint.StepType
-	19, // 11: endpoint.Step.variables:type_name -> endpoint.Step.VariablesEntry
-	9,  // 12: endpoint.Step.action:type_name -> endpoint.Action
-	20, // 13: endpoint.Step.outputs:type_name -> endpoint.Step.OutputsEntry
-	15, // 14: endpoint.Step.returns:type_name -> endpoint.Return
-	10, // 15: endpoint.Action.end:type_name -> endpoint.ActionEnd
-	11, // 16: endpoint.Action.mysql:type_name -> endpoint.ActionMysql
-	12, // 17: endpoint.Action.rest:type_name -> endpoint.ActionRest
-	13, // 18: endpoint.Action.sleep:type_name -> endpoint.ActionSleep
-	14, // 19: endpoint.ActionMysql.queries:type_name -> endpoint.Query
-	4,  // 20: endpoint.ActionRest.path:type_name -> endpoint.Variable
-	21, // 21: endpoint.ActionRest.headers:type_name -> endpoint.ActionRest.HeadersEntry
-	4,  // 22: endpoint.Query.query:type_name -> endpoint.Variable
-	4,  // 23: endpoint.Query.parameters:type_name -> endpoint.Variable
-	4,  // 24: endpoint.SettingRest.QueryEntry.value:type_name -> endpoint.Variable
-	4,  // 25: endpoint.SettingRest.JsonEntry.value:type_name -> endpoint.Variable
-	4,  // 26: endpoint.Step.VariablesEntry.value:type_name -> endpoint.Variable
-	4,  // 27: endpoint.Step.OutputsEntry.value:type_name -> endpoint.Variable
-	4,  // 28: endpoint.ActionRest.HeadersEntry.value:type_name -> endpoint.Variable
-	29, // [29:29] is the sub-list for method output_type
-	29, // [29:29] is the sub-list for method input_type
-	29, // [29:29] is the sub-list for extension type_name
-	29, // [29:29] is the sub-list for extension extendee
-	0,  // [0:29] is the sub-list for field type_name
+	18, // 11: endpoint.Step.variables:type_name -> endpoint.Step.VariablesEntry
+	19, // 12: endpoint.Step.outputs:type_name -> endpoint.Step.OutputsEntry
+	14, // 13: endpoint.Step.returns:type_name -> endpoint.Return
+	9,  // 14: endpoint.Step.action_end:type_name -> endpoint.ActionEnd
+	10, // 15: endpoint.Step.action_mysql:type_name -> endpoint.ActionMysql
+	11, // 16: endpoint.Step.action_rest:type_name -> endpoint.ActionRest
+	12, // 17: endpoint.Step.action_sleep:type_name -> endpoint.ActionSleep
+	13, // 18: endpoint.ActionMysql.queries:type_name -> endpoint.Query
+	4,  // 19: endpoint.ActionRest.path:type_name -> endpoint.Variable
+	20, // 20: endpoint.ActionRest.headers:type_name -> endpoint.ActionRest.HeadersEntry
+	4,  // 21: endpoint.Query.query:type_name -> endpoint.Variable
+	4,  // 22: endpoint.Query.parameters:type_name -> endpoint.Variable
+	4,  // 23: endpoint.SettingRest.QueryEntry.value:type_name -> endpoint.Variable
+	4,  // 24: endpoint.SettingRest.JsonEntry.value:type_name -> endpoint.Variable
+	4,  // 25: endpoint.Step.VariablesEntry.value:type_name -> endpoint.Variable
+	4,  // 26: endpoint.Step.OutputsEntry.value:type_name -> endpoint.Variable
+	4,  // 27: endpoint.ActionRest.HeadersEntry.value:type_name -> endpoint.Variable
+	28, // [28:28] is the sub-list for method output_type
+	28, // [28:28] is the sub-list for method input_type
+	28, // [28:28] is the sub-list for extension type_name
+	28, // [28:28] is the sub-list for extension extendee
+	0,  // [0:28] is the sub-list for field type_name
 }
 
 func init() { file_core_endpoint_endpoint_proto_init() }
@@ -1376,13 +1378,19 @@ func file_core_endpoint_endpoint_proto_init() {
 		(*Endpoint_SettingRest)(nil),
 		(*Endpoint_SettingCron)(nil),
 	}
+	file_core_endpoint_endpoint_proto_msgTypes[5].OneofWrappers = []any{
+		(*Step_ActionEnd)(nil),
+		(*Step_ActionMysql)(nil),
+		(*Step_ActionRest)(nil),
+		(*Step_ActionSleep)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_core_endpoint_endpoint_proto_rawDesc), len(file_core_endpoint_endpoint_proto_rawDesc)),
 			NumEnums:      3,
-			NumMessages:   19,
+			NumMessages:   18,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

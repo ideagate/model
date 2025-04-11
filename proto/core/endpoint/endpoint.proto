@@ -13,7 +13,6 @@ message Endpoint {
     EndpointType type = 6;
     string name = 7;
     string description = 8;
-
     oneof settings {
         SettingRest setting_rest = 101;
         SettingCron setting_cron = 102;
@@ -66,9 +65,14 @@ message Step {
     string name = 2;
     StepType type = 3;
     map<string, Variable> variables = 4;
-    Action action = 5;
-    map<string, Variable> outputs = 6;
-    repeated Return returns = 7;
+    map<string, Variable> outputs = 5;
+    repeated Return returns = 6;
+    oneof action {
+        ActionEnd action_end = 7;
+        ActionMysql action_mysql = 8;
+        ActionRest action_rest = 9;
+        ActionSleep action_sleep = 10;
+    }
 }
 
 enum StepType {
@@ -84,20 +88,13 @@ enum StepType {
     STEP_TYPE_REDIS = 9;
 }
 
-message Action {
-    string data_source_id = 1;
-    ActionEnd end = 2;
-    ActionMysql mysql = 3;
-    ActionRest rest = 4;
-    ActionSleep sleep = 5;
-}
-
 message ActionEnd {
     repeated string return_data_from_step_ids = 1;
 }
 
 message ActionMysql {
-    repeated Query queries = 1;
+    string data_source_id = 1;
+    repeated Query queries = 2;
 }
 
 message ActionRest {
