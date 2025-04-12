@@ -10,6 +10,7 @@ import (
 	endpoint "github.com/ideagate/model/gen-go/core/endpoint"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	structpb "google.golang.org/protobuf/types/known/structpb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -126,11 +127,291 @@ func (x *GetListEndpointResponse) GetEndpoints() []*endpoint.Endpoint {
 	return nil
 }
 
+type CreateEndpointRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Endpoint      *endpoint.Endpoint     `protobuf:"bytes,1,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateEndpointRequest) Reset() {
+	*x = CreateEndpointRequest{}
+	mi := &file_dashboard_endpoint_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateEndpointRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEndpointRequest) ProtoMessage() {}
+
+func (x *CreateEndpointRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dashboard_endpoint_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEndpointRequest.ProtoReflect.Descriptor instead.
+func (*CreateEndpointRequest) Descriptor() ([]byte, []int) {
+	return file_dashboard_endpoint_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CreateEndpointRequest) GetEndpoint() *endpoint.Endpoint {
+	if x != nil {
+		return x.Endpoint
+	}
+	return nil
+}
+
+type CreateEndpointResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateEndpointResponse) Reset() {
+	*x = CreateEndpointResponse{}
+	mi := &file_dashboard_endpoint_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateEndpointResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateEndpointResponse) ProtoMessage() {}
+
+func (x *CreateEndpointResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dashboard_endpoint_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateEndpointResponse.ProtoReflect.Descriptor instead.
+func (*CreateEndpointResponse) Descriptor() ([]byte, []int) {
+	return file_dashboard_endpoint_proto_rawDescGZIP(), []int{3}
+}
+
+type UpdateEndpointRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProjectId     string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	EndpointId    string                 `protobuf:"bytes,3,opt,name=endpoint_id,json=endpointId,proto3" json:"endpoint_id,omitempty"`
+	Values        *structpb.Struct       `protobuf:"bytes,4,opt,name=values,proto3" json:"values,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateEndpointRequest) Reset() {
+	*x = UpdateEndpointRequest{}
+	mi := &file_dashboard_endpoint_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateEndpointRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateEndpointRequest) ProtoMessage() {}
+
+func (x *UpdateEndpointRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dashboard_endpoint_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateEndpointRequest.ProtoReflect.Descriptor instead.
+func (*UpdateEndpointRequest) Descriptor() ([]byte, []int) {
+	return file_dashboard_endpoint_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *UpdateEndpointRequest) GetProjectId() string {
+	if x != nil {
+		return x.ProjectId
+	}
+	return ""
+}
+
+func (x *UpdateEndpointRequest) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+func (x *UpdateEndpointRequest) GetEndpointId() string {
+	if x != nil {
+		return x.EndpointId
+	}
+	return ""
+}
+
+func (x *UpdateEndpointRequest) GetValues() *structpb.Struct {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
+type UpdateEndpointResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *UpdateEndpointResponse) Reset() {
+	*x = UpdateEndpointResponse{}
+	mi := &file_dashboard_endpoint_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *UpdateEndpointResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*UpdateEndpointResponse) ProtoMessage() {}
+
+func (x *UpdateEndpointResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dashboard_endpoint_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use UpdateEndpointResponse.ProtoReflect.Descriptor instead.
+func (*UpdateEndpointResponse) Descriptor() ([]byte, []int) {
+	return file_dashboard_endpoint_proto_rawDescGZIP(), []int{5}
+}
+
+type DeleteEndpointRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	ProjectId     string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	EndpointId    string                 `protobuf:"bytes,3,opt,name=endpoint_id,json=endpointId,proto3" json:"endpoint_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteEndpointRequest) Reset() {
+	*x = DeleteEndpointRequest{}
+	mi := &file_dashboard_endpoint_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteEndpointRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteEndpointRequest) ProtoMessage() {}
+
+func (x *DeleteEndpointRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_dashboard_endpoint_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteEndpointRequest.ProtoReflect.Descriptor instead.
+func (*DeleteEndpointRequest) Descriptor() ([]byte, []int) {
+	return file_dashboard_endpoint_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *DeleteEndpointRequest) GetProjectId() string {
+	if x != nil {
+		return x.ProjectId
+	}
+	return ""
+}
+
+func (x *DeleteEndpointRequest) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+func (x *DeleteEndpointRequest) GetEndpointId() string {
+	if x != nil {
+		return x.EndpointId
+	}
+	return ""
+}
+
+type DeleteEndpointResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DeleteEndpointResponse) Reset() {
+	*x = DeleteEndpointResponse{}
+	mi := &file_dashboard_endpoint_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeleteEndpointResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeleteEndpointResponse) ProtoMessage() {}
+
+func (x *DeleteEndpointResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_dashboard_endpoint_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeleteEndpointResponse.ProtoReflect.Descriptor instead.
+func (*DeleteEndpointResponse) Descriptor() ([]byte, []int) {
+	return file_dashboard_endpoint_proto_rawDescGZIP(), []int{7}
+}
+
 var File_dashboard_endpoint_proto protoreflect.FileDescriptor
 
 const file_dashboard_endpoint_proto_rawDesc = "" +
 	"\n" +
-	"\x18dashboard/endpoint.proto\x12\tdashboard\x1a\x1ccore/endpoint/endpoint.proto\"\x7f\n" +
+	"\x18dashboard/endpoint.proto\x12\tdashboard\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1ccore/endpoint/endpoint.proto\"\x7f\n" +
 	"\x16GetListEndpointRequest\x12\x1d\n" +
 	"\n" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
@@ -138,7 +419,25 @@ const file_dashboard_endpoint_proto_rawDesc = "" +
 	"\vendpoint_id\x18\x03 \x01(\tR\n" +
 	"endpointId\"K\n" +
 	"\x17GetListEndpointResponse\x120\n" +
-	"\tendpoints\x18\x01 \x03(\v2\x12.endpoint.EndpointR\tendpointsB\x8e\x01\n" +
+	"\tendpoints\x18\x01 \x03(\v2\x12.endpoint.EndpointR\tendpoints\"G\n" +
+	"\x15CreateEndpointRequest\x12.\n" +
+	"\bendpoint\x18\x01 \x01(\v2\x12.endpoint.EndpointR\bendpoint\"\x18\n" +
+	"\x16CreateEndpointResponse\"\xaf\x01\n" +
+	"\x15UpdateEndpointRequest\x12\x1d\n" +
+	"\n" +
+	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
+	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12\x1f\n" +
+	"\vendpoint_id\x18\x03 \x01(\tR\n" +
+	"endpointId\x12/\n" +
+	"\x06values\x18\x04 \x01(\v2\x17.google.protobuf.StructR\x06values\"\x18\n" +
+	"\x16UpdateEndpointResponse\"~\n" +
+	"\x15DeleteEndpointRequest\x12\x1d\n" +
+	"\n" +
+	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
+	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12\x1f\n" +
+	"\vendpoint_id\x18\x03 \x01(\tR\n" +
+	"endpointId\"\x18\n" +
+	"\x16DeleteEndpointResponseB\x8e\x01\n" +
 	"\rcom.dashboardB\rEndpointProtoP\x01Z*github.com/ideagate/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
 
 var (
@@ -153,19 +452,28 @@ func file_dashboard_endpoint_proto_rawDescGZIP() []byte {
 	return file_dashboard_endpoint_proto_rawDescData
 }
 
-var file_dashboard_endpoint_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_dashboard_endpoint_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_dashboard_endpoint_proto_goTypes = []any{
 	(*GetListEndpointRequest)(nil),  // 0: dashboard.GetListEndpointRequest
 	(*GetListEndpointResponse)(nil), // 1: dashboard.GetListEndpointResponse
-	(*endpoint.Endpoint)(nil),       // 2: endpoint.Endpoint
+	(*CreateEndpointRequest)(nil),   // 2: dashboard.CreateEndpointRequest
+	(*CreateEndpointResponse)(nil),  // 3: dashboard.CreateEndpointResponse
+	(*UpdateEndpointRequest)(nil),   // 4: dashboard.UpdateEndpointRequest
+	(*UpdateEndpointResponse)(nil),  // 5: dashboard.UpdateEndpointResponse
+	(*DeleteEndpointRequest)(nil),   // 6: dashboard.DeleteEndpointRequest
+	(*DeleteEndpointResponse)(nil),  // 7: dashboard.DeleteEndpointResponse
+	(*endpoint.Endpoint)(nil),       // 8: endpoint.Endpoint
+	(*structpb.Struct)(nil),         // 9: google.protobuf.Struct
 }
 var file_dashboard_endpoint_proto_depIdxs = []int32{
-	2, // 0: dashboard.GetListEndpointResponse.endpoints:type_name -> endpoint.Endpoint
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	8, // 0: dashboard.GetListEndpointResponse.endpoints:type_name -> endpoint.Endpoint
+	8, // 1: dashboard.CreateEndpointRequest.endpoint:type_name -> endpoint.Endpoint
+	9, // 2: dashboard.UpdateEndpointRequest.values:type_name -> google.protobuf.Struct
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_dashboard_endpoint_proto_init() }
@@ -179,7 +487,7 @@ func file_dashboard_endpoint_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dashboard_endpoint_proto_rawDesc), len(file_dashboard_endpoint_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

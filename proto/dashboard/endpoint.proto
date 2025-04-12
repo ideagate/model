@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package dashboard;
 
+import "google/protobuf/struct.proto";
 import "core/endpoint/endpoint.proto";
 
 message GetListEndpointRequest {
@@ -13,3 +14,26 @@ message GetListEndpointRequest {
 message GetListEndpointResponse {
     repeated endpoint.Endpoint endpoints = 1;
 }
+
+message CreateEndpointRequest {
+    endpoint.Endpoint endpoint = 1;
+}
+
+message CreateEndpointResponse {}
+
+message UpdateEndpointRequest {
+    string project_id = 1;
+    string application_id = 2;
+    string endpoint_id = 3;
+    google.protobuf.Struct values = 4;
+}
+
+message UpdateEndpointResponse {}
+
+message DeleteEndpointRequest {
+    string project_id = 1;
+    string application_id = 2;
+    string endpoint_id = 3;
+}
+
+message DeleteEndpointResponse {}

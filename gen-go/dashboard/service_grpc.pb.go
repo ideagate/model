@@ -28,6 +28,9 @@ const (
 	DashboardService_UpdateApplication_FullMethodName  = "/dashboard.DashboardService/UpdateApplication"
 	DashboardService_DeleteApplication_FullMethodName  = "/dashboard.DashboardService/DeleteApplication"
 	DashboardService_GetListEndpoint_FullMethodName    = "/dashboard.DashboardService/GetListEndpoint"
+	DashboardService_CreateEndpoint_FullMethodName     = "/dashboard.DashboardService/CreateEndpoint"
+	DashboardService_UpdateEndpoint_FullMethodName     = "/dashboard.DashboardService/UpdateEndpoint"
+	DashboardService_DeleteEndpoint_FullMethodName     = "/dashboard.DashboardService/DeleteEndpoint"
 )
 
 // DashboardServiceClient is the client API for DashboardService service.
@@ -43,6 +46,9 @@ type DashboardServiceClient interface {
 	UpdateApplication(ctx context.Context, in *UpdateApplicationRequest, opts ...grpc.CallOption) (*UpdateApplicationResponse, error)
 	DeleteApplication(ctx context.Context, in *DeleteApplicationRequest, opts ...grpc.CallOption) (*DeleteApplicationResponse, error)
 	GetListEndpoint(ctx context.Context, in *GetListEndpointRequest, opts ...grpc.CallOption) (*GetListEndpointResponse, error)
+	CreateEndpoint(ctx context.Context, in *CreateEndpointRequest, opts ...grpc.CallOption) (*CreateEndpointResponse, error)
+	UpdateEndpoint(ctx context.Context, in *UpdateEndpointRequest, opts ...grpc.CallOption) (*UpdateEndpointResponse, error)
+	DeleteEndpoint(ctx context.Context, in *DeleteEndpointRequest, opts ...grpc.CallOption) (*DeleteEndpointResponse, error)
 }
 
 type dashboardServiceClient struct {
@@ -143,6 +149,36 @@ func (c *dashboardServiceClient) GetListEndpoint(ctx context.Context, in *GetLis
 	return out, nil
 }
 
+func (c *dashboardServiceClient) CreateEndpoint(ctx context.Context, in *CreateEndpointRequest, opts ...grpc.CallOption) (*CreateEndpointResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateEndpointResponse)
+	err := c.cc.Invoke(ctx, DashboardService_CreateEndpoint_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dashboardServiceClient) UpdateEndpoint(ctx context.Context, in *UpdateEndpointRequest, opts ...grpc.CallOption) (*UpdateEndpointResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateEndpointResponse)
+	err := c.cc.Invoke(ctx, DashboardService_UpdateEndpoint_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dashboardServiceClient) DeleteEndpoint(ctx context.Context, in *DeleteEndpointRequest, opts ...grpc.CallOption) (*DeleteEndpointResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteEndpointResponse)
+	err := c.cc.Invoke(ctx, DashboardService_DeleteEndpoint_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DashboardServiceServer is the server API for DashboardService service.
 // All implementations must embed UnimplementedDashboardServiceServer
 // for forward compatibility.
@@ -156,6 +192,9 @@ type DashboardServiceServer interface {
 	UpdateApplication(context.Context, *UpdateApplicationRequest) (*UpdateApplicationResponse, error)
 	DeleteApplication(context.Context, *DeleteApplicationRequest) (*DeleteApplicationResponse, error)
 	GetListEndpoint(context.Context, *GetListEndpointRequest) (*GetListEndpointResponse, error)
+	CreateEndpoint(context.Context, *CreateEndpointRequest) (*CreateEndpointResponse, error)
+	UpdateEndpoint(context.Context, *UpdateEndpointRequest) (*UpdateEndpointResponse, error)
+	DeleteEndpoint(context.Context, *DeleteEndpointRequest) (*DeleteEndpointResponse, error)
 	mustEmbedUnimplementedDashboardServiceServer()
 }
 
@@ -192,6 +231,15 @@ func (UnimplementedDashboardServiceServer) DeleteApplication(context.Context, *D
 }
 func (UnimplementedDashboardServiceServer) GetListEndpoint(context.Context, *GetListEndpointRequest) (*GetListEndpointResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetListEndpoint not implemented")
+}
+func (UnimplementedDashboardServiceServer) CreateEndpoint(context.Context, *CreateEndpointRequest) (*CreateEndpointResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateEndpoint not implemented")
+}
+func (UnimplementedDashboardServiceServer) UpdateEndpoint(context.Context, *UpdateEndpointRequest) (*UpdateEndpointResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateEndpoint not implemented")
+}
+func (UnimplementedDashboardServiceServer) DeleteEndpoint(context.Context, *DeleteEndpointRequest) (*DeleteEndpointResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteEndpoint not implemented")
 }
 func (UnimplementedDashboardServiceServer) mustEmbedUnimplementedDashboardServiceServer() {}
 func (UnimplementedDashboardServiceServer) testEmbeddedByValue()                          {}
@@ -376,6 +424,60 @@ func _DashboardService_GetListEndpoint_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DashboardService_CreateEndpoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateEndpointRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DashboardServiceServer).CreateEndpoint(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DashboardService_CreateEndpoint_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DashboardServiceServer).CreateEndpoint(ctx, req.(*CreateEndpointRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DashboardService_UpdateEndpoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateEndpointRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DashboardServiceServer).UpdateEndpoint(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DashboardService_UpdateEndpoint_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DashboardServiceServer).UpdateEndpoint(ctx, req.(*UpdateEndpointRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DashboardService_DeleteEndpoint_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteEndpointRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DashboardServiceServer).DeleteEndpoint(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DashboardService_DeleteEndpoint_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DashboardServiceServer).DeleteEndpoint(ctx, req.(*DeleteEndpointRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DashboardService_ServiceDesc is the grpc.ServiceDesc for DashboardService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -418,6 +520,18 @@ var DashboardService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetListEndpoint",
 			Handler:    _DashboardService_GetListEndpoint_Handler,
+		},
+		{
+			MethodName: "CreateEndpoint",
+			Handler:    _DashboardService_CreateEndpoint_Handler,
+		},
+		{
+			MethodName: "UpdateEndpoint",
+			Handler:    _DashboardService_UpdateEndpoint_Handler,
+		},
+		{
+			MethodName: "DeleteEndpoint",
+			Handler:    _DashboardService_DeleteEndpoint_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

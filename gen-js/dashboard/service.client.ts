@@ -4,6 +4,12 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { DashboardService } from "./service";
+import type { DeleteEndpointResponse } from "./endpoint";
+import type { DeleteEndpointRequest } from "./endpoint";
+import type { UpdateEndpointResponse } from "./endpoint";
+import type { UpdateEndpointRequest } from "./endpoint";
+import type { CreateEndpointResponse } from "./endpoint";
+import type { CreateEndpointRequest } from "./endpoint";
 import type { GetListEndpointResponse } from "./endpoint";
 import type { GetListEndpointRequest } from "./endpoint";
 import type { DeleteApplicationResponse } from "./application";
@@ -65,6 +71,18 @@ export interface IDashboardServiceClient {
      * @generated from protobuf rpc: GetListEndpoint(dashboard.GetListEndpointRequest) returns (dashboard.GetListEndpointResponse);
      */
     getListEndpoint(input: GetListEndpointRequest, options?: RpcOptions): UnaryCall<GetListEndpointRequest, GetListEndpointResponse>;
+    /**
+     * @generated from protobuf rpc: CreateEndpoint(dashboard.CreateEndpointRequest) returns (dashboard.CreateEndpointResponse);
+     */
+    createEndpoint(input: CreateEndpointRequest, options?: RpcOptions): UnaryCall<CreateEndpointRequest, CreateEndpointResponse>;
+    /**
+     * @generated from protobuf rpc: UpdateEndpoint(dashboard.UpdateEndpointRequest) returns (dashboard.UpdateEndpointResponse);
+     */
+    updateEndpoint(input: UpdateEndpointRequest, options?: RpcOptions): UnaryCall<UpdateEndpointRequest, UpdateEndpointResponse>;
+    /**
+     * @generated from protobuf rpc: DeleteEndpoint(dashboard.DeleteEndpointRequest) returns (dashboard.DeleteEndpointResponse);
+     */
+    deleteEndpoint(input: DeleteEndpointRequest, options?: RpcOptions): UnaryCall<DeleteEndpointRequest, DeleteEndpointResponse>;
 }
 /**
  * @generated from protobuf service dashboard.DashboardService
@@ -137,5 +155,26 @@ export class DashboardServiceClient implements IDashboardServiceClient, ServiceI
     getListEndpoint(input: GetListEndpointRequest, options?: RpcOptions): UnaryCall<GetListEndpointRequest, GetListEndpointResponse> {
         const method = this.methods[8], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetListEndpointRequest, GetListEndpointResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: CreateEndpoint(dashboard.CreateEndpointRequest) returns (dashboard.CreateEndpointResponse);
+     */
+    createEndpoint(input: CreateEndpointRequest, options?: RpcOptions): UnaryCall<CreateEndpointRequest, CreateEndpointResponse> {
+        const method = this.methods[9], opt = this._transport.mergeOptions(options);
+        return stackIntercept<CreateEndpointRequest, CreateEndpointResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: UpdateEndpoint(dashboard.UpdateEndpointRequest) returns (dashboard.UpdateEndpointResponse);
+     */
+    updateEndpoint(input: UpdateEndpointRequest, options?: RpcOptions): UnaryCall<UpdateEndpointRequest, UpdateEndpointResponse> {
+        const method = this.methods[10], opt = this._transport.mergeOptions(options);
+        return stackIntercept<UpdateEndpointRequest, UpdateEndpointResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: DeleteEndpoint(dashboard.DeleteEndpointRequest) returns (dashboard.DeleteEndpointResponse);
+     */
+    deleteEndpoint(input: DeleteEndpointRequest, options?: RpcOptions): UnaryCall<DeleteEndpointRequest, DeleteEndpointResponse> {
+        const method = this.methods[11], opt = this._transport.mergeOptions(options);
+        return stackIntercept<DeleteEndpointRequest, DeleteEndpointResponse>("unary", this._transport, method, opt, input);
     }
 }

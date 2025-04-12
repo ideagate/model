@@ -10,6 +10,7 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Struct } from "../google/protobuf/struct";
 import { Endpoint } from "../core/endpoint/endpoint";
 /**
  * @generated from protobuf message dashboard.GetListEndpointRequest
@@ -36,6 +37,68 @@ export interface GetListEndpointResponse {
      * @generated from protobuf field: repeated endpoint.Endpoint endpoints = 1;
      */
     endpoints: Endpoint[];
+}
+/**
+ * @generated from protobuf message dashboard.CreateEndpointRequest
+ */
+export interface CreateEndpointRequest {
+    /**
+     * @generated from protobuf field: endpoint.Endpoint endpoint = 1;
+     */
+    endpoint?: Endpoint;
+}
+/**
+ * @generated from protobuf message dashboard.CreateEndpointResponse
+ */
+export interface CreateEndpointResponse {
+}
+/**
+ * @generated from protobuf message dashboard.UpdateEndpointRequest
+ */
+export interface UpdateEndpointRequest {
+    /**
+     * @generated from protobuf field: string project_id = 1;
+     */
+    projectId: string;
+    /**
+     * @generated from protobuf field: string application_id = 2;
+     */
+    applicationId: string;
+    /**
+     * @generated from protobuf field: string endpoint_id = 3;
+     */
+    endpointId: string;
+    /**
+     * @generated from protobuf field: google.protobuf.Struct values = 4;
+     */
+    values?: Struct;
+}
+/**
+ * @generated from protobuf message dashboard.UpdateEndpointResponse
+ */
+export interface UpdateEndpointResponse {
+}
+/**
+ * @generated from protobuf message dashboard.DeleteEndpointRequest
+ */
+export interface DeleteEndpointRequest {
+    /**
+     * @generated from protobuf field: string project_id = 1;
+     */
+    projectId: string;
+    /**
+     * @generated from protobuf field: string application_id = 2;
+     */
+    applicationId: string;
+    /**
+     * @generated from protobuf field: string endpoint_id = 3;
+     */
+    endpointId: string;
+}
+/**
+ * @generated from protobuf message dashboard.DeleteEndpointResponse
+ */
+export interface DeleteEndpointResponse {
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class GetListEndpointRequest$Type extends MessageType<GetListEndpointRequest> {
@@ -147,3 +210,257 @@ class GetListEndpointResponse$Type extends MessageType<GetListEndpointResponse> 
  * @generated MessageType for protobuf message dashboard.GetListEndpointResponse
  */
 export const GetListEndpointResponse = new GetListEndpointResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class CreateEndpointRequest$Type extends MessageType<CreateEndpointRequest> {
+    constructor() {
+        super("dashboard.CreateEndpointRequest", [
+            { no: 1, name: "endpoint", kind: "message", T: () => Endpoint }
+        ]);
+    }
+    create(value?: PartialMessage<CreateEndpointRequest>): CreateEndpointRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<CreateEndpointRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CreateEndpointRequest): CreateEndpointRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* endpoint.Endpoint endpoint */ 1:
+                    message.endpoint = Endpoint.internalBinaryRead(reader, reader.uint32(), options, message.endpoint);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: CreateEndpointRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* endpoint.Endpoint endpoint = 1; */
+        if (message.endpoint)
+            Endpoint.internalBinaryWrite(message.endpoint, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message dashboard.CreateEndpointRequest
+ */
+export const CreateEndpointRequest = new CreateEndpointRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class CreateEndpointResponse$Type extends MessageType<CreateEndpointResponse> {
+    constructor() {
+        super("dashboard.CreateEndpointResponse", []);
+    }
+    create(value?: PartialMessage<CreateEndpointResponse>): CreateEndpointResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<CreateEndpointResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: CreateEndpointResponse): CreateEndpointResponse {
+        return target ?? this.create();
+    }
+    internalBinaryWrite(message: CreateEndpointResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message dashboard.CreateEndpointResponse
+ */
+export const CreateEndpointResponse = new CreateEndpointResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class UpdateEndpointRequest$Type extends MessageType<UpdateEndpointRequest> {
+    constructor() {
+        super("dashboard.UpdateEndpointRequest", [
+            { no: 1, name: "project_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "application_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "endpoint_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "values", kind: "message", T: () => Struct }
+        ]);
+    }
+    create(value?: PartialMessage<UpdateEndpointRequest>): UpdateEndpointRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.projectId = "";
+        message.applicationId = "";
+        message.endpointId = "";
+        if (value !== undefined)
+            reflectionMergePartial<UpdateEndpointRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UpdateEndpointRequest): UpdateEndpointRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string project_id */ 1:
+                    message.projectId = reader.string();
+                    break;
+                case /* string application_id */ 2:
+                    message.applicationId = reader.string();
+                    break;
+                case /* string endpoint_id */ 3:
+                    message.endpointId = reader.string();
+                    break;
+                case /* google.protobuf.Struct values */ 4:
+                    message.values = Struct.internalBinaryRead(reader, reader.uint32(), options, message.values);
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: UpdateEndpointRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string project_id = 1; */
+        if (message.projectId !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.projectId);
+        /* string application_id = 2; */
+        if (message.applicationId !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.applicationId);
+        /* string endpoint_id = 3; */
+        if (message.endpointId !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.endpointId);
+        /* google.protobuf.Struct values = 4; */
+        if (message.values)
+            Struct.internalBinaryWrite(message.values, writer.tag(4, WireType.LengthDelimited).fork(), options).join();
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message dashboard.UpdateEndpointRequest
+ */
+export const UpdateEndpointRequest = new UpdateEndpointRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class UpdateEndpointResponse$Type extends MessageType<UpdateEndpointResponse> {
+    constructor() {
+        super("dashboard.UpdateEndpointResponse", []);
+    }
+    create(value?: PartialMessage<UpdateEndpointResponse>): UpdateEndpointResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<UpdateEndpointResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: UpdateEndpointResponse): UpdateEndpointResponse {
+        return target ?? this.create();
+    }
+    internalBinaryWrite(message: UpdateEndpointResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message dashboard.UpdateEndpointResponse
+ */
+export const UpdateEndpointResponse = new UpdateEndpointResponse$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class DeleteEndpointRequest$Type extends MessageType<DeleteEndpointRequest> {
+    constructor() {
+        super("dashboard.DeleteEndpointRequest", [
+            { no: 1, name: "project_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "application_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "endpoint_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+    create(value?: PartialMessage<DeleteEndpointRequest>): DeleteEndpointRequest {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.projectId = "";
+        message.applicationId = "";
+        message.endpointId = "";
+        if (value !== undefined)
+            reflectionMergePartial<DeleteEndpointRequest>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: DeleteEndpointRequest): DeleteEndpointRequest {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* string project_id */ 1:
+                    message.projectId = reader.string();
+                    break;
+                case /* string application_id */ 2:
+                    message.applicationId = reader.string();
+                    break;
+                case /* string endpoint_id */ 3:
+                    message.endpointId = reader.string();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: DeleteEndpointRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* string project_id = 1; */
+        if (message.projectId !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.projectId);
+        /* string application_id = 2; */
+        if (message.applicationId !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.applicationId);
+        /* string endpoint_id = 3; */
+        if (message.endpointId !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.endpointId);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message dashboard.DeleteEndpointRequest
+ */
+export const DeleteEndpointRequest = new DeleteEndpointRequest$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class DeleteEndpointResponse$Type extends MessageType<DeleteEndpointResponse> {
+    constructor() {
+        super("dashboard.DeleteEndpointResponse", []);
+    }
+    create(value?: PartialMessage<DeleteEndpointResponse>): DeleteEndpointResponse {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<DeleteEndpointResponse>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: DeleteEndpointResponse): DeleteEndpointResponse {
+        return target ?? this.create();
+    }
+    internalBinaryWrite(message: DeleteEndpointResponse, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message dashboard.DeleteEndpointResponse
+ */
+export const DeleteEndpointResponse = new DeleteEndpointResponse$Type();
