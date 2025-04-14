@@ -1,12 +1,13 @@
 {
-  "name": "@bayu-aditya/ideagate-model-js",
-  "version": "0.0.2",
+  "name": "@ideagate/model-js",
+  "version": "0.0.1",
   "repository": {
-    "url": "https://github.com/bayu-aditya/ideagate"
+    "url": "https://github.com/ideagate/model"
   },
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
+    "build": "rm -r dist/ && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bayu Aditya",
@@ -14,25 +15,17 @@
   "description": "",
   "type": "commonjs",
   "exports": {
-    "./core/application/*": {
-      "default": "./core/application/*.js"
-    },
-    "./core/endpoint/*": {
-      "default": "./core/endpoint/*.js"
-    },
-    "./core/project/*": {
-      "default": "./core/project/*.js"
-    },
-    "./core/user/*": {
-      "default": "./core/user/*.js"
-    },
-    "./dashboard/*": {
-      "default": "./dashboard/*.js"
+    "./*": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
     }
   },
   "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "dependencies": {
     "@protobuf-ts/runtime": "^2.9.4",
     "@protobuf-ts/runtime-rpc": "^2.9.4"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }

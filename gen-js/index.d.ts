@@ -1,1 +1,0 @@
-declare module '@bayu-aditya/ideagate-model-js' {}
