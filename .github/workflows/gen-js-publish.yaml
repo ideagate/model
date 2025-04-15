@@ -30,11 +30,19 @@ jobs:
         working-directory: ${{ env.GEN_JS_FOLDER }}
         run: pnpm build
 
-      - name: Publish to GitHub Packages
+      - name: Register GitHub Packages
         working-directory: ${{ env.GEN_JS_FOLDER }}
         env:
-          PNPM_TOKEN: ${{ github.secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            @ideagate:registry=https://npm.pkg.github.com
+            //npm.pkg.github.com/:_authToken=$GH_TOKEN
+          EOF
+
+      - name: Publish to GitHub Packages
+        working-directory: ${{ env.GEN_JS_FOLDER }}
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           pnpm version $VERSION
-          pnpm publish --registry https://npm.pkg.github.com --access public --no-git-checks
+          pnpm publish --report-summary --access public --no-git-checks
