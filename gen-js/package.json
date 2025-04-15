@@ -8,8 +8,7 @@
   "types": "index.d.ts",
   "scripts": {
     "build": "if [ -d dist ]; then rm -r dist; fi && tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "pnpm publish --no-git-checks"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Bayu Aditya",
   "license": "ISC",
