@@ -5,9 +5,13 @@ package dashboard;
 import "core/endpoint/workflow.proto";
 
 message CreateWorkflowRequest {
+    string project_id = 1;
+    string application_id = 2;
+    string entrypoint_id = 3;
+
     // New workflow will be copied from this version.
     // If not specified, then new workflow will be created from scratch.
-    int64 from_version = 1;
+    int64 from_version = 4;
 }
 
 message CreateWorkflowResponse {
@@ -18,7 +22,7 @@ message GetWorkflowsRequest {
     string project_id = 1;
     string application_id = 2;
     string entrypoint_id = 3;
-    string workflow_id = 4;
+    string version = 4;
 }
 
 message GetWorkflowsResponse {
@@ -35,7 +39,7 @@ message DeleteWorkflowRequest {
     string project_id = 1;
     string application_id = 2;
     string entrypoint_id = 3;
-    string workflow_id = 4;
+    string version = 4;
 }
 
 message DeleteWorkflowResponse {}
