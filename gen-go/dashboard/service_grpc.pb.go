@@ -31,6 +31,10 @@ const (
 	DashboardService_CreateEndpoint_FullMethodName     = "/dashboard.DashboardService/CreateEndpoint"
 	DashboardService_UpdateEndpoint_FullMethodName     = "/dashboard.DashboardService/UpdateEndpoint"
 	DashboardService_DeleteEndpoint_FullMethodName     = "/dashboard.DashboardService/DeleteEndpoint"
+	DashboardService_GetWorkflows_FullMethodName       = "/dashboard.DashboardService/GetWorkflows"
+	DashboardService_CreateWorkflow_FullMethodName     = "/dashboard.DashboardService/CreateWorkflow"
+	DashboardService_UpdateWorkflow_FullMethodName     = "/dashboard.DashboardService/UpdateWorkflow"
+	DashboardService_DeleteWorkflow_FullMethodName     = "/dashboard.DashboardService/DeleteWorkflow"
 )
 
 // DashboardServiceClient is the client API for DashboardService service.
@@ -49,6 +53,10 @@ type DashboardServiceClient interface {
 	CreateEndpoint(ctx context.Context, in *CreateEndpointRequest, opts ...grpc.CallOption) (*CreateEndpointResponse, error)
 	UpdateEndpoint(ctx context.Context, in *UpdateEndpointRequest, opts ...grpc.CallOption) (*UpdateEndpointResponse, error)
 	DeleteEndpoint(ctx context.Context, in *DeleteEndpointRequest, opts ...grpc.CallOption) (*DeleteEndpointResponse, error)
+	GetWorkflows(ctx context.Context, in *GetWorkflowsRequest, opts ...grpc.CallOption) (*GetWorkflowsResponse, error)
+	CreateWorkflow(ctx context.Context, in *CreateWorkflowRequest, opts ...grpc.CallOption) (*CreateWorkflowResponse, error)
+	UpdateWorkflow(ctx context.Context, in *UpdateWorkflowRequest, opts ...grpc.CallOption) (*UpdateWorkflowResponse, error)
+	DeleteWorkflow(ctx context.Context, in *DeleteWorkflowRequest, opts ...grpc.CallOption) (*DeleteWorkflowResponse, error)
 }
 
 type dashboardServiceClient struct {
@@ -179,6 +187,46 @@ func (c *dashboardServiceClient) DeleteEndpoint(ctx context.Context, in *DeleteE
 	return out, nil
 }
 
+func (c *dashboardServiceClient) GetWorkflows(ctx context.Context, in *GetWorkflowsRequest, opts ...grpc.CallOption) (*GetWorkflowsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetWorkflowsResponse)
+	err := c.cc.Invoke(ctx, DashboardService_GetWorkflows_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dashboardServiceClient) CreateWorkflow(ctx context.Context, in *CreateWorkflowRequest, opts ...grpc.CallOption) (*CreateWorkflowResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CreateWorkflowResponse)
+	err := c.cc.Invoke(ctx, DashboardService_CreateWorkflow_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dashboardServiceClient) UpdateWorkflow(ctx context.Context, in *UpdateWorkflowRequest, opts ...grpc.CallOption) (*UpdateWorkflowResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateWorkflowResponse)
+	err := c.cc.Invoke(ctx, DashboardService_UpdateWorkflow_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dashboardServiceClient) DeleteWorkflow(ctx context.Context, in *DeleteWorkflowRequest, opts ...grpc.CallOption) (*DeleteWorkflowResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeleteWorkflowResponse)
+	err := c.cc.Invoke(ctx, DashboardService_DeleteWorkflow_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DashboardServiceServer is the server API for DashboardService service.
 // All implementations must embed UnimplementedDashboardServiceServer
 // for forward compatibility.
@@ -195,6 +243,10 @@ type DashboardServiceServer interface {
 	CreateEndpoint(context.Context, *CreateEndpointRequest) (*CreateEndpointResponse, error)
 	UpdateEndpoint(context.Context, *UpdateEndpointRequest) (*UpdateEndpointResponse, error)
 	DeleteEndpoint(context.Context, *DeleteEndpointRequest) (*DeleteEndpointResponse, error)
+	GetWorkflows(context.Context, *GetWorkflowsRequest) (*GetWorkflowsResponse, error)
+	CreateWorkflow(context.Context, *CreateWorkflowRequest) (*CreateWorkflowResponse, error)
+	UpdateWorkflow(context.Context, *UpdateWorkflowRequest) (*UpdateWorkflowResponse, error)
+	DeleteWorkflow(context.Context, *DeleteWorkflowRequest) (*DeleteWorkflowResponse, error)
 	mustEmbedUnimplementedDashboardServiceServer()
 }
 
@@ -240,6 +292,18 @@ func (UnimplementedDashboardServiceServer) UpdateEndpoint(context.Context, *Upda
 }
 func (UnimplementedDashboardServiceServer) DeleteEndpoint(context.Context, *DeleteEndpointRequest) (*DeleteEndpointResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteEndpoint not implemented")
+}
+func (UnimplementedDashboardServiceServer) GetWorkflows(context.Context, *GetWorkflowsRequest) (*GetWorkflowsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWorkflows not implemented")
+}
+func (UnimplementedDashboardServiceServer) CreateWorkflow(context.Context, *CreateWorkflowRequest) (*CreateWorkflowResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateWorkflow not implemented")
+}
+func (UnimplementedDashboardServiceServer) UpdateWorkflow(context.Context, *UpdateWorkflowRequest) (*UpdateWorkflowResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateWorkflow not implemented")
+}
+func (UnimplementedDashboardServiceServer) DeleteWorkflow(context.Context, *DeleteWorkflowRequest) (*DeleteWorkflowResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteWorkflow not implemented")
 }
 func (UnimplementedDashboardServiceServer) mustEmbedUnimplementedDashboardServiceServer() {}
 func (UnimplementedDashboardServiceServer) testEmbeddedByValue()                          {}
@@ -478,6 +542,78 @@ func _DashboardService_DeleteEndpoint_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DashboardService_GetWorkflows_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetWorkflowsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DashboardServiceServer).GetWorkflows(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DashboardService_GetWorkflows_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DashboardServiceServer).GetWorkflows(ctx, req.(*GetWorkflowsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DashboardService_CreateWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateWorkflowRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DashboardServiceServer).CreateWorkflow(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DashboardService_CreateWorkflow_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DashboardServiceServer).CreateWorkflow(ctx, req.(*CreateWorkflowRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DashboardService_UpdateWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateWorkflowRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DashboardServiceServer).UpdateWorkflow(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DashboardService_UpdateWorkflow_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DashboardServiceServer).UpdateWorkflow(ctx, req.(*UpdateWorkflowRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DashboardService_DeleteWorkflow_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteWorkflowRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DashboardServiceServer).DeleteWorkflow(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DashboardService_DeleteWorkflow_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DashboardServiceServer).DeleteWorkflow(ctx, req.(*DeleteWorkflowRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DashboardService_ServiceDesc is the grpc.ServiceDesc for DashboardService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -532,6 +668,22 @@ var DashboardService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteEndpoint",
 			Handler:    _DashboardService_DeleteEndpoint_Handler,
+		},
+		{
+			MethodName: "GetWorkflows",
+			Handler:    _DashboardService_GetWorkflows_Handler,
+		},
+		{
+			MethodName: "CreateWorkflow",
+			Handler:    _DashboardService_CreateWorkflow_Handler,
+		},
+		{
+			MethodName: "UpdateWorkflow",
+			Handler:    _DashboardService_UpdateWorkflow_Handler,
+		},
+		{
+			MethodName: "DeleteWorkflow",
+			Handler:    _DashboardService_DeleteWorkflow_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

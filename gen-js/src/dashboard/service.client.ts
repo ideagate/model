@@ -4,6 +4,14 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { DashboardService } from "./service";
+import type { DeleteWorkflowResponse } from "./workflow";
+import type { DeleteWorkflowRequest } from "./workflow";
+import type { UpdateWorkflowResponse } from "./workflow";
+import type { UpdateWorkflowRequest } from "./workflow";
+import type { CreateWorkflowResponse } from "./workflow";
+import type { CreateWorkflowRequest } from "./workflow";
+import type { GetWorkflowsResponse } from "./workflow";
+import type { GetWorkflowsRequest } from "./workflow";
 import type { DeleteEndpointResponse } from "./endpoint";
 import type { DeleteEndpointRequest } from "./endpoint";
 import type { UpdateEndpointResponse } from "./endpoint";
@@ -83,6 +91,22 @@ export interface IDashboardServiceClient {
      * @generated from protobuf rpc: DeleteEndpoint(dashboard.DeleteEndpointRequest) returns (dashboard.DeleteEndpointResponse);
      */
     deleteEndpoint(input: DeleteEndpointRequest, options?: RpcOptions): UnaryCall<DeleteEndpointRequest, DeleteEndpointResponse>;
+    /**
+     * @generated from protobuf rpc: GetWorkflows(dashboard.GetWorkflowsRequest) returns (dashboard.GetWorkflowsResponse);
+     */
+    getWorkflows(input: GetWorkflowsRequest, options?: RpcOptions): UnaryCall<GetWorkflowsRequest, GetWorkflowsResponse>;
+    /**
+     * @generated from protobuf rpc: CreateWorkflow(dashboard.CreateWorkflowRequest) returns (dashboard.CreateWorkflowResponse);
+     */
+    createWorkflow(input: CreateWorkflowRequest, options?: RpcOptions): UnaryCall<CreateWorkflowRequest, CreateWorkflowResponse>;
+    /**
+     * @generated from protobuf rpc: UpdateWorkflow(dashboard.UpdateWorkflowRequest) returns (dashboard.UpdateWorkflowResponse);
+     */
+    updateWorkflow(input: UpdateWorkflowRequest, options?: RpcOptions): UnaryCall<UpdateWorkflowRequest, UpdateWorkflowResponse>;
+    /**
+     * @generated from protobuf rpc: DeleteWorkflow(dashboard.DeleteWorkflowRequest) returns (dashboard.DeleteWorkflowResponse);
+     */
+    deleteWorkflow(input: DeleteWorkflowRequest, options?: RpcOptions): UnaryCall<DeleteWorkflowRequest, DeleteWorkflowResponse>;
 }
 /**
  * @generated from protobuf service dashboard.DashboardService
@@ -176,5 +200,33 @@ export class DashboardServiceClient implements IDashboardServiceClient, ServiceI
     deleteEndpoint(input: DeleteEndpointRequest, options?: RpcOptions): UnaryCall<DeleteEndpointRequest, DeleteEndpointResponse> {
         const method = this.methods[11], opt = this._transport.mergeOptions(options);
         return stackIntercept<DeleteEndpointRequest, DeleteEndpointResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetWorkflows(dashboard.GetWorkflowsRequest) returns (dashboard.GetWorkflowsResponse);
+     */
+    getWorkflows(input: GetWorkflowsRequest, options?: RpcOptions): UnaryCall<GetWorkflowsRequest, GetWorkflowsResponse> {
+        const method = this.methods[12], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetWorkflowsRequest, GetWorkflowsResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: CreateWorkflow(dashboard.CreateWorkflowRequest) returns (dashboard.CreateWorkflowResponse);
+     */
+    createWorkflow(input: CreateWorkflowRequest, options?: RpcOptions): UnaryCall<CreateWorkflowRequest, CreateWorkflowResponse> {
+        const method = this.methods[13], opt = this._transport.mergeOptions(options);
+        return stackIntercept<CreateWorkflowRequest, CreateWorkflowResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: UpdateWorkflow(dashboard.UpdateWorkflowRequest) returns (dashboard.UpdateWorkflowResponse);
+     */
+    updateWorkflow(input: UpdateWorkflowRequest, options?: RpcOptions): UnaryCall<UpdateWorkflowRequest, UpdateWorkflowResponse> {
+        const method = this.methods[14], opt = this._transport.mergeOptions(options);
+        return stackIntercept<UpdateWorkflowRequest, UpdateWorkflowResponse>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: DeleteWorkflow(dashboard.DeleteWorkflowRequest) returns (dashboard.DeleteWorkflowResponse);
+     */
+    deleteWorkflow(input: DeleteWorkflowRequest, options?: RpcOptions): UnaryCall<DeleteWorkflowRequest, DeleteWorkflowResponse> {
+        const method = this.methods[15], opt = this._transport.mergeOptions(options);
+        return stackIntercept<DeleteWorkflowRequest, DeleteWorkflowResponse>("unary", this._transport, method, opt, input);
     }
 }

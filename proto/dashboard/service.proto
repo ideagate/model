@@ -5,6 +5,7 @@ package dashboard;
 import "dashboard/project.proto";
 import "dashboard/application.proto";
 import "dashboard/endpoint.proto";
+import "dashboard/workflow.proto";
 
 service DashboardService {
     rpc GetListProject(GetListProjectRequest) returns (GetListProjectResponse);
@@ -21,4 +22,9 @@ service DashboardService {
     rpc CreateEndpoint(CreateEndpointRequest) returns (CreateEndpointResponse);
     rpc UpdateEndpoint(UpdateEndpointRequest) returns (UpdateEndpointResponse);
     rpc DeleteEndpoint(DeleteEndpointRequest) returns (DeleteEndpointResponse);
+
+    rpc GetWorkflows(GetWorkflowsRequest) returns (GetWorkflowsResponse);
+    rpc CreateWorkflow(CreateWorkflowRequest) returns (CreateWorkflowResponse);
+    rpc UpdateWorkflow(UpdateWorkflowRequest) returns (UpdateWorkflowResponse);
+    rpc DeleteWorkflow(DeleteWorkflowRequest) returns (DeleteWorkflowResponse);
 }

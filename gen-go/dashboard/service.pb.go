@@ -24,7 +24,7 @@ var File_dashboard_service_proto protoreflect.FileDescriptor
 
 const file_dashboard_service_proto_rawDesc = "" +
 	"\n" +
-	"\x17dashboard/service.proto\x12\tdashboard\x1a\x17dashboard/project.proto\x1a\x1bdashboard/application.proto\x1a\x18dashboard/endpoint.proto2\xc7\b\n" +
+	"\x17dashboard/service.proto\x12\tdashboard\x1a\x17dashboard/project.proto\x1a\x1bdashboard/application.proto\x1a\x18dashboard/endpoint.proto\x1a\x18dashboard/workflow.proto2\x9d\v\n" +
 	"\x10DashboardService\x12U\n" +
 	"\x0eGetListProject\x12 .dashboard.GetListProjectRequest\x1a!.dashboard.GetListProjectResponse\x12R\n" +
 	"\rCreateProject\x12\x1f.dashboard.CreateProjectRequest\x1a .dashboard.CreateProjectResponse\x12R\n" +
@@ -37,7 +37,11 @@ const file_dashboard_service_proto_rawDesc = "" +
 	"\x0fGetListEndpoint\x12!.dashboard.GetListEndpointRequest\x1a\".dashboard.GetListEndpointResponse\x12U\n" +
 	"\x0eCreateEndpoint\x12 .dashboard.CreateEndpointRequest\x1a!.dashboard.CreateEndpointResponse\x12U\n" +
 	"\x0eUpdateEndpoint\x12 .dashboard.UpdateEndpointRequest\x1a!.dashboard.UpdateEndpointResponse\x12U\n" +
-	"\x0eDeleteEndpoint\x12 .dashboard.DeleteEndpointRequest\x1a!.dashboard.DeleteEndpointResponseB\x8d\x01\n" +
+	"\x0eDeleteEndpoint\x12 .dashboard.DeleteEndpointRequest\x1a!.dashboard.DeleteEndpointResponse\x12O\n" +
+	"\fGetWorkflows\x12\x1e.dashboard.GetWorkflowsRequest\x1a\x1f.dashboard.GetWorkflowsResponse\x12U\n" +
+	"\x0eCreateWorkflow\x12 .dashboard.CreateWorkflowRequest\x1a!.dashboard.CreateWorkflowResponse\x12U\n" +
+	"\x0eUpdateWorkflow\x12 .dashboard.UpdateWorkflowRequest\x1a!.dashboard.UpdateWorkflowResponse\x12U\n" +
+	"\x0eDeleteWorkflow\x12 .dashboard.DeleteWorkflowRequest\x1a!.dashboard.DeleteWorkflowResponseB\x8d\x01\n" +
 	"\rcom.dashboardB\fServiceProtoP\x01Z*github.com/ideagate/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
 
 var file_dashboard_service_proto_goTypes = []any{
@@ -53,18 +57,26 @@ var file_dashboard_service_proto_goTypes = []any{
 	(*CreateEndpointRequest)(nil),      // 9: dashboard.CreateEndpointRequest
 	(*UpdateEndpointRequest)(nil),      // 10: dashboard.UpdateEndpointRequest
 	(*DeleteEndpointRequest)(nil),      // 11: dashboard.DeleteEndpointRequest
-	(*GetListProjectResponse)(nil),     // 12: dashboard.GetListProjectResponse
-	(*CreateProjectResponse)(nil),      // 13: dashboard.CreateProjectResponse
-	(*UpdateProjectResponse)(nil),      // 14: dashboard.UpdateProjectResponse
-	(*DeleteProjectResponse)(nil),      // 15: dashboard.DeleteProjectResponse
-	(*GetListApplicationResponse)(nil), // 16: dashboard.GetListApplicationResponse
-	(*CreateApplicationResponse)(nil),  // 17: dashboard.CreateApplicationResponse
-	(*UpdateApplicationResponse)(nil),  // 18: dashboard.UpdateApplicationResponse
-	(*DeleteApplicationResponse)(nil),  // 19: dashboard.DeleteApplicationResponse
-	(*GetListEndpointResponse)(nil),    // 20: dashboard.GetListEndpointResponse
-	(*CreateEndpointResponse)(nil),     // 21: dashboard.CreateEndpointResponse
-	(*UpdateEndpointResponse)(nil),     // 22: dashboard.UpdateEndpointResponse
-	(*DeleteEndpointResponse)(nil),     // 23: dashboard.DeleteEndpointResponse
+	(*GetWorkflowsRequest)(nil),        // 12: dashboard.GetWorkflowsRequest
+	(*CreateWorkflowRequest)(nil),      // 13: dashboard.CreateWorkflowRequest
+	(*UpdateWorkflowRequest)(nil),      // 14: dashboard.UpdateWorkflowRequest
+	(*DeleteWorkflowRequest)(nil),      // 15: dashboard.DeleteWorkflowRequest
+	(*GetListProjectResponse)(nil),     // 16: dashboard.GetListProjectResponse
+	(*CreateProjectResponse)(nil),      // 17: dashboard.CreateProjectResponse
+	(*UpdateProjectResponse)(nil),      // 18: dashboard.UpdateProjectResponse
+	(*DeleteProjectResponse)(nil),      // 19: dashboard.DeleteProjectResponse
+	(*GetListApplicationResponse)(nil), // 20: dashboard.GetListApplicationResponse
+	(*CreateApplicationResponse)(nil),  // 21: dashboard.CreateApplicationResponse
+	(*UpdateApplicationResponse)(nil),  // 22: dashboard.UpdateApplicationResponse
+	(*DeleteApplicationResponse)(nil),  // 23: dashboard.DeleteApplicationResponse
+	(*GetListEndpointResponse)(nil),    // 24: dashboard.GetListEndpointResponse
+	(*CreateEndpointResponse)(nil),     // 25: dashboard.CreateEndpointResponse
+	(*UpdateEndpointResponse)(nil),     // 26: dashboard.UpdateEndpointResponse
+	(*DeleteEndpointResponse)(nil),     // 27: dashboard.DeleteEndpointResponse
+	(*GetWorkflowsResponse)(nil),       // 28: dashboard.GetWorkflowsResponse
+	(*CreateWorkflowResponse)(nil),     // 29: dashboard.CreateWorkflowResponse
+	(*UpdateWorkflowResponse)(nil),     // 30: dashboard.UpdateWorkflowResponse
+	(*DeleteWorkflowResponse)(nil),     // 31: dashboard.DeleteWorkflowResponse
 }
 var file_dashboard_service_proto_depIdxs = []int32{
 	0,  // 0: dashboard.DashboardService.GetListProject:input_type -> dashboard.GetListProjectRequest
@@ -79,20 +91,28 @@ var file_dashboard_service_proto_depIdxs = []int32{
 	9,  // 9: dashboard.DashboardService.CreateEndpoint:input_type -> dashboard.CreateEndpointRequest
 	10, // 10: dashboard.DashboardService.UpdateEndpoint:input_type -> dashboard.UpdateEndpointRequest
 	11, // 11: dashboard.DashboardService.DeleteEndpoint:input_type -> dashboard.DeleteEndpointRequest
-	12, // 12: dashboard.DashboardService.GetListProject:output_type -> dashboard.GetListProjectResponse
-	13, // 13: dashboard.DashboardService.CreateProject:output_type -> dashboard.CreateProjectResponse
-	14, // 14: dashboard.DashboardService.UpdateProject:output_type -> dashboard.UpdateProjectResponse
-	15, // 15: dashboard.DashboardService.DeleteProject:output_type -> dashboard.DeleteProjectResponse
-	16, // 16: dashboard.DashboardService.GetListApplication:output_type -> dashboard.GetListApplicationResponse
-	17, // 17: dashboard.DashboardService.CreateApplication:output_type -> dashboard.CreateApplicationResponse
-	18, // 18: dashboard.DashboardService.UpdateApplication:output_type -> dashboard.UpdateApplicationResponse
-	19, // 19: dashboard.DashboardService.DeleteApplication:output_type -> dashboard.DeleteApplicationResponse
-	20, // 20: dashboard.DashboardService.GetListEndpoint:output_type -> dashboard.GetListEndpointResponse
-	21, // 21: dashboard.DashboardService.CreateEndpoint:output_type -> dashboard.CreateEndpointResponse
-	22, // 22: dashboard.DashboardService.UpdateEndpoint:output_type -> dashboard.UpdateEndpointResponse
-	23, // 23: dashboard.DashboardService.DeleteEndpoint:output_type -> dashboard.DeleteEndpointResponse
-	12, // [12:24] is the sub-list for method output_type
-	0,  // [0:12] is the sub-list for method input_type
+	12, // 12: dashboard.DashboardService.GetWorkflows:input_type -> dashboard.GetWorkflowsRequest
+	13, // 13: dashboard.DashboardService.CreateWorkflow:input_type -> dashboard.CreateWorkflowRequest
+	14, // 14: dashboard.DashboardService.UpdateWorkflow:input_type -> dashboard.UpdateWorkflowRequest
+	15, // 15: dashboard.DashboardService.DeleteWorkflow:input_type -> dashboard.DeleteWorkflowRequest
+	16, // 16: dashboard.DashboardService.GetListProject:output_type -> dashboard.GetListProjectResponse
+	17, // 17: dashboard.DashboardService.CreateProject:output_type -> dashboard.CreateProjectResponse
+	18, // 18: dashboard.DashboardService.UpdateProject:output_type -> dashboard.UpdateProjectResponse
+	19, // 19: dashboard.DashboardService.DeleteProject:output_type -> dashboard.DeleteProjectResponse
+	20, // 20: dashboard.DashboardService.GetListApplication:output_type -> dashboard.GetListApplicationResponse
+	21, // 21: dashboard.DashboardService.CreateApplication:output_type -> dashboard.CreateApplicationResponse
+	22, // 22: dashboard.DashboardService.UpdateApplication:output_type -> dashboard.UpdateApplicationResponse
+	23, // 23: dashboard.DashboardService.DeleteApplication:output_type -> dashboard.DeleteApplicationResponse
+	24, // 24: dashboard.DashboardService.GetListEndpoint:output_type -> dashboard.GetListEndpointResponse
+	25, // 25: dashboard.DashboardService.CreateEndpoint:output_type -> dashboard.CreateEndpointResponse
+	26, // 26: dashboard.DashboardService.UpdateEndpoint:output_type -> dashboard.UpdateEndpointResponse
+	27, // 27: dashboard.DashboardService.DeleteEndpoint:output_type -> dashboard.DeleteEndpointResponse
+	28, // 28: dashboard.DashboardService.GetWorkflows:output_type -> dashboard.GetWorkflowsResponse
+	29, // 29: dashboard.DashboardService.CreateWorkflow:output_type -> dashboard.CreateWorkflowResponse
+	30, // 30: dashboard.DashboardService.UpdateWorkflow:output_type -> dashboard.UpdateWorkflowResponse
+	31, // 31: dashboard.DashboardService.DeleteWorkflow:output_type -> dashboard.DeleteWorkflowResponse
+	16, // [16:32] is the sub-list for method output_type
+	0,  // [0:16] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -106,6 +126,7 @@ func file_dashboard_service_proto_init() {
 	file_dashboard_project_proto_init()
 	file_dashboard_application_proto_init()
 	file_dashboard_endpoint_proto_init()
+	file_dashboard_workflow_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

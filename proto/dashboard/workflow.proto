@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package dashboard;
+
+import "core/endpoint/workflow.proto";
+
+message CreateWorkflowRequest {
+    // New workflow will be copied from this version.
+    // If not specified, then new workflow will be created from scratch.
+    int64 from_version = 1;
+}
+
+message CreateWorkflowResponse {
+    int64 version = 1;
+}
+
+message GetWorkflowsRequest {
+    string project_id = 1;
+    string application_id = 2;
+    string entrypoint_id = 3;
+    string workflow_id = 4;
+}
+
+message GetWorkflowsResponse {
+    repeated endpoint.Workflow workflows = 1;
+}
+
+message UpdateWorkflowRequest {
+    endpoint.Workflow workflow = 1;
+}
+
+message UpdateWorkflowResponse {}
+
+message DeleteWorkflowRequest {
+    string version = 1;
+}
+
+message DeleteWorkflowResponse {}
