@@ -61,9 +61,9 @@ export interface GetWorkflowsRequest {
      */
     entrypointId: string;
     /**
-     * @generated from protobuf field: string version = 4;
+     * @generated from protobuf field: int64 version = 4;
      */
-    version: string;
+    version: bigint;
 }
 /**
  * @generated from protobuf message dashboard.GetWorkflowsResponse
@@ -105,9 +105,9 @@ export interface DeleteWorkflowRequest {
      */
     entrypointId: string;
     /**
-     * @generated from protobuf field: string version = 4;
+     * @generated from protobuf field: int64 version = 4;
      */
-    version: string;
+    version: bigint;
 }
 /**
  * @generated from protobuf message dashboard.DeleteWorkflowResponse
@@ -239,7 +239,7 @@ class GetWorkflowsRequest$Type extends MessageType<GetWorkflowsRequest> {
             { no: 1, name: "project_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "application_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "entrypoint_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 4, name: "version", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
         ]);
     }
     create(value?: PartialMessage<GetWorkflowsRequest>): GetWorkflowsRequest {
@@ -247,7 +247,7 @@ class GetWorkflowsRequest$Type extends MessageType<GetWorkflowsRequest> {
         message.projectId = "";
         message.applicationId = "";
         message.entrypointId = "";
-        message.version = "";
+        message.version = 0n;
         if (value !== undefined)
             reflectionMergePartial<GetWorkflowsRequest>(this, message, value);
         return message;
@@ -266,8 +266,8 @@ class GetWorkflowsRequest$Type extends MessageType<GetWorkflowsRequest> {
                 case /* string entrypoint_id */ 3:
                     message.entrypointId = reader.string();
                     break;
-                case /* string version */ 4:
-                    message.version = reader.string();
+                case /* int64 version */ 4:
+                    message.version = reader.int64().toBigInt();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -290,9 +290,9 @@ class GetWorkflowsRequest$Type extends MessageType<GetWorkflowsRequest> {
         /* string entrypoint_id = 3; */
         if (message.entrypointId !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.entrypointId);
-        /* string version = 4; */
-        if (message.version !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.version);
+        /* int64 version = 4; */
+        if (message.version !== 0n)
+            writer.tag(4, WireType.Varint).int64(message.version);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -428,7 +428,7 @@ class DeleteWorkflowRequest$Type extends MessageType<DeleteWorkflowRequest> {
             { no: 1, name: "project_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 2, name: "application_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "entrypoint_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 4, name: "version", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteWorkflowRequest>): DeleteWorkflowRequest {
@@ -436,7 +436,7 @@ class DeleteWorkflowRequest$Type extends MessageType<DeleteWorkflowRequest> {
         message.projectId = "";
         message.applicationId = "";
         message.entrypointId = "";
-        message.version = "";
+        message.version = 0n;
         if (value !== undefined)
             reflectionMergePartial<DeleteWorkflowRequest>(this, message, value);
         return message;
@@ -455,8 +455,8 @@ class DeleteWorkflowRequest$Type extends MessageType<DeleteWorkflowRequest> {
                 case /* string entrypoint_id */ 3:
                     message.entrypointId = reader.string();
                     break;
-                case /* string version */ 4:
-                    message.version = reader.string();
+                case /* int64 version */ 4:
+                    message.version = reader.int64().toBigInt();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -479,9 +479,9 @@ class DeleteWorkflowRequest$Type extends MessageType<DeleteWorkflowRequest> {
         /* string entrypoint_id = 3; */
         if (message.entrypointId !== "")
             writer.tag(3, WireType.LengthDelimited).string(message.entrypointId);
-        /* string version = 4; */
-        if (message.version !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.version);
+        /* int64 version = 4; */
+        if (message.version !== 0n)
+            writer.tag(4, WireType.Varint).int64(message.version);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -141,7 +141,7 @@ type GetWorkflowsRequest struct {
 	ProjectId     string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
 	EntrypointId  string                 `protobuf:"bytes,3,opt,name=entrypoint_id,json=entrypointId,proto3" json:"entrypoint_id,omitempty"`
-	Version       string                 `protobuf:"bytes,4,opt,name=version,proto3" json:"version,omitempty"`
+	Version       int64                  `protobuf:"varint,4,opt,name=version,proto3" json:"version,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -197,11 +197,11 @@ func (x *GetWorkflowsRequest) GetEntrypointId() string {
 	return ""
 }
 
-func (x *GetWorkflowsRequest) GetVersion() string {
+func (x *GetWorkflowsRequest) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
-	return ""
+	return 0
 }
 
 type GetWorkflowsResponse struct {
@@ -333,7 +333,7 @@ type DeleteWorkflowRequest struct {
 	ProjectId     string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
 	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
 	EntrypointId  string                 `protobuf:"bytes,3,opt,name=entrypoint_id,json=entrypointId,proto3" json:"entrypoint_id,omitempty"`
-	Version       string                 `protobuf:"bytes,4,opt,name=version,proto3" json:"version,omitempty"`
+	Version       int64                  `protobuf:"varint,4,opt,name=version,proto3" json:"version,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -389,11 +389,11 @@ func (x *DeleteWorkflowRequest) GetEntrypointId() string {
 	return ""
 }
 
-func (x *DeleteWorkflowRequest) GetVersion() string {
+func (x *DeleteWorkflowRequest) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
-	return ""
+	return 0
 }
 
 type DeleteWorkflowResponse struct {
@@ -450,7 +450,7 @@ const file_dashboard_workflow_proto_rawDesc = "" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
 	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12#\n" +
 	"\rentrypoint_id\x18\x03 \x01(\tR\fentrypointId\x12\x18\n" +
-	"\aversion\x18\x04 \x01(\tR\aversion\"H\n" +
+	"\aversion\x18\x04 \x01(\x03R\aversion\"H\n" +
 	"\x14GetWorkflowsResponse\x120\n" +
 	"\tworkflows\x18\x01 \x03(\v2\x12.endpoint.WorkflowR\tworkflows\"G\n" +
 	"\x15UpdateWorkflowRequest\x12.\n" +
@@ -461,7 +461,7 @@ const file_dashboard_workflow_proto_rawDesc = "" +
 	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
 	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12#\n" +
 	"\rentrypoint_id\x18\x03 \x01(\tR\fentrypointId\x12\x18\n" +
-	"\aversion\x18\x04 \x01(\tR\aversion\"\x18\n" +
+	"\aversion\x18\x04 \x01(\x03R\aversion\"\x18\n" +
 	"\x16DeleteWorkflowResponseB\x8e\x01\n" +
 	"\rcom.dashboardB\rWorkflowProtoP\x01Z*github.com/ideagate/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
 
