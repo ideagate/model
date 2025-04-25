@@ -3,6 +3,7 @@ syntax = "proto3";
 package v1;
 
 import "core/endpoint/endpoint.proto";
+import "core/endpoint/workflow.proto";
 
 service ControllerService {
     rpc GetListEndpoint(GetListEndpointRequest) returns (GetListEndpointResponse);

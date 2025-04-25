@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package endpoint;
+
+message Variable {
+    VariableType type = 1;
+    bool required = 2;
+    string value = 3;
+    string default = 4;
+}
+
+enum VariableType {
+    VARIABLE_TYPE_UNSPECIFIED = 0;
+    VARIABLE_TYPE_STRING = 1;
+    VARIABLE_TYPE_INT = 2;
+    VARIABLE_TYPE_FLOAT = 3;
+    VARIABLE_TYPE_BOOL = 4;
+    VARIABLE_TYPE_OBJECT = 5;
+}

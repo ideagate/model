@@ -11,7 +11,7 @@ import type { IBinaryReader } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
-import { Workflow } from "../../../core/endpoint/endpoint";
+import { Workflow } from "../../../core/endpoint/workflow";
 import { Endpoint } from "../../../core/endpoint/endpoint";
 /**
  * @generated from protobuf message v1.GetListEndpointRequest

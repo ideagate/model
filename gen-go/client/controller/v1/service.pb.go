@@ -194,7 +194,7 @@ var File_client_controller_v1_service_proto protoreflect.FileDescriptor
 
 const file_client_controller_v1_service_proto_rawDesc = "" +
 	"\n" +
-	"\"client/controller/v1/service.proto\x12\x02v1\x1a\x1ccore/endpoint/endpoint.proto\"\x18\n" +
+	"\"client/controller/v1/service.proto\x12\x02v1\x1a\x1ccore/endpoint/endpoint.proto\x1a\x1ccore/endpoint/workflow.proto\"\x18\n" +
 	"\x16GetListEndpointRequest\"K\n" +
 	"\x17GetListEndpointResponse\x120\n" +
 	"\tendpoints\x18\x01 \x03(\v2\x12.endpoint.EndpointR\tendpoints\"9\n" +

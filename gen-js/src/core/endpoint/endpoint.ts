@@ -10,6 +10,9 @@ import { UnknownFieldHandler } from "@protobuf-ts/runtime";
 import type { PartialMessage } from "@protobuf-ts/runtime";
 import { reflectionMergePartial } from "@protobuf-ts/runtime";
 import { MessageType } from "@protobuf-ts/runtime";
+import { Variable } from "./variable";
+import { RolloutCanary } from "./rollout";
+import { RolloutBlueGreen } from "./rollout";
 import { Timestamp } from "../../google/protobuf/timestamp";
 /**
  * @generated from protobuf message endpoint.Endpoint
@@ -48,6 +51,24 @@ export interface Endpoint {
      */
     description: string;
     /**
+     * @generated from protobuf oneof: rollout
+     */
+    rollout: {
+        oneofKind: "blueGreen";
+        /**
+         * @generated from protobuf field: endpoint.RolloutBlueGreen blue_green = 91;
+         */
+        blueGreen: RolloutBlueGreen;
+    } | {
+        oneofKind: "canary";
+        /**
+         * @generated from protobuf field: endpoint.RolloutCanary canary = 92;
+         */
+        canary: RolloutCanary;
+    } | {
+        oneofKind: undefined;
+    };
+    /**
      * @generated from protobuf oneof: settings
      */
     settings: {
@@ -65,27 +86,6 @@ export interface Endpoint {
     } | {
         oneofKind: undefined;
     };
-}
-/**
- * @generated from protobuf message endpoint.Variable
- */
-export interface Variable {
-    /**
-     * @generated from protobuf field: endpoint.VariableType type = 1;
-     */
-    type: VariableType;
-    /**
-     * @generated from protobuf field: bool required = 2;
-     */
-    required: boolean;
-    /**
-     * @generated from protobuf field: string value = 3;
-     */
-    value: string;
-    /**
-     * @generated from protobuf field: string default = 4;
-     */
-    default: string;
 }
 /**
  * @generated from protobuf message endpoint.SettingRest
@@ -134,195 +134,6 @@ export interface SettingCron {
     timeoutMs: bigint;
 }
 /**
- * @generated from protobuf message endpoint.Workflow
- */
-export interface Workflow {
-    /**
-     * @generated from protobuf field: repeated endpoint.Step steps = 1;
-     */
-    steps: Step[];
-    /**
-     * @generated from protobuf field: repeated endpoint.Edge edges = 2;
-     */
-    edges: Edge[];
-}
-/**
- * @generated from protobuf message endpoint.Step
- */
-export interface Step {
-    /**
-     * @generated from protobuf field: string id = 1;
-     */
-    id: string;
-    /**
-     * @generated from protobuf field: string name = 2;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: endpoint.StepType type = 3;
-     */
-    type: StepType;
-    /**
-     * @generated from protobuf field: map<string, endpoint.Variable> variables = 4;
-     */
-    variables: {
-        [key: string]: Variable;
-    };
-    /**
-     * @generated from protobuf field: map<string, endpoint.Variable> outputs = 5;
-     */
-    outputs: {
-        [key: string]: Variable;
-    };
-    /**
-     * @generated from protobuf field: repeated endpoint.Return returns = 6;
-     */
-    returns: Return[];
-    /**
-     * @generated from protobuf oneof: action
-     */
-    action: {
-        oneofKind: "actionEnd";
-        /**
-         * @generated from protobuf field: endpoint.ActionEnd action_end = 7;
-         */
-        actionEnd: ActionEnd;
-    } | {
-        oneofKind: "actionMysql";
-        /**
-         * @generated from protobuf field: endpoint.ActionMysql action_mysql = 8;
-         */
-        actionMysql: ActionMysql;
-    } | {
-        oneofKind: "actionRest";
-        /**
-         * @generated from protobuf field: endpoint.ActionRest action_rest = 9;
-         */
-        actionRest: ActionRest;
-    } | {
-        oneofKind: "actionSleep";
-        /**
-         * @generated from protobuf field: endpoint.ActionSleep action_sleep = 10;
-         */
-        actionSleep: ActionSleep;
-    } | {
-        oneofKind: undefined;
-    };
-}
-/**
- * @generated from protobuf message endpoint.ActionEnd
- */
-export interface ActionEnd {
-    /**
-     * @generated from protobuf field: repeated string return_data_from_step_ids = 1;
-     */
-    returnDataFromStepIds: string[];
-}
-/**
- * @generated from protobuf message endpoint.ActionMysql
- */
-export interface ActionMysql {
-    /**
-     * @generated from protobuf field: string data_source_id = 1;
-     */
-    dataSourceId: string;
-    /**
-     * @generated from protobuf field: repeated endpoint.Query queries = 2;
-     */
-    queries: Query[];
-}
-/**
- * @generated from protobuf message endpoint.ActionRest
- */
-export interface ActionRest {
-    /**
-     * @generated from protobuf field: endpoint.Variable path = 1;
-     */
-    path?: Variable;
-    /**
-     * @generated from protobuf field: string method = 2;
-     */
-    method: string;
-    /**
-     * @generated from protobuf field: map<string, endpoint.Variable> headers = 3;
-     */
-    headers: {
-        [key: string]: Variable;
-    };
-    /**
-     * @generated from protobuf field: string request_type = 4;
-     */
-    requestType: string;
-    /**
-     * @generated from protobuf field: string request_body = 5;
-     */
-    requestBody: string;
-}
-/**
- * @generated from protobuf message endpoint.ActionSleep
- */
-export interface ActionSleep {
-    /**
-     * @generated from protobuf field: int64 timeout_ms = 1;
-     */
-    timeoutMs: bigint;
-}
-/**
- * @generated from protobuf message endpoint.Query
- */
-export interface Query {
-    /**
-     * @generated from protobuf field: endpoint.Variable query = 1;
-     */
-    query?: Variable;
-    /**
-     * @generated from protobuf field: repeated endpoint.Variable parameters = 2;
-     */
-    parameters: Variable[];
-}
-/**
- * @generated from protobuf message endpoint.Return
- */
-export interface Return {
-    /**
-     * @generated from protobuf field: string id = 1;
-     */
-    id: string;
-    /**
-     * @generated from protobuf field: string name = 2;
-     */
-    name: string;
-    /**
-     * @generated from protobuf field: string is_finish_condition = 3;
-     */
-    isFinishCondition: string;
-    /**
-     * @generated from protobuf field: string next_step_id = 4;
-     */
-    nextStepId: string;
-}
-/**
- * @generated from protobuf message endpoint.Edge
- */
-export interface Edge {
-    /**
-     * @generated from protobuf field: string id = 1;
-     */
-    id: string;
-    /**
-     * @generated from protobuf field: string condition_id = 2;
-     */
-    conditionId: string;
-    /**
-     * @generated from protobuf field: string source = 3;
-     */
-    source: string;
-    /**
-     * @generated from protobuf field: string dest = 4;
-     */
-    dest: string;
-}
-/**
  * @generated from protobuf enum endpoint.EndpointType
  */
 export enum EndpointType {
@@ -339,80 +150,6 @@ export enum EndpointType {
      */
     CRON = 2
 }
-/**
- * @generated from protobuf enum endpoint.VariableType
- */
-export enum VariableType {
-    /**
-     * @generated from protobuf enum value: VARIABLE_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: VARIABLE_TYPE_STRING = 1;
-     */
-    STRING = 1,
-    /**
-     * @generated from protobuf enum value: VARIABLE_TYPE_INT = 2;
-     */
-    INT = 2,
-    /**
-     * @generated from protobuf enum value: VARIABLE_TYPE_FLOAT = 3;
-     */
-    FLOAT = 3,
-    /**
-     * @generated from protobuf enum value: VARIABLE_TYPE_BOOL = 4;
-     */
-    BOOL = 4,
-    /**
-     * @generated from protobuf enum value: VARIABLE_TYPE_OBJECT = 5;
-     */
-    OBJECT = 5
-}
-/**
- * @generated from protobuf enum endpoint.StepType
- */
-export enum StepType {
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_UNSPECIFIED = 0;
-     */
-    UNSPECIFIED = 0,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_START = 1;
-     */
-    START = 1,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_END = 2;
-     */
-    END = 2,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_SLEEP = 3;
-     */
-    SLEEP = 3,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_SCRIPT_JS = 4;
-     */
-    SCRIPT_JS = 4,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_CONDITION = 5;
-     */
-    CONDITION = 5,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_REST = 6;
-     */
-    REST = 6,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_MYSQL = 7;
-     */
-    MYSQL = 7,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_POSTGRESQL = 8;
-     */
-    POSTGRESQL = 8,
-    /**
-     * @generated from protobuf enum value: STEP_TYPE_REDIS = 9;
-     */
-    REDIS = 9
-}
 // @generated message type with reflection information, may provide speed optimized methods
 class Endpoint$Type extends MessageType<Endpoint> {
     constructor() {
@@ -425,6 +162,8 @@ class Endpoint$Type extends MessageType<Endpoint> {
             { no: 6, name: "type", kind: "enum", T: () => ["endpoint.EndpointType", EndpointType, "ENDPOINT_TYPE_"] },
             { no: 7, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 8, name: "description", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 91, name: "blue_green", kind: "message", oneof: "rollout", T: () => RolloutBlueGreen },
+            { no: 92, name: "canary", kind: "message", oneof: "rollout", T: () => RolloutCanary },
             { no: 101, name: "setting_rest", kind: "message", oneof: "settings", T: () => SettingRest },
             { no: 102, name: "setting_cron", kind: "message", oneof: "settings", T: () => SettingCron }
         ]);
@@ -437,6 +176,7 @@ class Endpoint$Type extends MessageType<Endpoint> {
         message.type = 0;
         message.name = "";
         message.description = "";
+        message.rollout = { oneofKind: undefined };
         message.settings = { oneofKind: undefined };
         if (value !== undefined)
             reflectionMergePartial<Endpoint>(this, message, value);
@@ -470,6 +210,18 @@ class Endpoint$Type extends MessageType<Endpoint> {
                     break;
                 case /* string description */ 8:
                     message.description = reader.string();
+                    break;
+                case /* endpoint.RolloutBlueGreen blue_green */ 91:
+                    message.rollout = {
+                        oneofKind: "blueGreen",
+                        blueGreen: RolloutBlueGreen.internalBinaryRead(reader, reader.uint32(), options, (message.rollout as any).blueGreen)
+                    };
+                    break;
+                case /* endpoint.RolloutCanary canary */ 92:
+                    message.rollout = {
+                        oneofKind: "canary",
+                        canary: RolloutCanary.internalBinaryRead(reader, reader.uint32(), options, (message.rollout as any).canary)
+                    };
                     break;
                 case /* endpoint.SettingRest setting_rest */ 101:
                     message.settings = {
@@ -519,6 +271,12 @@ class Endpoint$Type extends MessageType<Endpoint> {
         /* string description = 8; */
         if (message.description !== "")
             writer.tag(8, WireType.LengthDelimited).string(message.description);
+        /* endpoint.RolloutBlueGreen blue_green = 91; */
+        if (message.rollout.oneofKind === "blueGreen")
+            RolloutBlueGreen.internalBinaryWrite(message.rollout.blueGreen, writer.tag(91, WireType.LengthDelimited).fork(), options).join();
+        /* endpoint.RolloutCanary canary = 92; */
+        if (message.rollout.oneofKind === "canary")
+            RolloutCanary.internalBinaryWrite(message.rollout.canary, writer.tag(92, WireType.LengthDelimited).fork(), options).join();
         /* endpoint.SettingRest setting_rest = 101; */
         if (message.settings.oneofKind === "settingRest")
             SettingRest.internalBinaryWrite(message.settings.settingRest, writer.tag(101, WireType.LengthDelimited).fork(), options).join();
@@ -535,77 +293,6 @@ class Endpoint$Type extends MessageType<Endpoint> {
  * @generated MessageType for protobuf message endpoint.Endpoint
  */
 export const Endpoint = new Endpoint$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class Variable$Type extends MessageType<Variable> {
-    constructor() {
-        super("endpoint.Variable", [
-            { no: 1, name: "type", kind: "enum", T: () => ["endpoint.VariableType", VariableType, "VARIABLE_TYPE_"] },
-            { no: 2, name: "required", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 3, name: "value", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "default", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<Variable>): Variable {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.type = 0;
-        message.required = false;
-        message.value = "";
-        message.default = "";
-        if (value !== undefined)
-            reflectionMergePartial<Variable>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Variable): Variable {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* endpoint.VariableType type */ 1:
-                    message.type = reader.int32();
-                    break;
-                case /* bool required */ 2:
-                    message.required = reader.bool();
-                    break;
-                case /* string value */ 3:
-                    message.value = reader.string();
-                    break;
-                case /* string default */ 4:
-                    message.default = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: Variable, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* endpoint.VariableType type = 1; */
-        if (message.type !== 0)
-            writer.tag(1, WireType.Varint).int32(message.type);
-        /* bool required = 2; */
-        if (message.required !== false)
-            writer.tag(2, WireType.Varint).bool(message.required);
-        /* string value = 3; */
-        if (message.value !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.value);
-        /* string default = 4; */
-        if (message.default !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.default);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.Variable
- */
-export const Variable = new Variable$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SettingRest$Type extends MessageType<SettingRest> {
     constructor() {
@@ -788,669 +475,3 @@ class SettingCron$Type extends MessageType<SettingCron> {
  * @generated MessageType for protobuf message endpoint.SettingCron
  */
 export const SettingCron = new SettingCron$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class Workflow$Type extends MessageType<Workflow> {
-    constructor() {
-        super("endpoint.Workflow", [
-            { no: 1, name: "steps", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Step },
-            { no: 2, name: "edges", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Edge }
-        ]);
-    }
-    create(value?: PartialMessage<Workflow>): Workflow {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.steps = [];
-        message.edges = [];
-        if (value !== undefined)
-            reflectionMergePartial<Workflow>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Workflow): Workflow {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* repeated endpoint.Step steps */ 1:
-                    message.steps.push(Step.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                case /* repeated endpoint.Edge edges */ 2:
-                    message.edges.push(Edge.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: Workflow, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated endpoint.Step steps = 1; */
-        for (let i = 0; i < message.steps.length; i++)
-            Step.internalBinaryWrite(message.steps[i], writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated endpoint.Edge edges = 2; */
-        for (let i = 0; i < message.edges.length; i++)
-            Edge.internalBinaryWrite(message.edges[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.Workflow
- */
-export const Workflow = new Workflow$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class Step$Type extends MessageType<Step> {
-    constructor() {
-        super("endpoint.Step", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "type", kind: "enum", T: () => ["endpoint.StepType", StepType, "STEP_TYPE_"] },
-            { no: 4, name: "variables", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "message", T: () => Variable } },
-            { no: 5, name: "outputs", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "message", T: () => Variable } },
-            { no: 6, name: "returns", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Return },
-            { no: 7, name: "action_end", kind: "message", oneof: "action", T: () => ActionEnd },
-            { no: 8, name: "action_mysql", kind: "message", oneof: "action", T: () => ActionMysql },
-            { no: 9, name: "action_rest", kind: "message", oneof: "action", T: () => ActionRest },
-            { no: 10, name: "action_sleep", kind: "message", oneof: "action", T: () => ActionSleep }
-        ]);
-    }
-    create(value?: PartialMessage<Step>): Step {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
-        message.name = "";
-        message.type = 0;
-        message.variables = {};
-        message.outputs = {};
-        message.returns = [];
-        message.action = { oneofKind: undefined };
-        if (value !== undefined)
-            reflectionMergePartial<Step>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Step): Step {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
-                    break;
-                case /* string name */ 2:
-                    message.name = reader.string();
-                    break;
-                case /* endpoint.StepType type */ 3:
-                    message.type = reader.int32();
-                    break;
-                case /* map<string, endpoint.Variable> variables */ 4:
-                    this.binaryReadMap4(message.variables, reader, options);
-                    break;
-                case /* map<string, endpoint.Variable> outputs */ 5:
-                    this.binaryReadMap5(message.outputs, reader, options);
-                    break;
-                case /* repeated endpoint.Return returns */ 6:
-                    message.returns.push(Return.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                case /* endpoint.ActionEnd action_end */ 7:
-                    message.action = {
-                        oneofKind: "actionEnd",
-                        actionEnd: ActionEnd.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionEnd)
-                    };
-                    break;
-                case /* endpoint.ActionMysql action_mysql */ 8:
-                    message.action = {
-                        oneofKind: "actionMysql",
-                        actionMysql: ActionMysql.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionMysql)
-                    };
-                    break;
-                case /* endpoint.ActionRest action_rest */ 9:
-                    message.action = {
-                        oneofKind: "actionRest",
-                        actionRest: ActionRest.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionRest)
-                    };
-                    break;
-                case /* endpoint.ActionSleep action_sleep */ 10:
-                    message.action = {
-                        oneofKind: "actionSleep",
-                        actionSleep: ActionSleep.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionSleep)
-                    };
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    private binaryReadMap4(map: Step["variables"], reader: IBinaryReader, options: BinaryReadOptions): void {
-        let len = reader.uint32(), end = reader.pos + len, key: keyof Step["variables"] | undefined, val: Step["variables"][any] | undefined;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case 1:
-                    key = reader.string();
-                    break;
-                case 2:
-                    val = Variable.internalBinaryRead(reader, reader.uint32(), options);
-                    break;
-                default: throw new globalThis.Error("unknown map entry field for field endpoint.Step.variables");
-            }
-        }
-        map[key ?? ""] = val ?? Variable.create();
-    }
-    private binaryReadMap5(map: Step["outputs"], reader: IBinaryReader, options: BinaryReadOptions): void {
-        let len = reader.uint32(), end = reader.pos + len, key: keyof Step["outputs"] | undefined, val: Step["outputs"][any] | undefined;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case 1:
-                    key = reader.string();
-                    break;
-                case 2:
-                    val = Variable.internalBinaryRead(reader, reader.uint32(), options);
-                    break;
-                default: throw new globalThis.Error("unknown map entry field for field endpoint.Step.outputs");
-            }
-        }
-        map[key ?? ""] = val ?? Variable.create();
-    }
-    internalBinaryWrite(message: Step, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
-        /* string name = 2; */
-        if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
-        /* endpoint.StepType type = 3; */
-        if (message.type !== 0)
-            writer.tag(3, WireType.Varint).int32(message.type);
-        /* map<string, endpoint.Variable> variables = 4; */
-        for (let k of globalThis.Object.keys(message.variables)) {
-            writer.tag(4, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k);
-            writer.tag(2, WireType.LengthDelimited).fork();
-            Variable.internalBinaryWrite(message.variables[k], writer, options);
-            writer.join().join();
-        }
-        /* map<string, endpoint.Variable> outputs = 5; */
-        for (let k of globalThis.Object.keys(message.outputs)) {
-            writer.tag(5, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k);
-            writer.tag(2, WireType.LengthDelimited).fork();
-            Variable.internalBinaryWrite(message.outputs[k], writer, options);
-            writer.join().join();
-        }
-        /* repeated endpoint.Return returns = 6; */
-        for (let i = 0; i < message.returns.length; i++)
-            Return.internalBinaryWrite(message.returns[i], writer.tag(6, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionEnd action_end = 7; */
-        if (message.action.oneofKind === "actionEnd")
-            ActionEnd.internalBinaryWrite(message.action.actionEnd, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionMysql action_mysql = 8; */
-        if (message.action.oneofKind === "actionMysql")
-            ActionMysql.internalBinaryWrite(message.action.actionMysql, writer.tag(8, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionRest action_rest = 9; */
-        if (message.action.oneofKind === "actionRest")
-            ActionRest.internalBinaryWrite(message.action.actionRest, writer.tag(9, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionSleep action_sleep = 10; */
-        if (message.action.oneofKind === "actionSleep")
-            ActionSleep.internalBinaryWrite(message.action.actionSleep, writer.tag(10, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.Step
- */
-export const Step = new Step$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class ActionEnd$Type extends MessageType<ActionEnd> {
-    constructor() {
-        super("endpoint.ActionEnd", [
-            { no: 1, name: "return_data_from_step_ids", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<ActionEnd>): ActionEnd {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.returnDataFromStepIds = [];
-        if (value !== undefined)
-            reflectionMergePartial<ActionEnd>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ActionEnd): ActionEnd {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* repeated string return_data_from_step_ids */ 1:
-                    message.returnDataFromStepIds.push(reader.string());
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: ActionEnd, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* repeated string return_data_from_step_ids = 1; */
-        for (let i = 0; i < message.returnDataFromStepIds.length; i++)
-            writer.tag(1, WireType.LengthDelimited).string(message.returnDataFromStepIds[i]);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.ActionEnd
- */
-export const ActionEnd = new ActionEnd$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class ActionMysql$Type extends MessageType<ActionMysql> {
-    constructor() {
-        super("endpoint.ActionMysql", [
-            { no: 1, name: "data_source_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "queries", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Query }
-        ]);
-    }
-    create(value?: PartialMessage<ActionMysql>): ActionMysql {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.dataSourceId = "";
-        message.queries = [];
-        if (value !== undefined)
-            reflectionMergePartial<ActionMysql>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ActionMysql): ActionMysql {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string data_source_id */ 1:
-                    message.dataSourceId = reader.string();
-                    break;
-                case /* repeated endpoint.Query queries */ 2:
-                    message.queries.push(Query.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: ActionMysql, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string data_source_id = 1; */
-        if (message.dataSourceId !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.dataSourceId);
-        /* repeated endpoint.Query queries = 2; */
-        for (let i = 0; i < message.queries.length; i++)
-            Query.internalBinaryWrite(message.queries[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.ActionMysql
- */
-export const ActionMysql = new ActionMysql$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class ActionRest$Type extends MessageType<ActionRest> {
-    constructor() {
-        super("endpoint.ActionRest", [
-            { no: 1, name: "path", kind: "message", T: () => Variable },
-            { no: 2, name: "method", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "headers", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "message", T: () => Variable } },
-            { no: 4, name: "request_type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "request_body", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<ActionRest>): ActionRest {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.method = "";
-        message.headers = {};
-        message.requestType = "";
-        message.requestBody = "";
-        if (value !== undefined)
-            reflectionMergePartial<ActionRest>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ActionRest): ActionRest {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* endpoint.Variable path */ 1:
-                    message.path = Variable.internalBinaryRead(reader, reader.uint32(), options, message.path);
-                    break;
-                case /* string method */ 2:
-                    message.method = reader.string();
-                    break;
-                case /* map<string, endpoint.Variable> headers */ 3:
-                    this.binaryReadMap3(message.headers, reader, options);
-                    break;
-                case /* string request_type */ 4:
-                    message.requestType = reader.string();
-                    break;
-                case /* string request_body */ 5:
-                    message.requestBody = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    private binaryReadMap3(map: ActionRest["headers"], reader: IBinaryReader, options: BinaryReadOptions): void {
-        let len = reader.uint32(), end = reader.pos + len, key: keyof ActionRest["headers"] | undefined, val: ActionRest["headers"][any] | undefined;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case 1:
-                    key = reader.string();
-                    break;
-                case 2:
-                    val = Variable.internalBinaryRead(reader, reader.uint32(), options);
-                    break;
-                default: throw new globalThis.Error("unknown map entry field for field endpoint.ActionRest.headers");
-            }
-        }
-        map[key ?? ""] = val ?? Variable.create();
-    }
-    internalBinaryWrite(message: ActionRest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* endpoint.Variable path = 1; */
-        if (message.path)
-            Variable.internalBinaryWrite(message.path, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* string method = 2; */
-        if (message.method !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.method);
-        /* map<string, endpoint.Variable> headers = 3; */
-        for (let k of globalThis.Object.keys(message.headers)) {
-            writer.tag(3, WireType.LengthDelimited).fork().tag(1, WireType.LengthDelimited).string(k);
-            writer.tag(2, WireType.LengthDelimited).fork();
-            Variable.internalBinaryWrite(message.headers[k], writer, options);
-            writer.join().join();
-        }
-        /* string request_type = 4; */
-        if (message.requestType !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.requestType);
-        /* string request_body = 5; */
-        if (message.requestBody !== "")
-            writer.tag(5, WireType.LengthDelimited).string(message.requestBody);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.ActionRest
- */
-export const ActionRest = new ActionRest$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class ActionSleep$Type extends MessageType<ActionSleep> {
-    constructor() {
-        super("endpoint.ActionSleep", [
-            { no: 1, name: "timeout_ms", kind: "scalar", T: 3 /*ScalarType.INT64*/, L: 0 /*LongType.BIGINT*/ }
-        ]);
-    }
-    create(value?: PartialMessage<ActionSleep>): ActionSleep {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.timeoutMs = 0n;
-        if (value !== undefined)
-            reflectionMergePartial<ActionSleep>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: ActionSleep): ActionSleep {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* int64 timeout_ms */ 1:
-                    message.timeoutMs = reader.int64().toBigInt();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: ActionSleep, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* int64 timeout_ms = 1; */
-        if (message.timeoutMs !== 0n)
-            writer.tag(1, WireType.Varint).int64(message.timeoutMs);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.ActionSleep
- */
-export const ActionSleep = new ActionSleep$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class Query$Type extends MessageType<Query> {
-    constructor() {
-        super("endpoint.Query", [
-            { no: 1, name: "query", kind: "message", T: () => Variable },
-            { no: 2, name: "parameters", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Variable }
-        ]);
-    }
-    create(value?: PartialMessage<Query>): Query {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.parameters = [];
-        if (value !== undefined)
-            reflectionMergePartial<Query>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Query): Query {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* endpoint.Variable query */ 1:
-                    message.query = Variable.internalBinaryRead(reader, reader.uint32(), options, message.query);
-                    break;
-                case /* repeated endpoint.Variable parameters */ 2:
-                    message.parameters.push(Variable.internalBinaryRead(reader, reader.uint32(), options));
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: Query, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* endpoint.Variable query = 1; */
-        if (message.query)
-            Variable.internalBinaryWrite(message.query, writer.tag(1, WireType.LengthDelimited).fork(), options).join();
-        /* repeated endpoint.Variable parameters = 2; */
-        for (let i = 0; i < message.parameters.length; i++)
-            Variable.internalBinaryWrite(message.parameters[i], writer.tag(2, WireType.LengthDelimited).fork(), options).join();
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.Query
- */
-export const Query = new Query$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class Return$Type extends MessageType<Return> {
-    constructor() {
-        super("endpoint.Return", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "is_finish_condition", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "next_step_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<Return>): Return {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
-        message.name = "";
-        message.isFinishCondition = "";
-        message.nextStepId = "";
-        if (value !== undefined)
-            reflectionMergePartial<Return>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Return): Return {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
-                    break;
-                case /* string name */ 2:
-                    message.name = reader.string();
-                    break;
-                case /* string is_finish_condition */ 3:
-                    message.isFinishCondition = reader.string();
-                    break;
-                case /* string next_step_id */ 4:
-                    message.nextStepId = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: Return, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
-        /* string name = 2; */
-        if (message.name !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.name);
-        /* string is_finish_condition = 3; */
-        if (message.isFinishCondition !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.isFinishCondition);
-        /* string next_step_id = 4; */
-        if (message.nextStepId !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.nextStepId);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.Return
- */
-export const Return = new Return$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class Edge$Type extends MessageType<Edge> {
-    constructor() {
-        super("endpoint.Edge", [
-            { no: 1, name: "id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "condition_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 3, name: "source", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "dest", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<Edge>): Edge {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.id = "";
-        message.conditionId = "";
-        message.source = "";
-        message.dest = "";
-        if (value !== undefined)
-            reflectionMergePartial<Edge>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Edge): Edge {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string id */ 1:
-                    message.id = reader.string();
-                    break;
-                case /* string condition_id */ 2:
-                    message.conditionId = reader.string();
-                    break;
-                case /* string source */ 3:
-                    message.source = reader.string();
-                    break;
-                case /* string dest */ 4:
-                    message.dest = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: Edge, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string id = 1; */
-        if (message.id !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.id);
-        /* string condition_id = 2; */
-        if (message.conditionId !== "")
-            writer.tag(2, WireType.LengthDelimited).string(message.conditionId);
-        /* string source = 3; */
-        if (message.source !== "")
-            writer.tag(3, WireType.LengthDelimited).string(message.source);
-        /* string dest = 4; */
-        if (message.dest !== "")
-            writer.tag(4, WireType.LengthDelimited).string(message.dest);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message endpoint.Edge
- */
-export const Edge = new Edge$Type();

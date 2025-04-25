@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package endpoint;
+
+message RolloutBlueGreen {
+    string green_workflow_version = 1;
+    string blue_workflow_version = 2;
+}
+
+message RolloutCanary {}

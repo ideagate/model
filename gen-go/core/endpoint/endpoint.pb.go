@@ -71,134 +71,6 @@ func (EndpointType) EnumDescriptor() ([]byte, []int) {
 	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{0}
 }
 
-type VariableType int32
-
-const (
-	VariableType_VARIABLE_TYPE_UNSPECIFIED VariableType = 0
-	VariableType_VARIABLE_TYPE_STRING      VariableType = 1
-	VariableType_VARIABLE_TYPE_INT         VariableType = 2
-	VariableType_VARIABLE_TYPE_FLOAT       VariableType = 3
-	VariableType_VARIABLE_TYPE_BOOL        VariableType = 4
-	VariableType_VARIABLE_TYPE_OBJECT      VariableType = 5
-)
-
-// Enum value maps for VariableType.
-var (
-	VariableType_name = map[int32]string{
-		0: "VARIABLE_TYPE_UNSPECIFIED",
-		1: "VARIABLE_TYPE_STRING",
-		2: "VARIABLE_TYPE_INT",
-		3: "VARIABLE_TYPE_FLOAT",
-		4: "VARIABLE_TYPE_BOOL",
-		5: "VARIABLE_TYPE_OBJECT",
-	}
-	VariableType_value = map[string]int32{
-		"VARIABLE_TYPE_UNSPECIFIED": 0,
-		"VARIABLE_TYPE_STRING":      1,
-		"VARIABLE_TYPE_INT":         2,
-		"VARIABLE_TYPE_FLOAT":       3,
-		"VARIABLE_TYPE_BOOL":        4,
-		"VARIABLE_TYPE_OBJECT":      5,
-	}
-)
-
-func (x VariableType) Enum() *VariableType {
-	p := new(VariableType)
-	*p = x
-	return p
-}
-
-func (x VariableType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (VariableType) Descriptor() protoreflect.EnumDescriptor {
-	return file_core_endpoint_endpoint_proto_enumTypes[1].Descriptor()
-}
-
-func (VariableType) Type() protoreflect.EnumType {
-	return &file_core_endpoint_endpoint_proto_enumTypes[1]
-}
-
-func (x VariableType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use VariableType.Descriptor instead.
-func (VariableType) EnumDescriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{1}
-}
-
-type StepType int32
-
-const (
-	StepType_STEP_TYPE_UNSPECIFIED StepType = 0
-	StepType_STEP_TYPE_START       StepType = 1
-	StepType_STEP_TYPE_END         StepType = 2
-	StepType_STEP_TYPE_SLEEP       StepType = 3
-	StepType_STEP_TYPE_SCRIPT_JS   StepType = 4
-	StepType_STEP_TYPE_CONDITION   StepType = 5
-	StepType_STEP_TYPE_REST        StepType = 6
-	StepType_STEP_TYPE_MYSQL       StepType = 7
-	StepType_STEP_TYPE_POSTGRESQL  StepType = 8
-	StepType_STEP_TYPE_REDIS       StepType = 9
-)
-
-// Enum value maps for StepType.
-var (
-	StepType_name = map[int32]string{
-		0: "STEP_TYPE_UNSPECIFIED",
-		1: "STEP_TYPE_START",
-		2: "STEP_TYPE_END",
-		3: "STEP_TYPE_SLEEP",
-		4: "STEP_TYPE_SCRIPT_JS",
-		5: "STEP_TYPE_CONDITION",
-		6: "STEP_TYPE_REST",
-		7: "STEP_TYPE_MYSQL",
-		8: "STEP_TYPE_POSTGRESQL",
-		9: "STEP_TYPE_REDIS",
-	}
-	StepType_value = map[string]int32{
-		"STEP_TYPE_UNSPECIFIED": 0,
-		"STEP_TYPE_START":       1,
-		"STEP_TYPE_END":         2,
-		"STEP_TYPE_SLEEP":       3,
-		"STEP_TYPE_SCRIPT_JS":   4,
-		"STEP_TYPE_CONDITION":   5,
-		"STEP_TYPE_REST":        6,
-		"STEP_TYPE_MYSQL":       7,
-		"STEP_TYPE_POSTGRESQL":  8,
-		"STEP_TYPE_REDIS":       9,
-	}
-)
-
-func (x StepType) Enum() *StepType {
-	p := new(StepType)
-	*p = x
-	return p
-}
-
-func (x StepType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (StepType) Descriptor() protoreflect.EnumDescriptor {
-	return file_core_endpoint_endpoint_proto_enumTypes[2].Descriptor()
-}
-
-func (StepType) Type() protoreflect.EnumType {
-	return &file_core_endpoint_endpoint_proto_enumTypes[2]
-}
-
-func (x StepType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use StepType.Descriptor instead.
-func (StepType) EnumDescriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{2}
-}
-
 type Endpoint struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -209,6 +81,11 @@ type Endpoint struct {
 	Type          EndpointType           `protobuf:"varint,6,opt,name=type,proto3,enum=endpoint.EndpointType" json:"type,omitempty"`
 	Name          string                 `protobuf:"bytes,7,opt,name=name,proto3" json:"name,omitempty"`
 	Description   string                 `protobuf:"bytes,8,opt,name=description,proto3" json:"description,omitempty"`
+	// Types that are valid to be assigned to Rollout:
+	//
+	//	*Endpoint_BlueGreen
+	//	*Endpoint_Canary
+	Rollout isEndpoint_Rollout `protobuf_oneof:"rollout"`
 	// Types that are valid to be assigned to Settings:
 	//
 	//	*Endpoint_SettingRest
@@ -304,6 +181,31 @@ func (x *Endpoint) GetDescription() string {
 	return ""
 }
 
+func (x *Endpoint) GetRollout() isEndpoint_Rollout {
+	if x != nil {
+		return x.Rollout
+	}
+	return nil
+}
+
+func (x *Endpoint) GetBlueGreen() *RolloutBlueGreen {
+	if x != nil {
+		if x, ok := x.Rollout.(*Endpoint_BlueGreen); ok {
+			return x.BlueGreen
+		}
+	}
+	return nil
+}
+
+func (x *Endpoint) GetCanary() *RolloutCanary {
+	if x != nil {
+		if x, ok := x.Rollout.(*Endpoint_Canary); ok {
+			return x.Canary
+		}
+	}
+	return nil
+}
+
 func (x *Endpoint) GetSettings() isEndpoint_Settings {
 	if x != nil {
 		return x.Settings
@@ -329,6 +231,22 @@ func (x *Endpoint) GetSettingCron() *SettingCron {
 	return nil
 }
 
+type isEndpoint_Rollout interface {
+	isEndpoint_Rollout()
+}
+
+type Endpoint_BlueGreen struct {
+	BlueGreen *RolloutBlueGreen `protobuf:"bytes,91,opt,name=blue_green,json=blueGreen,proto3,oneof"`
+}
+
+type Endpoint_Canary struct {
+	Canary *RolloutCanary `protobuf:"bytes,92,opt,name=canary,proto3,oneof"`
+}
+
+func (*Endpoint_BlueGreen) isEndpoint_Rollout() {}
+
+func (*Endpoint_Canary) isEndpoint_Rollout() {}
+
 type isEndpoint_Settings interface {
 	isEndpoint_Settings()
 }
@@ -345,74 +263,6 @@ func (*Endpoint_SettingRest) isEndpoint_Settings() {}
 
 func (*Endpoint_SettingCron) isEndpoint_Settings() {}
 
-type Variable struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          VariableType           `protobuf:"varint,1,opt,name=type,proto3,enum=endpoint.VariableType" json:"type,omitempty"`
-	Required      bool                   `protobuf:"varint,2,opt,name=required,proto3" json:"required,omitempty"`
-	Value         string                 `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
-	Default       string                 `protobuf:"bytes,4,opt,name=default,proto3" json:"default,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Variable) Reset() {
-	*x = Variable{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Variable) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Variable) ProtoMessage() {}
-
-func (x *Variable) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Variable.ProtoReflect.Descriptor instead.
-func (*Variable) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *Variable) GetType() VariableType {
-	if x != nil {
-		return x.Type
-	}
-	return VariableType_VARIABLE_TYPE_UNSPECIFIED
-}
-
-func (x *Variable) GetRequired() bool {
-	if x != nil {
-		return x.Required
-	}
-	return false
-}
-
-func (x *Variable) GetValue() string {
-	if x != nil {
-		return x.Value
-	}
-	return ""
-}
-
-func (x *Variable) GetDefault() string {
-	if x != nil {
-		return x.Default
-	}
-	return ""
-}
-
 type SettingRest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Method        string                 `protobuf:"bytes,1,opt,name=method,proto3" json:"method,omitempty"`
@@ -427,7 +277,7 @@ type SettingRest struct {
 
 func (x *SettingRest) Reset() {
 	*x = SettingRest{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[2]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -439,7 +289,7 @@ func (x *SettingRest) String() string {
 func (*SettingRest) ProtoMessage() {}
 
 func (x *SettingRest) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[2]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -452,7 +302,7 @@ func (x *SettingRest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SettingRest.ProtoReflect.Descriptor instead.
 func (*SettingRest) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{2}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *SettingRest) GetMethod() string {
@@ -507,7 +357,7 @@ type SettingCron struct {
 
 func (x *SettingCron) Reset() {
 	*x = SettingCron{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[3]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -519,7 +369,7 @@ func (x *SettingCron) String() string {
 func (*SettingCron) ProtoMessage() {}
 
 func (x *SettingCron) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[3]
+	mi := &file_core_endpoint_endpoint_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -532,7 +382,7 @@ func (x *SettingCron) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SettingCron.ProtoReflect.Descriptor instead.
 func (*SettingCron) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{3}
+	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *SettingCron) GetCron() string {
@@ -549,629 +399,11 @@ func (x *SettingCron) GetTimeoutMs() int64 {
 	return 0
 }
 
-type Workflow struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Steps         []*Step                `protobuf:"bytes,1,rep,name=steps,proto3" json:"steps,omitempty"`
-	Edges         []*Edge                `protobuf:"bytes,2,rep,name=edges,proto3" json:"edges,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Workflow) Reset() {
-	*x = Workflow{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[4]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Workflow) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Workflow) ProtoMessage() {}
-
-func (x *Workflow) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[4]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Workflow.ProtoReflect.Descriptor instead.
-func (*Workflow) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{4}
-}
-
-func (x *Workflow) GetSteps() []*Step {
-	if x != nil {
-		return x.Steps
-	}
-	return nil
-}
-
-func (x *Workflow) GetEdges() []*Edge {
-	if x != nil {
-		return x.Edges
-	}
-	return nil
-}
-
-type Step struct {
-	state     protoimpl.MessageState `protogen:"open.v1"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name      string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Type      StepType               `protobuf:"varint,3,opt,name=type,proto3,enum=endpoint.StepType" json:"type,omitempty"`
-	Variables map[string]*Variable   `protobuf:"bytes,4,rep,name=variables,proto3" json:"variables,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Outputs   map[string]*Variable   `protobuf:"bytes,5,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	Returns   []*Return              `protobuf:"bytes,6,rep,name=returns,proto3" json:"returns,omitempty"`
-	// Types that are valid to be assigned to Action:
-	//
-	//	*Step_ActionEnd
-	//	*Step_ActionMysql
-	//	*Step_ActionRest
-	//	*Step_ActionSleep
-	Action        isStep_Action `protobuf_oneof:"action"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Step) Reset() {
-	*x = Step{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[5]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Step) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Step) ProtoMessage() {}
-
-func (x *Step) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[5]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Step.ProtoReflect.Descriptor instead.
-func (*Step) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{5}
-}
-
-func (x *Step) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *Step) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *Step) GetType() StepType {
-	if x != nil {
-		return x.Type
-	}
-	return StepType_STEP_TYPE_UNSPECIFIED
-}
-
-func (x *Step) GetVariables() map[string]*Variable {
-	if x != nil {
-		return x.Variables
-	}
-	return nil
-}
-
-func (x *Step) GetOutputs() map[string]*Variable {
-	if x != nil {
-		return x.Outputs
-	}
-	return nil
-}
-
-func (x *Step) GetReturns() []*Return {
-	if x != nil {
-		return x.Returns
-	}
-	return nil
-}
-
-func (x *Step) GetAction() isStep_Action {
-	if x != nil {
-		return x.Action
-	}
-	return nil
-}
-
-func (x *Step) GetActionEnd() *ActionEnd {
-	if x != nil {
-		if x, ok := x.Action.(*Step_ActionEnd); ok {
-			return x.ActionEnd
-		}
-	}
-	return nil
-}
-
-func (x *Step) GetActionMysql() *ActionMysql {
-	if x != nil {
-		if x, ok := x.Action.(*Step_ActionMysql); ok {
-			return x.ActionMysql
-		}
-	}
-	return nil
-}
-
-func (x *Step) GetActionRest() *ActionRest {
-	if x != nil {
-		if x, ok := x.Action.(*Step_ActionRest); ok {
-			return x.ActionRest
-		}
-	}
-	return nil
-}
-
-func (x *Step) GetActionSleep() *ActionSleep {
-	if x != nil {
-		if x, ok := x.Action.(*Step_ActionSleep); ok {
-			return x.ActionSleep
-		}
-	}
-	return nil
-}
-
-type isStep_Action interface {
-	isStep_Action()
-}
-
-type Step_ActionEnd struct {
-	ActionEnd *ActionEnd `protobuf:"bytes,7,opt,name=action_end,json=actionEnd,proto3,oneof"`
-}
-
-type Step_ActionMysql struct {
-	ActionMysql *ActionMysql `protobuf:"bytes,8,opt,name=action_mysql,json=actionMysql,proto3,oneof"`
-}
-
-type Step_ActionRest struct {
-	ActionRest *ActionRest `protobuf:"bytes,9,opt,name=action_rest,json=actionRest,proto3,oneof"`
-}
-
-type Step_ActionSleep struct {
-	ActionSleep *ActionSleep `protobuf:"bytes,10,opt,name=action_sleep,json=actionSleep,proto3,oneof"`
-}
-
-func (*Step_ActionEnd) isStep_Action() {}
-
-func (*Step_ActionMysql) isStep_Action() {}
-
-func (*Step_ActionRest) isStep_Action() {}
-
-func (*Step_ActionSleep) isStep_Action() {}
-
-type ActionEnd struct {
-	state                 protoimpl.MessageState `protogen:"open.v1"`
-	ReturnDataFromStepIds []string               `protobuf:"bytes,1,rep,name=return_data_from_step_ids,json=returnDataFromStepIds,proto3" json:"return_data_from_step_ids,omitempty"`
-	unknownFields         protoimpl.UnknownFields
-	sizeCache             protoimpl.SizeCache
-}
-
-func (x *ActionEnd) Reset() {
-	*x = ActionEnd{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[6]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ActionEnd) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ActionEnd) ProtoMessage() {}
-
-func (x *ActionEnd) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[6]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ActionEnd.ProtoReflect.Descriptor instead.
-func (*ActionEnd) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *ActionEnd) GetReturnDataFromStepIds() []string {
-	if x != nil {
-		return x.ReturnDataFromStepIds
-	}
-	return nil
-}
-
-type ActionMysql struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	DataSourceId  string                 `protobuf:"bytes,1,opt,name=data_source_id,json=dataSourceId,proto3" json:"data_source_id,omitempty"`
-	Queries       []*Query               `protobuf:"bytes,2,rep,name=queries,proto3" json:"queries,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ActionMysql) Reset() {
-	*x = ActionMysql{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[7]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ActionMysql) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ActionMysql) ProtoMessage() {}
-
-func (x *ActionMysql) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[7]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ActionMysql.ProtoReflect.Descriptor instead.
-func (*ActionMysql) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *ActionMysql) GetDataSourceId() string {
-	if x != nil {
-		return x.DataSourceId
-	}
-	return ""
-}
-
-func (x *ActionMysql) GetQueries() []*Query {
-	if x != nil {
-		return x.Queries
-	}
-	return nil
-}
-
-type ActionRest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Path          *Variable              `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	Method        string                 `protobuf:"bytes,2,opt,name=method,proto3" json:"method,omitempty"`
-	Headers       map[string]*Variable   `protobuf:"bytes,3,rep,name=headers,proto3" json:"headers,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
-	RequestType   string                 `protobuf:"bytes,4,opt,name=request_type,json=requestType,proto3" json:"request_type,omitempty"`
-	RequestBody   string                 `protobuf:"bytes,5,opt,name=request_body,json=requestBody,proto3" json:"request_body,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ActionRest) Reset() {
-	*x = ActionRest{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[8]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ActionRest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ActionRest) ProtoMessage() {}
-
-func (x *ActionRest) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[8]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ActionRest.ProtoReflect.Descriptor instead.
-func (*ActionRest) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *ActionRest) GetPath() *Variable {
-	if x != nil {
-		return x.Path
-	}
-	return nil
-}
-
-func (x *ActionRest) GetMethod() string {
-	if x != nil {
-		return x.Method
-	}
-	return ""
-}
-
-func (x *ActionRest) GetHeaders() map[string]*Variable {
-	if x != nil {
-		return x.Headers
-	}
-	return nil
-}
-
-func (x *ActionRest) GetRequestType() string {
-	if x != nil {
-		return x.RequestType
-	}
-	return ""
-}
-
-func (x *ActionRest) GetRequestBody() string {
-	if x != nil {
-		return x.RequestBody
-	}
-	return ""
-}
-
-type ActionSleep struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	TimeoutMs     int64                  `protobuf:"varint,1,opt,name=timeout_ms,json=timeoutMs,proto3" json:"timeout_ms,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *ActionSleep) Reset() {
-	*x = ActionSleep{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[9]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *ActionSleep) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*ActionSleep) ProtoMessage() {}
-
-func (x *ActionSleep) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[9]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use ActionSleep.ProtoReflect.Descriptor instead.
-func (*ActionSleep) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *ActionSleep) GetTimeoutMs() int64 {
-	if x != nil {
-		return x.TimeoutMs
-	}
-	return 0
-}
-
-type Query struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Query         *Variable              `protobuf:"bytes,1,opt,name=query,proto3" json:"query,omitempty"`
-	Parameters    []*Variable            `protobuf:"bytes,2,rep,name=parameters,proto3" json:"parameters,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Query) Reset() {
-	*x = Query{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[10]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Query) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Query) ProtoMessage() {}
-
-func (x *Query) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[10]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Query.ProtoReflect.Descriptor instead.
-func (*Query) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{10}
-}
-
-func (x *Query) GetQuery() *Variable {
-	if x != nil {
-		return x.Query
-	}
-	return nil
-}
-
-func (x *Query) GetParameters() []*Variable {
-	if x != nil {
-		return x.Parameters
-	}
-	return nil
-}
-
-type Return struct {
-	state             protoimpl.MessageState `protogen:"open.v1"`
-	Id                string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name              string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	IsFinishCondition string                 `protobuf:"bytes,3,opt,name=is_finish_condition,json=isFinishCondition,proto3" json:"is_finish_condition,omitempty"`
-	NextStepId        string                 `protobuf:"bytes,4,opt,name=next_step_id,json=nextStepId,proto3" json:"next_step_id,omitempty"`
-	unknownFields     protoimpl.UnknownFields
-	sizeCache         protoimpl.SizeCache
-}
-
-func (x *Return) Reset() {
-	*x = Return{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[11]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Return) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Return) ProtoMessage() {}
-
-func (x *Return) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[11]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Return.ProtoReflect.Descriptor instead.
-func (*Return) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{11}
-}
-
-func (x *Return) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *Return) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
-func (x *Return) GetIsFinishCondition() string {
-	if x != nil {
-		return x.IsFinishCondition
-	}
-	return ""
-}
-
-func (x *Return) GetNextStepId() string {
-	if x != nil {
-		return x.NextStepId
-	}
-	return ""
-}
-
-type Edge struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	ConditionId   string                 `protobuf:"bytes,2,opt,name=condition_id,json=conditionId,proto3" json:"condition_id,omitempty"`
-	Source        string                 `protobuf:"bytes,3,opt,name=source,proto3" json:"source,omitempty"`
-	Dest          string                 `protobuf:"bytes,4,opt,name=dest,proto3" json:"dest,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *Edge) Reset() {
-	*x = Edge{}
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[12]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *Edge) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*Edge) ProtoMessage() {}
-
-func (x *Edge) ProtoReflect() protoreflect.Message {
-	mi := &file_core_endpoint_endpoint_proto_msgTypes[12]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use Edge.ProtoReflect.Descriptor instead.
-func (*Edge) Descriptor() ([]byte, []int) {
-	return file_core_endpoint_endpoint_proto_rawDescGZIP(), []int{12}
-}
-
-func (x *Edge) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-func (x *Edge) GetConditionId() string {
-	if x != nil {
-		return x.ConditionId
-	}
-	return ""
-}
-
-func (x *Edge) GetSource() string {
-	if x != nil {
-		return x.Source
-	}
-	return ""
-}
-
-func (x *Edge) GetDest() string {
-	if x != nil {
-		return x.Dest
-	}
-	return ""
-}
-
 var File_core_endpoint_endpoint_proto protoreflect.FileDescriptor
 
 const file_core_endpoint_endpoint_proto_rawDesc = "" +
 	"\n" +
-	"\x1ccore/endpoint/endpoint.proto\x12\bendpoint\x1a\x1fgoogle/protobuf/timestamp.proto\"\xbc\x03\n" +
+	"\x1ccore/endpoint/endpoint.proto\x12\bendpoint\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1ccore/endpoint/variable.proto\x1a\x1bcore/endpoint/rollout.proto\"\xb7\x04\n" +
 	"\bEndpoint\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12%\n" +
 	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12\x1d\n" +
@@ -1183,16 +415,15 @@ const file_core_endpoint_endpoint_proto_rawDesc = "" +
 	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12*\n" +
 	"\x04type\x18\x06 \x01(\x0e2\x16.endpoint.EndpointTypeR\x04type\x12\x12\n" +
 	"\x04name\x18\a \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\b \x01(\tR\vdescription\x12:\n" +
-	"\fsetting_rest\x18e \x01(\v2\x15.endpoint.SettingRestH\x00R\vsettingRest\x12:\n" +
-	"\fsetting_cron\x18f \x01(\v2\x15.endpoint.SettingCronH\x00R\vsettingCronB\n" +
+	"\vdescription\x18\b \x01(\tR\vdescription\x12;\n" +
 	"\n" +
-	"\bsettings\"\x82\x01\n" +
-	"\bVariable\x12*\n" +
-	"\x04type\x18\x01 \x01(\x0e2\x16.endpoint.VariableTypeR\x04type\x12\x1a\n" +
-	"\brequired\x18\x02 \x01(\bR\brequired\x12\x14\n" +
-	"\x05value\x18\x03 \x01(\tR\x05value\x12\x18\n" +
-	"\adefault\x18\x04 \x01(\tR\adefault\"\x81\x03\n" +
+	"blue_green\x18[ \x01(\v2\x1a.endpoint.RolloutBlueGreenH\x00R\tblueGreen\x121\n" +
+	"\x06canary\x18\\ \x01(\v2\x17.endpoint.RolloutCanaryH\x00R\x06canary\x12:\n" +
+	"\fsetting_rest\x18e \x01(\v2\x15.endpoint.SettingRestH\x01R\vsettingRest\x12:\n" +
+	"\fsetting_cron\x18f \x01(\v2\x15.endpoint.SettingCronH\x01R\vsettingCronB\t\n" +
+	"\arolloutB\n" +
+	"\n" +
+	"\bsettings\"\x81\x03\n" +
 	"\vSettingRest\x12\x16\n" +
 	"\x06method\x18\x01 \x01(\tR\x06method\x12\x12\n" +
 	"\x04path\x18\x02 \x01(\tR\x04path\x12\x1d\n" +
@@ -1212,87 +443,11 @@ const file_core_endpoint_endpoint_proto_rawDesc = "" +
 	"\vSettingCron\x12\x12\n" +
 	"\x04cron\x18\x01 \x01(\tR\x04cron\x12\x1d\n" +
 	"\n" +
-	"timeout_ms\x18\x02 \x01(\x03R\ttimeoutMs\"V\n" +
-	"\bWorkflow\x12$\n" +
-	"\x05steps\x18\x01 \x03(\v2\x0e.endpoint.StepR\x05steps\x12$\n" +
-	"\x05edges\x18\x02 \x03(\v2\x0e.endpoint.EdgeR\x05edges\"\x85\x05\n" +
-	"\x04Step\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12&\n" +
-	"\x04type\x18\x03 \x01(\x0e2\x12.endpoint.StepTypeR\x04type\x12;\n" +
-	"\tvariables\x18\x04 \x03(\v2\x1d.endpoint.Step.VariablesEntryR\tvariables\x125\n" +
-	"\aoutputs\x18\x05 \x03(\v2\x1b.endpoint.Step.OutputsEntryR\aoutputs\x12*\n" +
-	"\areturns\x18\x06 \x03(\v2\x10.endpoint.ReturnR\areturns\x124\n" +
-	"\n" +
-	"action_end\x18\a \x01(\v2\x13.endpoint.ActionEndH\x00R\tactionEnd\x12:\n" +
-	"\faction_mysql\x18\b \x01(\v2\x15.endpoint.ActionMysqlH\x00R\vactionMysql\x127\n" +
-	"\vaction_rest\x18\t \x01(\v2\x14.endpoint.ActionRestH\x00R\n" +
-	"actionRest\x12:\n" +
-	"\faction_sleep\x18\n" +
-	" \x01(\v2\x15.endpoint.ActionSleepH\x00R\vactionSleep\x1aP\n" +
-	"\x0eVariablesEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12(\n" +
-	"\x05value\x18\x02 \x01(\v2\x12.endpoint.VariableR\x05value:\x028\x01\x1aN\n" +
-	"\fOutputsEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12(\n" +
-	"\x05value\x18\x02 \x01(\v2\x12.endpoint.VariableR\x05value:\x028\x01B\b\n" +
-	"\x06action\"E\n" +
-	"\tActionEnd\x128\n" +
-	"\x19return_data_from_step_ids\x18\x01 \x03(\tR\x15returnDataFromStepIds\"^\n" +
-	"\vActionMysql\x12$\n" +
-	"\x0edata_source_id\x18\x01 \x01(\tR\fdataSourceId\x12)\n" +
-	"\aqueries\x18\x02 \x03(\v2\x0f.endpoint.QueryR\aqueries\"\x9f\x02\n" +
-	"\n" +
-	"ActionRest\x12&\n" +
-	"\x04path\x18\x01 \x01(\v2\x12.endpoint.VariableR\x04path\x12\x16\n" +
-	"\x06method\x18\x02 \x01(\tR\x06method\x12;\n" +
-	"\aheaders\x18\x03 \x03(\v2!.endpoint.ActionRest.HeadersEntryR\aheaders\x12!\n" +
-	"\frequest_type\x18\x04 \x01(\tR\vrequestType\x12!\n" +
-	"\frequest_body\x18\x05 \x01(\tR\vrequestBody\x1aN\n" +
-	"\fHeadersEntry\x12\x10\n" +
-	"\x03key\x18\x01 \x01(\tR\x03key\x12(\n" +
-	"\x05value\x18\x02 \x01(\v2\x12.endpoint.VariableR\x05value:\x028\x01\",\n" +
-	"\vActionSleep\x12\x1d\n" +
-	"\n" +
-	"timeout_ms\x18\x01 \x01(\x03R\ttimeoutMs\"e\n" +
-	"\x05Query\x12(\n" +
-	"\x05query\x18\x01 \x01(\v2\x12.endpoint.VariableR\x05query\x122\n" +
-	"\n" +
-	"parameters\x18\x02 \x03(\v2\x12.endpoint.VariableR\n" +
-	"parameters\"~\n" +
-	"\x06Return\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12.\n" +
-	"\x13is_finish_condition\x18\x03 \x01(\tR\x11isFinishCondition\x12 \n" +
-	"\fnext_step_id\x18\x04 \x01(\tR\n" +
-	"nextStepId\"e\n" +
-	"\x04Edge\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12!\n" +
-	"\fcondition_id\x18\x02 \x01(\tR\vconditionId\x12\x16\n" +
-	"\x06source\x18\x03 \x01(\tR\x06source\x12\x12\n" +
-	"\x04dest\x18\x04 \x01(\tR\x04dest*]\n" +
+	"timeout_ms\x18\x02 \x01(\x03R\ttimeoutMs*]\n" +
 	"\fEndpointType\x12\x1d\n" +
 	"\x19ENDPOINT_TYPE_UNSPECIFIED\x10\x00\x12\x16\n" +
 	"\x12ENDPOINT_TYPE_REST\x10\x01\x12\x16\n" +
-	"\x12ENDPOINT_TYPE_CRON\x10\x02*\xa9\x01\n" +
-	"\fVariableType\x12\x1d\n" +
-	"\x19VARIABLE_TYPE_UNSPECIFIED\x10\x00\x12\x18\n" +
-	"\x14VARIABLE_TYPE_STRING\x10\x01\x12\x15\n" +
-	"\x11VARIABLE_TYPE_INT\x10\x02\x12\x17\n" +
-	"\x13VARIABLE_TYPE_FLOAT\x10\x03\x12\x16\n" +
-	"\x12VARIABLE_TYPE_BOOL\x10\x04\x12\x18\n" +
-	"\x14VARIABLE_TYPE_OBJECT\x10\x05*\xec\x01\n" +
-	"\bStepType\x12\x19\n" +
-	"\x15STEP_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
-	"\x0fSTEP_TYPE_START\x10\x01\x12\x11\n" +
-	"\rSTEP_TYPE_END\x10\x02\x12\x13\n" +
-	"\x0fSTEP_TYPE_SLEEP\x10\x03\x12\x17\n" +
-	"\x13STEP_TYPE_SCRIPT_JS\x10\x04\x12\x17\n" +
-	"\x13STEP_TYPE_CONDITION\x10\x05\x12\x12\n" +
-	"\x0eSTEP_TYPE_REST\x10\x06\x12\x13\n" +
-	"\x0fSTEP_TYPE_MYSQL\x10\a\x12\x18\n" +
-	"\x14STEP_TYPE_POSTGRESQL\x10\b\x12\x13\n" +
-	"\x0fSTEP_TYPE_REDIS\x10\tB\x8d\x01\n" +
+	"\x12ENDPOINT_TYPE_CRON\x10\x02B\x8d\x01\n" +
 	"\fcom.endpointB\rEndpointProtoP\x01Z.github.com/ideagate/model/gen-go/core/endpoint\xa2\x02\x03EXX\xaa\x02\bEndpoint\xca\x02\bEndpoint\xe2\x02\x14Endpoint\\GPBMetadata\xea\x02\bEndpointb\x06proto3"
 
 var (
@@ -1307,66 +462,37 @@ func file_core_endpoint_endpoint_proto_rawDescGZIP() []byte {
 	return file_core_endpoint_endpoint_proto_rawDescData
 }
 
-var file_core_endpoint_endpoint_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
-var file_core_endpoint_endpoint_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_core_endpoint_endpoint_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_core_endpoint_endpoint_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_core_endpoint_endpoint_proto_goTypes = []any{
 	(EndpointType)(0),             // 0: endpoint.EndpointType
-	(VariableType)(0),             // 1: endpoint.VariableType
-	(StepType)(0),                 // 2: endpoint.StepType
-	(*Endpoint)(nil),              // 3: endpoint.Endpoint
-	(*Variable)(nil),              // 4: endpoint.Variable
-	(*SettingRest)(nil),           // 5: endpoint.SettingRest
-	(*SettingCron)(nil),           // 6: endpoint.SettingCron
-	(*Workflow)(nil),              // 7: endpoint.Workflow
-	(*Step)(nil),                  // 8: endpoint.Step
-	(*ActionEnd)(nil),             // 9: endpoint.ActionEnd
-	(*ActionMysql)(nil),           // 10: endpoint.ActionMysql
-	(*ActionRest)(nil),            // 11: endpoint.ActionRest
-	(*ActionSleep)(nil),           // 12: endpoint.ActionSleep
-	(*Query)(nil),                 // 13: endpoint.Query
-	(*Return)(nil),                // 14: endpoint.Return
-	(*Edge)(nil),                  // 15: endpoint.Edge
-	nil,                           // 16: endpoint.SettingRest.QueryEntry
-	nil,                           // 17: endpoint.SettingRest.JsonEntry
-	nil,                           // 18: endpoint.Step.VariablesEntry
-	nil,                           // 19: endpoint.Step.OutputsEntry
-	nil,                           // 20: endpoint.ActionRest.HeadersEntry
-	(*timestamppb.Timestamp)(nil), // 21: google.protobuf.Timestamp
+	(*Endpoint)(nil),              // 1: endpoint.Endpoint
+	(*SettingRest)(nil),           // 2: endpoint.SettingRest
+	(*SettingCron)(nil),           // 3: endpoint.SettingCron
+	nil,                           // 4: endpoint.SettingRest.QueryEntry
+	nil,                           // 5: endpoint.SettingRest.JsonEntry
+	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
+	(*RolloutBlueGreen)(nil),      // 7: endpoint.RolloutBlueGreen
+	(*RolloutCanary)(nil),         // 8: endpoint.RolloutCanary
+	(*Variable)(nil),              // 9: endpoint.Variable
 }
 var file_core_endpoint_endpoint_proto_depIdxs = []int32{
-	21, // 0: endpoint.Endpoint.created_at:type_name -> google.protobuf.Timestamp
-	21, // 1: endpoint.Endpoint.updated_at:type_name -> google.protobuf.Timestamp
+	6,  // 0: endpoint.Endpoint.created_at:type_name -> google.protobuf.Timestamp
+	6,  // 1: endpoint.Endpoint.updated_at:type_name -> google.protobuf.Timestamp
 	0,  // 2: endpoint.Endpoint.type:type_name -> endpoint.EndpointType
-	5,  // 3: endpoint.Endpoint.setting_rest:type_name -> endpoint.SettingRest
-	6,  // 4: endpoint.Endpoint.setting_cron:type_name -> endpoint.SettingCron
-	1,  // 5: endpoint.Variable.type:type_name -> endpoint.VariableType
-	16, // 6: endpoint.SettingRest.query:type_name -> endpoint.SettingRest.QueryEntry
-	17, // 7: endpoint.SettingRest.json:type_name -> endpoint.SettingRest.JsonEntry
-	8,  // 8: endpoint.Workflow.steps:type_name -> endpoint.Step
-	15, // 9: endpoint.Workflow.edges:type_name -> endpoint.Edge
-	2,  // 10: endpoint.Step.type:type_name -> endpoint.StepType
-	18, // 11: endpoint.Step.variables:type_name -> endpoint.Step.VariablesEntry
-	19, // 12: endpoint.Step.outputs:type_name -> endpoint.Step.OutputsEntry
-	14, // 13: endpoint.Step.returns:type_name -> endpoint.Return
-	9,  // 14: endpoint.Step.action_end:type_name -> endpoint.ActionEnd
-	10, // 15: endpoint.Step.action_mysql:type_name -> endpoint.ActionMysql
-	11, // 16: endpoint.Step.action_rest:type_name -> endpoint.ActionRest
-	12, // 17: endpoint.Step.action_sleep:type_name -> endpoint.ActionSleep
-	13, // 18: endpoint.ActionMysql.queries:type_name -> endpoint.Query
-	4,  // 19: endpoint.ActionRest.path:type_name -> endpoint.Variable
-	20, // 20: endpoint.ActionRest.headers:type_name -> endpoint.ActionRest.HeadersEntry
-	4,  // 21: endpoint.Query.query:type_name -> endpoint.Variable
-	4,  // 22: endpoint.Query.parameters:type_name -> endpoint.Variable
-	4,  // 23: endpoint.SettingRest.QueryEntry.value:type_name -> endpoint.Variable
-	4,  // 24: endpoint.SettingRest.JsonEntry.value:type_name -> endpoint.Variable
-	4,  // 25: endpoint.Step.VariablesEntry.value:type_name -> endpoint.Variable
-	4,  // 26: endpoint.Step.OutputsEntry.value:type_name -> endpoint.Variable
-	4,  // 27: endpoint.ActionRest.HeadersEntry.value:type_name -> endpoint.Variable
-	28, // [28:28] is the sub-list for method output_type
-	28, // [28:28] is the sub-list for method input_type
-	28, // [28:28] is the sub-list for extension type_name
-	28, // [28:28] is the sub-list for extension extendee
-	0,  // [0:28] is the sub-list for field type_name
+	7,  // 3: endpoint.Endpoint.blue_green:type_name -> endpoint.RolloutBlueGreen
+	8,  // 4: endpoint.Endpoint.canary:type_name -> endpoint.RolloutCanary
+	2,  // 5: endpoint.Endpoint.setting_rest:type_name -> endpoint.SettingRest
+	3,  // 6: endpoint.Endpoint.setting_cron:type_name -> endpoint.SettingCron
+	4,  // 7: endpoint.SettingRest.query:type_name -> endpoint.SettingRest.QueryEntry
+	5,  // 8: endpoint.SettingRest.json:type_name -> endpoint.SettingRest.JsonEntry
+	9,  // 9: endpoint.SettingRest.QueryEntry.value:type_name -> endpoint.Variable
+	9,  // 10: endpoint.SettingRest.JsonEntry.value:type_name -> endpoint.Variable
+	11, // [11:11] is the sub-list for method output_type
+	11, // [11:11] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_core_endpoint_endpoint_proto_init() }
@@ -1374,23 +500,21 @@ func file_core_endpoint_endpoint_proto_init() {
 	if File_core_endpoint_endpoint_proto != nil {
 		return
 	}
+	file_core_endpoint_variable_proto_init()
+	file_core_endpoint_rollout_proto_init()
 	file_core_endpoint_endpoint_proto_msgTypes[0].OneofWrappers = []any{
+		(*Endpoint_BlueGreen)(nil),
+		(*Endpoint_Canary)(nil),
 		(*Endpoint_SettingRest)(nil),
 		(*Endpoint_SettingCron)(nil),
-	}
-	file_core_endpoint_endpoint_proto_msgTypes[5].OneofWrappers = []any{
-		(*Step_ActionEnd)(nil),
-		(*Step_ActionMysql)(nil),
-		(*Step_ActionRest)(nil),
-		(*Step_ActionSleep)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_core_endpoint_endpoint_proto_rawDesc), len(file_core_endpoint_endpoint_proto_rawDesc)),
-			NumEnums:      3,
-			NumMessages:   18,
+			NumEnums:      1,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
