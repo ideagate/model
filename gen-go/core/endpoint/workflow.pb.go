@@ -200,6 +200,7 @@ type Step struct {
 	Variables map[string]*Variable   `protobuf:"bytes,4,rep,name=variables,proto3" json:"variables,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	Outputs   map[string]*Variable   `protobuf:"bytes,5,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
 	Returns   []*Return              `protobuf:"bytes,6,rep,name=returns,proto3" json:"returns,omitempty"`
+	Graph     *Graph                 `protobuf:"bytes,7,opt,name=graph,proto3" json:"graph,omitempty"`
 	// Types that are valid to be assigned to Action:
 	//
 	//	*Step_ActionEnd
@@ -283,6 +284,13 @@ func (x *Step) GetReturns() []*Return {
 	return nil
 }
 
+func (x *Step) GetGraph() *Graph {
+	if x != nil {
+		return x.Graph
+	}
+	return nil
+}
+
 func (x *Step) GetAction() isStep_Action {
 	if x != nil {
 		return x.Action
@@ -331,19 +339,19 @@ type isStep_Action interface {
 }
 
 type Step_ActionEnd struct {
-	ActionEnd *ActionEnd `protobuf:"bytes,7,opt,name=action_end,json=actionEnd,proto3,oneof"`
+	ActionEnd *ActionEnd `protobuf:"bytes,101,opt,name=action_end,json=actionEnd,proto3,oneof"`
 }
 
 type Step_ActionMysql struct {
-	ActionMysql *ActionMysql `protobuf:"bytes,8,opt,name=action_mysql,json=actionMysql,proto3,oneof"`
+	ActionMysql *ActionMysql `protobuf:"bytes,102,opt,name=action_mysql,json=actionMysql,proto3,oneof"`
 }
 
 type Step_ActionRest struct {
-	ActionRest *ActionRest `protobuf:"bytes,9,opt,name=action_rest,json=actionRest,proto3,oneof"`
+	ActionRest *ActionRest `protobuf:"bytes,103,opt,name=action_rest,json=actionRest,proto3,oneof"`
 }
 
 type Step_ActionSleep struct {
-	ActionSleep *ActionSleep `protobuf:"bytes,10,opt,name=action_sleep,json=actionSleep,proto3,oneof"`
+	ActionSleep *ActionSleep `protobuf:"bytes,104,opt,name=action_sleep,json=actionSleep,proto3,oneof"`
 }
 
 func (*Step_ActionEnd) isStep_Action() {}
@@ -758,6 +766,58 @@ func (x *Edge) GetDest() string {
 	return ""
 }
 
+type Graph struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PositionX     int32                  `protobuf:"varint,1,opt,name=position_x,json=positionX,proto3" json:"position_x,omitempty"`
+	PositionY     int32                  `protobuf:"varint,2,opt,name=position_y,json=positionY,proto3" json:"position_y,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Graph) Reset() {
+	*x = Graph{}
+	mi := &file_core_endpoint_workflow_proto_msgTypes[9]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Graph) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Graph) ProtoMessage() {}
+
+func (x *Graph) ProtoReflect() protoreflect.Message {
+	mi := &file_core_endpoint_workflow_proto_msgTypes[9]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Graph.ProtoReflect.Descriptor instead.
+func (*Graph) Descriptor() ([]byte, []int) {
+	return file_core_endpoint_workflow_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *Graph) GetPositionX() int32 {
+	if x != nil {
+		return x.PositionX
+	}
+	return 0
+}
+
+func (x *Graph) GetPositionY() int32 {
+	if x != nil {
+		return x.PositionY
+	}
+	return 0
+}
+
 var File_core_endpoint_workflow_proto protoreflect.FileDescriptor
 
 const file_core_endpoint_workflow_proto_rawDesc = "" +
@@ -774,21 +834,21 @@ const file_core_endpoint_workflow_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\x06 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12$\n" +
 	"\x05steps\x18\a \x03(\v2\x0e.endpoint.StepR\x05steps\x12$\n" +
-	"\x05edges\x18\b \x03(\v2\x0e.endpoint.EdgeR\x05edges\"\x85\x05\n" +
+	"\x05edges\x18\b \x03(\v2\x0e.endpoint.EdgeR\x05edges\"\xac\x05\n" +
 	"\x04Step\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12&\n" +
 	"\x04type\x18\x03 \x01(\x0e2\x12.endpoint.StepTypeR\x04type\x12;\n" +
 	"\tvariables\x18\x04 \x03(\v2\x1d.endpoint.Step.VariablesEntryR\tvariables\x125\n" +
 	"\aoutputs\x18\x05 \x03(\v2\x1b.endpoint.Step.OutputsEntryR\aoutputs\x12*\n" +
-	"\areturns\x18\x06 \x03(\v2\x10.endpoint.ReturnR\areturns\x124\n" +
+	"\areturns\x18\x06 \x03(\v2\x10.endpoint.ReturnR\areturns\x12%\n" +
+	"\x05graph\x18\a \x01(\v2\x0f.endpoint.GraphR\x05graph\x124\n" +
 	"\n" +
-	"action_end\x18\a \x01(\v2\x13.endpoint.ActionEndH\x00R\tactionEnd\x12:\n" +
-	"\faction_mysql\x18\b \x01(\v2\x15.endpoint.ActionMysqlH\x00R\vactionMysql\x127\n" +
-	"\vaction_rest\x18\t \x01(\v2\x14.endpoint.ActionRestH\x00R\n" +
+	"action_end\x18e \x01(\v2\x13.endpoint.ActionEndH\x00R\tactionEnd\x12:\n" +
+	"\faction_mysql\x18f \x01(\v2\x15.endpoint.ActionMysqlH\x00R\vactionMysql\x127\n" +
+	"\vaction_rest\x18g \x01(\v2\x14.endpoint.ActionRestH\x00R\n" +
 	"actionRest\x12:\n" +
-	"\faction_sleep\x18\n" +
-	" \x01(\v2\x15.endpoint.ActionSleepH\x00R\vactionSleep\x1aP\n" +
+	"\faction_sleep\x18h \x01(\v2\x15.endpoint.ActionSleepH\x00R\vactionSleep\x1aP\n" +
 	"\x0eVariablesEntry\x12\x10\n" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12(\n" +
 	"\x05value\x18\x02 \x01(\v2\x12.endpoint.VariableR\x05value:\x028\x01\x1aN\n" +
@@ -829,7 +889,12 @@ const file_core_endpoint_workflow_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12!\n" +
 	"\fcondition_id\x18\x02 \x01(\tR\vconditionId\x12\x16\n" +
 	"\x06source\x18\x03 \x01(\tR\x06source\x12\x12\n" +
-	"\x04dest\x18\x04 \x01(\tR\x04dest*\xec\x01\n" +
+	"\x04dest\x18\x04 \x01(\tR\x04dest\"E\n" +
+	"\x05Graph\x12\x1d\n" +
+	"\n" +
+	"position_x\x18\x01 \x01(\x05R\tpositionX\x12\x1d\n" +
+	"\n" +
+	"position_y\x18\x02 \x01(\x05R\tpositionY*\xec\x01\n" +
 	"\bStepType\x12\x19\n" +
 	"\x15STEP_TYPE_UNSPECIFIED\x10\x00\x12\x13\n" +
 	"\x0fSTEP_TYPE_START\x10\x01\x12\x11\n" +
@@ -856,7 +921,7 @@ func file_core_endpoint_workflow_proto_rawDescGZIP() []byte {
 }
 
 var file_core_endpoint_workflow_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_core_endpoint_workflow_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_core_endpoint_workflow_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_core_endpoint_workflow_proto_goTypes = []any{
 	(StepType)(0),                 // 0: endpoint.StepType
 	(*Workflow)(nil),              // 1: endpoint.Workflow
@@ -868,38 +933,40 @@ var file_core_endpoint_workflow_proto_goTypes = []any{
 	(*Query)(nil),                 // 7: endpoint.Query
 	(*Return)(nil),                // 8: endpoint.Return
 	(*Edge)(nil),                  // 9: endpoint.Edge
-	nil,                           // 10: endpoint.Step.VariablesEntry
-	nil,                           // 11: endpoint.Step.OutputsEntry
-	nil,                           // 12: endpoint.ActionRest.HeadersEntry
-	(*timestamppb.Timestamp)(nil), // 13: google.protobuf.Timestamp
-	(*Variable)(nil),              // 14: endpoint.Variable
+	(*Graph)(nil),                 // 10: endpoint.Graph
+	nil,                           // 11: endpoint.Step.VariablesEntry
+	nil,                           // 12: endpoint.Step.OutputsEntry
+	nil,                           // 13: endpoint.ActionRest.HeadersEntry
+	(*timestamppb.Timestamp)(nil), // 14: google.protobuf.Timestamp
+	(*Variable)(nil),              // 15: endpoint.Variable
 }
 var file_core_endpoint_workflow_proto_depIdxs = []int32{
-	13, // 0: endpoint.Workflow.created_at:type_name -> google.protobuf.Timestamp
-	13, // 1: endpoint.Workflow.updated_at:type_name -> google.protobuf.Timestamp
+	14, // 0: endpoint.Workflow.created_at:type_name -> google.protobuf.Timestamp
+	14, // 1: endpoint.Workflow.updated_at:type_name -> google.protobuf.Timestamp
 	2,  // 2: endpoint.Workflow.steps:type_name -> endpoint.Step
 	9,  // 3: endpoint.Workflow.edges:type_name -> endpoint.Edge
 	0,  // 4: endpoint.Step.type:type_name -> endpoint.StepType
-	10, // 5: endpoint.Step.variables:type_name -> endpoint.Step.VariablesEntry
-	11, // 6: endpoint.Step.outputs:type_name -> endpoint.Step.OutputsEntry
+	11, // 5: endpoint.Step.variables:type_name -> endpoint.Step.VariablesEntry
+	12, // 6: endpoint.Step.outputs:type_name -> endpoint.Step.OutputsEntry
 	8,  // 7: endpoint.Step.returns:type_name -> endpoint.Return
-	3,  // 8: endpoint.Step.action_end:type_name -> endpoint.ActionEnd
-	4,  // 9: endpoint.Step.action_mysql:type_name -> endpoint.ActionMysql
-	5,  // 10: endpoint.Step.action_rest:type_name -> endpoint.ActionRest
-	6,  // 11: endpoint.Step.action_sleep:type_name -> endpoint.ActionSleep
-	7,  // 12: endpoint.ActionMysql.queries:type_name -> endpoint.Query
-	14, // 13: endpoint.ActionRest.path:type_name -> endpoint.Variable
-	12, // 14: endpoint.ActionRest.headers:type_name -> endpoint.ActionRest.HeadersEntry
-	14, // 15: endpoint.Query.query:type_name -> endpoint.Variable
-	14, // 16: endpoint.Query.parameters:type_name -> endpoint.Variable
-	14, // 17: endpoint.Step.VariablesEntry.value:type_name -> endpoint.Variable
-	14, // 18: endpoint.Step.OutputsEntry.value:type_name -> endpoint.Variable
-	14, // 19: endpoint.ActionRest.HeadersEntry.value:type_name -> endpoint.Variable
-	20, // [20:20] is the sub-list for method output_type
-	20, // [20:20] is the sub-list for method input_type
-	20, // [20:20] is the sub-list for extension type_name
-	20, // [20:20] is the sub-list for extension extendee
-	0,  // [0:20] is the sub-list for field type_name
+	10, // 8: endpoint.Step.graph:type_name -> endpoint.Graph
+	3,  // 9: endpoint.Step.action_end:type_name -> endpoint.ActionEnd
+	4,  // 10: endpoint.Step.action_mysql:type_name -> endpoint.ActionMysql
+	5,  // 11: endpoint.Step.action_rest:type_name -> endpoint.ActionRest
+	6,  // 12: endpoint.Step.action_sleep:type_name -> endpoint.ActionSleep
+	7,  // 13: endpoint.ActionMysql.queries:type_name -> endpoint.Query
+	15, // 14: endpoint.ActionRest.path:type_name -> endpoint.Variable
+	13, // 15: endpoint.ActionRest.headers:type_name -> endpoint.ActionRest.HeadersEntry
+	15, // 16: endpoint.Query.query:type_name -> endpoint.Variable
+	15, // 17: endpoint.Query.parameters:type_name -> endpoint.Variable
+	15, // 18: endpoint.Step.VariablesEntry.value:type_name -> endpoint.Variable
+	15, // 19: endpoint.Step.OutputsEntry.value:type_name -> endpoint.Variable
+	15, // 20: endpoint.ActionRest.HeadersEntry.value:type_name -> endpoint.Variable
+	21, // [21:21] is the sub-list for method output_type
+	21, // [21:21] is the sub-list for method input_type
+	21, // [21:21] is the sub-list for extension type_name
+	21, // [21:21] is the sub-list for extension extendee
+	0,  // [0:21] is the sub-list for field type_name
 }
 
 func init() { file_core_endpoint_workflow_proto_init() }
@@ -920,7 +987,7 @@ func file_core_endpoint_workflow_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_core_endpoint_workflow_proto_rawDesc), len(file_core_endpoint_workflow_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   12,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

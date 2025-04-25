@@ -82,30 +82,34 @@ export interface Step {
      */
     returns: Return[];
     /**
+     * @generated from protobuf field: endpoint.Graph graph = 7;
+     */
+    graph?: Graph;
+    /**
      * @generated from protobuf oneof: action
      */
     action: {
         oneofKind: "actionEnd";
         /**
-         * @generated from protobuf field: endpoint.ActionEnd action_end = 7;
+         * @generated from protobuf field: endpoint.ActionEnd action_end = 101;
          */
         actionEnd: ActionEnd;
     } | {
         oneofKind: "actionMysql";
         /**
-         * @generated from protobuf field: endpoint.ActionMysql action_mysql = 8;
+         * @generated from protobuf field: endpoint.ActionMysql action_mysql = 102;
          */
         actionMysql: ActionMysql;
     } | {
         oneofKind: "actionRest";
         /**
-         * @generated from protobuf field: endpoint.ActionRest action_rest = 9;
+         * @generated from protobuf field: endpoint.ActionRest action_rest = 103;
          */
         actionRest: ActionRest;
     } | {
         oneofKind: "actionSleep";
         /**
-         * @generated from protobuf field: endpoint.ActionSleep action_sleep = 10;
+         * @generated from protobuf field: endpoint.ActionSleep action_sleep = 104;
          */
         actionSleep: ActionSleep;
     } | {
@@ -224,6 +228,19 @@ export interface Edge {
      * @generated from protobuf field: string dest = 4;
      */
     dest: string;
+}
+/**
+ * @generated from protobuf message endpoint.Graph
+ */
+export interface Graph {
+    /**
+     * @generated from protobuf field: int32 position_x = 1;
+     */
+    positionX: number;
+    /**
+     * @generated from protobuf field: int32 position_y = 2;
+     */
+    positionY: number;
 }
 /**
  * @generated from protobuf enum endpoint.StepType
@@ -381,10 +398,11 @@ class Step$Type extends MessageType<Step> {
             { no: 4, name: "variables", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "message", T: () => Variable } },
             { no: 5, name: "outputs", kind: "map", K: 9 /*ScalarType.STRING*/, V: { kind: "message", T: () => Variable } },
             { no: 6, name: "returns", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Return },
-            { no: 7, name: "action_end", kind: "message", oneof: "action", T: () => ActionEnd },
-            { no: 8, name: "action_mysql", kind: "message", oneof: "action", T: () => ActionMysql },
-            { no: 9, name: "action_rest", kind: "message", oneof: "action", T: () => ActionRest },
-            { no: 10, name: "action_sleep", kind: "message", oneof: "action", T: () => ActionSleep }
+            { no: 7, name: "graph", kind: "message", T: () => Graph },
+            { no: 101, name: "action_end", kind: "message", oneof: "action", T: () => ActionEnd },
+            { no: 102, name: "action_mysql", kind: "message", oneof: "action", T: () => ActionMysql },
+            { no: 103, name: "action_rest", kind: "message", oneof: "action", T: () => ActionRest },
+            { no: 104, name: "action_sleep", kind: "message", oneof: "action", T: () => ActionSleep }
         ]);
     }
     create(value?: PartialMessage<Step>): Step {
@@ -423,25 +441,28 @@ class Step$Type extends MessageType<Step> {
                 case /* repeated endpoint.Return returns */ 6:
                     message.returns.push(Return.internalBinaryRead(reader, reader.uint32(), options));
                     break;
-                case /* endpoint.ActionEnd action_end */ 7:
+                case /* endpoint.Graph graph */ 7:
+                    message.graph = Graph.internalBinaryRead(reader, reader.uint32(), options, message.graph);
+                    break;
+                case /* endpoint.ActionEnd action_end */ 101:
                     message.action = {
                         oneofKind: "actionEnd",
                         actionEnd: ActionEnd.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionEnd)
                     };
                     break;
-                case /* endpoint.ActionMysql action_mysql */ 8:
+                case /* endpoint.ActionMysql action_mysql */ 102:
                     message.action = {
                         oneofKind: "actionMysql",
                         actionMysql: ActionMysql.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionMysql)
                     };
                     break;
-                case /* endpoint.ActionRest action_rest */ 9:
+                case /* endpoint.ActionRest action_rest */ 103:
                     message.action = {
                         oneofKind: "actionRest",
                         actionRest: ActionRest.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionRest)
                     };
                     break;
-                case /* endpoint.ActionSleep action_sleep */ 10:
+                case /* endpoint.ActionSleep action_sleep */ 104:
                     message.action = {
                         oneofKind: "actionSleep",
                         actionSleep: ActionSleep.internalBinaryRead(reader, reader.uint32(), options, (message.action as any).actionSleep)
@@ -517,18 +538,21 @@ class Step$Type extends MessageType<Step> {
         /* repeated endpoint.Return returns = 6; */
         for (let i = 0; i < message.returns.length; i++)
             Return.internalBinaryWrite(message.returns[i], writer.tag(6, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionEnd action_end = 7; */
+        /* endpoint.Graph graph = 7; */
+        if (message.graph)
+            Graph.internalBinaryWrite(message.graph, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
+        /* endpoint.ActionEnd action_end = 101; */
         if (message.action.oneofKind === "actionEnd")
-            ActionEnd.internalBinaryWrite(message.action.actionEnd, writer.tag(7, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionMysql action_mysql = 8; */
+            ActionEnd.internalBinaryWrite(message.action.actionEnd, writer.tag(101, WireType.LengthDelimited).fork(), options).join();
+        /* endpoint.ActionMysql action_mysql = 102; */
         if (message.action.oneofKind === "actionMysql")
-            ActionMysql.internalBinaryWrite(message.action.actionMysql, writer.tag(8, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionRest action_rest = 9; */
+            ActionMysql.internalBinaryWrite(message.action.actionMysql, writer.tag(102, WireType.LengthDelimited).fork(), options).join();
+        /* endpoint.ActionRest action_rest = 103; */
         if (message.action.oneofKind === "actionRest")
-            ActionRest.internalBinaryWrite(message.action.actionRest, writer.tag(9, WireType.LengthDelimited).fork(), options).join();
-        /* endpoint.ActionSleep action_sleep = 10; */
+            ActionRest.internalBinaryWrite(message.action.actionRest, writer.tag(103, WireType.LengthDelimited).fork(), options).join();
+        /* endpoint.ActionSleep action_sleep = 104; */
         if (message.action.oneofKind === "actionSleep")
-            ActionSleep.internalBinaryWrite(message.action.actionSleep, writer.tag(10, WireType.LengthDelimited).fork(), options).join();
+            ActionSleep.internalBinaryWrite(message.action.actionSleep, writer.tag(104, WireType.LengthDelimited).fork(), options).join();
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
@@ -982,3 +1006,58 @@ class Edge$Type extends MessageType<Edge> {
  * @generated MessageType for protobuf message endpoint.Edge
  */
 export const Edge = new Edge$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class Graph$Type extends MessageType<Graph> {
+    constructor() {
+        super("endpoint.Graph", [
+            { no: 1, name: "position_x", kind: "scalar", T: 5 /*ScalarType.INT32*/ },
+            { no: 2, name: "position_y", kind: "scalar", T: 5 /*ScalarType.INT32*/ }
+        ]);
+    }
+    create(value?: PartialMessage<Graph>): Graph {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        message.positionX = 0;
+        message.positionY = 0;
+        if (value !== undefined)
+            reflectionMergePartial<Graph>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: Graph): Graph {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* int32 position_x */ 1:
+                    message.positionX = reader.int32();
+                    break;
+                case /* int32 position_y */ 2:
+                    message.positionY = reader.int32();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: Graph, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* int32 position_x = 1; */
+        if (message.positionX !== 0)
+            writer.tag(1, WireType.Varint).int32(message.positionX);
+        /* int32 position_y = 2; */
+        if (message.positionY !== 0)
+            writer.tag(2, WireType.Varint).int32(message.positionY);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message endpoint.Graph
+ */
+export const Graph = new Graph$Type();

@@ -24,11 +24,12 @@ message Step {
     map<string, Variable> variables = 4;
     map<string, Variable> outputs = 5;
     repeated Return returns = 6;
+    Graph graph = 7;
     oneof action {
-        ActionEnd action_end = 7;
-        ActionMysql action_mysql = 8;
-        ActionRest action_rest = 9;
-        ActionSleep action_sleep = 10;
+        ActionEnd action_end = 101;
+        ActionMysql action_mysql = 102;
+        ActionRest action_rest = 103;
+        ActionSleep action_sleep = 104;
     }
 }
 
@@ -83,4 +84,9 @@ message Edge {
     string condition_id = 2;
     string source = 3;
     string dest = 4;
+}
+
+message Graph {
+    int32 position_x = 1;
+    int32 position_y = 2;
 }
