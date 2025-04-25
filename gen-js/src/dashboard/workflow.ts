@@ -81,9 +81,21 @@ export interface UpdateWorkflowResponse {
  */
 export interface DeleteWorkflowRequest {
     /**
-     * @generated from protobuf field: string version = 1;
+     * @generated from protobuf field: string project_id = 1;
      */
-    version: string;
+    projectId: string;
+    /**
+     * @generated from protobuf field: string application_id = 2;
+     */
+    applicationId: string;
+    /**
+     * @generated from protobuf field: string entrypoint_id = 3;
+     */
+    entrypointId: string;
+    /**
+     * @generated from protobuf field: string workflow_id = 4;
+     */
+    workflowId: string;
 }
 /**
  * @generated from protobuf message dashboard.DeleteWorkflowResponse
@@ -377,12 +389,18 @@ export const UpdateWorkflowResponse = new UpdateWorkflowResponse$Type();
 class DeleteWorkflowRequest$Type extends MessageType<DeleteWorkflowRequest> {
     constructor() {
         super("dashboard.DeleteWorkflowRequest", [
-            { no: 1, name: "version", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 1, name: "project_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "application_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "entrypoint_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "workflow_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
     create(value?: PartialMessage<DeleteWorkflowRequest>): DeleteWorkflowRequest {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.version = "";
+        message.projectId = "";
+        message.applicationId = "";
+        message.entrypointId = "";
+        message.workflowId = "";
         if (value !== undefined)
             reflectionMergePartial<DeleteWorkflowRequest>(this, message, value);
         return message;
@@ -392,8 +410,17 @@ class DeleteWorkflowRequest$Type extends MessageType<DeleteWorkflowRequest> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string version */ 1:
-                    message.version = reader.string();
+                case /* string project_id */ 1:
+                    message.projectId = reader.string();
+                    break;
+                case /* string application_id */ 2:
+                    message.applicationId = reader.string();
+                    break;
+                case /* string entrypoint_id */ 3:
+                    message.entrypointId = reader.string();
+                    break;
+                case /* string workflow_id */ 4:
+                    message.workflowId = reader.string();
                     break;
                 default:
                     let u = options.readUnknownField;
@@ -407,9 +434,18 @@ class DeleteWorkflowRequest$Type extends MessageType<DeleteWorkflowRequest> {
         return message;
     }
     internalBinaryWrite(message: DeleteWorkflowRequest, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string version = 1; */
-        if (message.version !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.version);
+        /* string project_id = 1; */
+        if (message.projectId !== "")
+            writer.tag(1, WireType.LengthDelimited).string(message.projectId);
+        /* string application_id = 2; */
+        if (message.applicationId !== "")
+            writer.tag(2, WireType.LengthDelimited).string(message.applicationId);
+        /* string entrypoint_id = 3; */
+        if (message.entrypointId !== "")
+            writer.tag(3, WireType.LengthDelimited).string(message.entrypointId);
+        /* string workflow_id = 4; */
+        if (message.workflowId !== "")
+            writer.tag(4, WireType.LengthDelimited).string(message.workflowId);
         let u = options.writeUnknownFields;
         if (u !== false)
             (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);

@@ -32,7 +32,10 @@ message UpdateWorkflowRequest {
 message UpdateWorkflowResponse {}
 
 message DeleteWorkflowRequest {
-    string version = 1;
+    string project_id = 1;
+    string application_id = 2;
+    string entrypoint_id = 3;
+    string workflow_id = 4;
 }
 
 message DeleteWorkflowResponse {}

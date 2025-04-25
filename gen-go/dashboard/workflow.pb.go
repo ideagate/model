@@ -306,7 +306,10 @@ func (*UpdateWorkflowResponse) Descriptor() ([]byte, []int) {
 
 type DeleteWorkflowRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Version       string                 `protobuf:"bytes,1,opt,name=version,proto3" json:"version,omitempty"`
+	ProjectId     string                 `protobuf:"bytes,1,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	ApplicationId string                 `protobuf:"bytes,2,opt,name=application_id,json=applicationId,proto3" json:"application_id,omitempty"`
+	EntrypointId  string                 `protobuf:"bytes,3,opt,name=entrypoint_id,json=entrypointId,proto3" json:"entrypoint_id,omitempty"`
+	WorkflowId    string                 `protobuf:"bytes,4,opt,name=workflow_id,json=workflowId,proto3" json:"workflow_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -341,9 +344,30 @@ func (*DeleteWorkflowRequest) Descriptor() ([]byte, []int) {
 	return file_dashboard_workflow_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *DeleteWorkflowRequest) GetVersion() string {
+func (x *DeleteWorkflowRequest) GetProjectId() string {
 	if x != nil {
-		return x.Version
+		return x.ProjectId
+	}
+	return ""
+}
+
+func (x *DeleteWorkflowRequest) GetApplicationId() string {
+	if x != nil {
+		return x.ApplicationId
+	}
+	return ""
+}
+
+func (x *DeleteWorkflowRequest) GetEntrypointId() string {
+	if x != nil {
+		return x.EntrypointId
+	}
+	return ""
+}
+
+func (x *DeleteWorkflowRequest) GetWorkflowId() string {
+	if x != nil {
+		return x.WorkflowId
 	}
 	return ""
 }
@@ -404,9 +428,14 @@ const file_dashboard_workflow_proto_rawDesc = "" +
 	"\tworkflows\x18\x01 \x03(\v2\x12.endpoint.WorkflowR\tworkflows\"G\n" +
 	"\x15UpdateWorkflowRequest\x12.\n" +
 	"\bworkflow\x18\x01 \x01(\v2\x12.endpoint.WorkflowR\bworkflow\"\x18\n" +
-	"\x16UpdateWorkflowResponse\"1\n" +
-	"\x15DeleteWorkflowRequest\x12\x18\n" +
-	"\aversion\x18\x01 \x01(\tR\aversion\"\x18\n" +
+	"\x16UpdateWorkflowResponse\"\xa3\x01\n" +
+	"\x15DeleteWorkflowRequest\x12\x1d\n" +
+	"\n" +
+	"project_id\x18\x01 \x01(\tR\tprojectId\x12%\n" +
+	"\x0eapplication_id\x18\x02 \x01(\tR\rapplicationId\x12#\n" +
+	"\rentrypoint_id\x18\x03 \x01(\tR\fentrypointId\x12\x1f\n" +
+	"\vworkflow_id\x18\x04 \x01(\tR\n" +
+	"workflowId\"\x18\n" +
 	"\x16DeleteWorkflowResponseB\x8e\x01\n" +
 	"\rcom.dashboardB\rWorkflowProtoP\x01Z*github.com/ideagate/model/gen-go/dashboard\xa2\x02\x03DXX\xaa\x02\tDashboard\xca\x02\tDashboard\xe2\x02\x15Dashboard\\GPBMetadata\xea\x02\tDashboardb\x06proto3"
 
