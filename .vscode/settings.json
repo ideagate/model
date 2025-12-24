@@ -1,0 +1,6 @@
+{
+    "protobuf.externalLinter.enabled": true,
+    "protobuf.externalLinter.linter": "buf",
+    "protobuf.externalLinter.bufPath": "/opt/homebrew/bin/buf",
+    "protobuf.protoc.options": ["--proto_path=${workspaceFolder}/proto", "--go_out=${workspaceFolder}/gen-go"]
+}

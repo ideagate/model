@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package entrypoint;
+
+import "google/protobuf/timestamp.proto";
+import "core/entrypoint/settings.proto";
+
+message Entrypoint {
+  string                    id             = 1;
+  string                    application_id = 2;
+  string                    project_id     = 3;
+  google.protobuf.Timestamp created_at     = 4;
+  google.protobuf.Timestamp updated_at     = 5;
+  EntrypointType            type           = 6;
+  string                    name           = 7;
+  string                    description    = 8;
+  Setting                   setting        = 9;
+}
+
+enum EntrypointType {
+  ENTRYPOINT_TYPE_UNSPECIFIED   = 0;
+  ENTRYPOINT_TYPE_REST          = 1;
+  ENTRYPOINT_TYPE_CRON          = 2;
+  ENTRYPOINT_TYPE_NATS_CONSUMER = 3;
+}
+
+message Setting {
+  SettingNatsConsumer setting_nats_consumer = 1;
+}

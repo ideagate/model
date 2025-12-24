@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package process;
+
+import "core/entrypoint/variable/variable.proto";
+
+message Switch {
+  variable.Variable   input = 1;
+  repeated SwitchCase cases = 2;
+}
+
+message SwitchCase {
+  variable.Variable equal     = 1;
+  string            output_id = 2;
+}

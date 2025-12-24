@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package process;
+
+import "core/entrypoint/variable/variable.proto";
+
+message NatsPublisher {
+  string            dependency_id = 1;
+  variable.Variable subject       = 2;
+  variable.Variable message       = 3;
+}

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package variable;
+
+message Variable {
+  VariableType type        = 1;
+  bool         required    = 2;
+  string       value       = 3;
+  string       default     = 4;
+  string       script      = 5;
+  ScriptType   script_type = 6;
+}
+
+enum VariableType {
+  VARIABLE_TYPE_UNSPECIFIED = 0;
+  VARIABLE_TYPE_STRING      = 1;
+  VARIABLE_TYPE_INT         = 2;
+  VARIABLE_TYPE_FLOAT       = 3;
+  VARIABLE_TYPE_BOOL        = 4;
+  VARIABLE_TYPE_OBJECT      = 5;
+}
+
+enum ScriptType {
+  SCRIPT_TYPE_UNSPECIFIED      = 0;
+  SCRIPT_TYPE_GO_TEXT_TEMPLATE = 1;
+}

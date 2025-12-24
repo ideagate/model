@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package process;
+
+import "core/entrypoint/variable/variable.proto";
+
+message Variables {
+  repeated VariablesAction actions = 1;
+}
+
+message VariablesAction {
+  string            type          = 1;
+  string            variable_name = 2;
+  variable.Variable value         = 3;
+}

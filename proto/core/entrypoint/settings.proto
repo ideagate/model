@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package entrypoint;
+
+message SettingNatsConsumer {
+  string dependency_endpoint_id = 1;
+  string consumer_name          = 2;
+}

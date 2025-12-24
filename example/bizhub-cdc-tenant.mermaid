@@ -1,0 +1,19 @@
+flowchart TD
+    start(Start)
+    parse_tenant_id_provider(Parse Tenant ID from Provider)
+    parse_tenant_id_tenant(Parse Tenant ID from Tenant Info)
+    parse_tenant_id_user_tenant(Parse Tenant ID from User-Tenant Mapping)
+    get_tenant_detail(Get Tenant Detail from Tenant Service)
+    construct_tenant_event_payload(Construct Tenant Event Payload)
+    publish_tenant_event(Publish Tenant Event to NATS)
+    end_(End)
+
+    start --> parse_tenant_id_provider
+    parse_tenant_id_provider --> parse_tenant_id_tenant
+    parse_tenant_id_provider --> parse_tenant_id_user_tenant
+    parse_tenant_id_provider --> end_
+    parse_tenant_id_tenant --> get_tenant_detail
+    parse_tenant_id_user_tenant --> get_tenant_detail
+    get_tenant_detail --> construct_tenant_event_payload
+    construct_tenant_event_payload --> publish_tenant_event
+    publish_tenant_event --> end_

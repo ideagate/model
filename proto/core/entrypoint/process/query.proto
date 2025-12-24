@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package process;
+
+import "core/entrypoint/variable/variable.proto";
+
+message Query {
+  variable.Variable              query  = 1;
+  map<string, variable.Variable> params = 2;
+}

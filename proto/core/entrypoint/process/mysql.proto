@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package process;
+
+import "core/entrypoint/process/query.proto";
+
+message Mysql {
+  string         dependency_id = 1;
+  repeated Query queries       = 2;
+}

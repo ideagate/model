@@ -1,0 +1,221 @@
+// Nats Event
+//  {
+//    "data": {
+//      "db": "database_name",
+//      "table": "table_name",
+//      "action": "insert|update|delete|unknown",
+//      "data": {
+//        "<col_1>": "<value_1>",
+//        "<col_2>": "<value_2>"
+//      }    
+//    }
+//  }
+
+// External dependencies
+// {
+//     "dependencies": [
+//         {
+//             "id": "nats-bizhub-staging",
+//             "type": "nats",
+//             "host": "nats",
+//             "port": 4222,
+//             "user": "user",
+//             "pass": "password"
+//         },
+//         {
+//             "id": "mysql-bizhub-staging",
+//             "type": "mysql",
+//             "host": "mysql",
+//             "port": "3306",
+//             "user": "user",
+//.            "pass": "password
+//         }
+//     ]
+// }
+
+{
+    // entrypoint
+    "id": "bizhub-cdc-tenant-event",
+    "application_id": "bizhub-background",
+    "project_id": "bizhub",
+    "type": "nats_consumer",
+    "name": "CDC Tenant Worker",
+    "description": "Consume tenant events from CDC",
+    "settings": {
+        "nats_consumer": {
+            "dependency_id": "nats-bizhub-staging",
+            "consumer_name": "bizhub-cdc-tenant-worker" // from existing NATS consumer
+        }
+    },
+    "workflow": {
+        "version": 1,
+        "entrypoint_id": "bizhub-cdc-tenant-event",
+        "application_id": "bizhub-background",
+        "project_id": "bizhub",
+        "edges": [
+            {"id": "1", "source": "start", "dest": "parse-tenant-id-provider"},
+            {"id": "2", "source": "parse-tenant-id-provider", "source_output_id": "tenant", "dest": "parse-tenant-id-tenant"},
+            {"id": "3", "source": "parse-tenant-id-provider", "source_output_id": "user-tenant", "dest": "parse-tenant-id-user-tenant"},
+            {"id": "4", "source": "parse-tenant-id-provider", "source_output_id": "default", "dest": "end"},
+            {"id": "5", "source": "parse-tenant-id-tenant", "dest": "get-tenant-detail"},
+            {"id": "6", "source": "parse-tenant-id-user-tenant", "dest": "get-tenant-detail"},
+            {"id": "7", "source": "get-tenant-detail", "dest": "construct-tenant-event-payload"},
+            {"id": "8", "source": "construct-tenant-event-payload", "dest": "publish-tenant-event"},
+            {"id": "9", "source": "publish-tenant-event", "dest": "end"}
+        ],
+        "steps": [
+            {
+                "id": "start"
+            },
+            {
+                "id": "parse-tenant-id-provider",
+                "type": "switch",
+                "name": "Parse Tenant ID Provider",
+                "process": {
+                    "switch": {
+                        "input": {
+                            "script_type": "go-text-template",
+                            "script": "{{.Input.data.table}}",
+                            "type": "string"
+                        },
+                        "cases": [
+                            {
+                                "equal": {
+                                    "value": "tenant"
+                                },
+                                "output_id": "tenant"
+                            },
+                            {
+                                "equal": {
+                                    "value": "user_tenant"
+                                },
+                                "output_id": "user-tenant"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "parse-tenant-id-tenant",
+                "type": "variables",
+                "name": "Parse Tenant ID from Tenant Table",
+                "process": {
+                    "variables": {
+                        "actions": [
+                            {
+                                "type": "write",
+                                "variable_name": "tenant_id",
+                                "value": {
+                                    "script_type": "go-text-template",
+                                    "script": "{{.Input.data.data.id}}",
+                                    "type": "int"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "parse-tenant-id-user-tenant",
+                "type": "variables",
+                "name": "Parse Tenant ID from User Tenant Table",
+                "process": {
+                    "variables": {
+                        "actions": [
+                            {
+                                "type": "write",
+                                "variable_name": "tenant_id",
+                                "value": {
+                                    "script_type": "go-text-template",
+                                    "script": "{{.Input.data.data.tenant_id}}",
+                                    "type": "int"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "get-tenant-detail",
+                "type": "mysql",
+                "name": "Get Tenant Detail",
+                "process": {
+                    "mysql": {
+                        "dependency_id": "mysql-bizhub-staging",
+                        "queries": [
+                            {
+                                "query": {
+                                    "script_type": "go-text-template",
+                                    "script": "SELECT mode FROM tenant WHERE id = :tenant_id",
+                                    "type": "string"
+                                },
+                                "params": {
+                                    "tenant_id": {
+                                        "script_type": "go-text-template",
+                                        "script": "{{.Var.tenant_id}}",
+                                        "type": "int"
+                                    }
+                                }
+                            }
+                        ],
+                        "is_single_row_result": true,
+                        "use_transaction": false
+                    }
+                },
+                "post_process_variables": {
+                    "actions": [
+                        {
+                            "type": "write",
+                            "variable_name": "tenant_mode",
+                            "value": {
+                                "script_type": "go-text-template",
+                                "script": "{{.Result.data.mode}}",
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "construct-tenant-event-payload",
+                "type": "variables",
+                "name": "Construct Tenant Event Payload",
+                "process": {
+                    "variables": {
+                        "actions": [
+                            {
+                                "type": "write",
+                                "variable_name": "tenant_event_payload",
+                                "value": {
+                                    "script_type": "go-text-template",
+                                    "script": "{\"tenant_id\": {{.Var.tenant_id}}, \"tenant_mode\": \"{{.Var.tenant_mode}}\"}",
+                                    "type": "object"
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "publish-tenant-event",
+                "type": "nats-publisher",
+                "name": "Publish Tenant Event",
+                "process": {
+                    "nats_publisher": {
+                        "dependency_id": "nats-bizhub-staging",
+                        "subject": {
+                            "script_type": "go-text-template",
+                            "script": "{{.Env.env}}-tenant",
+                            "type": "string"
+                        },
+                        "message": {
+                            "script_type": "go-text-template",
+                            "script": "{{.Var.tenant_event_payload}}",
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}
