@@ -1,14 +1,39 @@
-name: Publish Gen JS Package
+name: Publish version
 on:
   push:
     tags:
       - 'v*'  # Triggers on version tags like v1.0, v2.1, etc.
 
+permissions:
+  contents: write
+
 env:
   GEN_JS_FOLDER: gen-js
 
 jobs:
-  build:
+  create-gen-go-tag:
+    name: Create gen-go Tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create gen-go tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          GEN_GO_TAG="gen-go/${TAG_NAME}"
+          git tag "$GEN_GO_TAG"
+          git push origin "$GEN_GO_TAG"
+
+  build-and-publish-gen-js:
+    name: Build and Publish gen-js Package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
