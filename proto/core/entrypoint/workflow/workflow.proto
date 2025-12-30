@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package workflow;
+
+import "google/protobuf/timestamp.proto";
+import "core/entrypoint/workflow/step.proto";
+import "core/entrypoint/workflow/edge.proto";
+
+message Workflow {
+    int64 version = 1;
+    string entrypoint_id = 2;
+    string application_id = 3;
+    string project_id = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+    repeated Step steps = 7;
+    repeated Edge edges = 8;
+}

@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package workflow;
+
+message Edge {
+    string id = 1;
+    string source = 2;
+    string source_output_id = 3;
+    string dest = 4;
+}

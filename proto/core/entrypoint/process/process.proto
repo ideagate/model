@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package process;
+
+import "core/entrypoint/process/switch.proto";
+import "core/entrypoint/process/variable.proto";
+import "core/entrypoint/process/mysql.proto";
+import "core/entrypoint/process/nats.proto";
+
+message Process {
+    // Start start = 1;
+    // End end = 2;
+    Switch switch = 3;
+    Variables variables = 4;
+    Mysql mysql = 5;
+    NatsPublisher nats_publisher = 6;
+}
