@@ -22,6 +22,55 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type VariableActionType int32
+
+const (
+	VariableActionType_VARIABLE_ACTION_TYPE_UNSPECIFIED VariableActionType = 0
+	VariableActionType_VARIABLE_ACTION_TYPE_SET         VariableActionType = 1
+	VariableActionType_VARIABLE_ACTION_TYPE_DELETE      VariableActionType = 2
+)
+
+// Enum value maps for VariableActionType.
+var (
+	VariableActionType_name = map[int32]string{
+		0: "VARIABLE_ACTION_TYPE_UNSPECIFIED",
+		1: "VARIABLE_ACTION_TYPE_SET",
+		2: "VARIABLE_ACTION_TYPE_DELETE",
+	}
+	VariableActionType_value = map[string]int32{
+		"VARIABLE_ACTION_TYPE_UNSPECIFIED": 0,
+		"VARIABLE_ACTION_TYPE_SET":         1,
+		"VARIABLE_ACTION_TYPE_DELETE":      2,
+	}
+)
+
+func (x VariableActionType) Enum() *VariableActionType {
+	p := new(VariableActionType)
+	*p = x
+	return p
+}
+
+func (x VariableActionType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (VariableActionType) Descriptor() protoreflect.EnumDescriptor {
+	return file_core_entrypoint_process_variable_proto_enumTypes[0].Descriptor()
+}
+
+func (VariableActionType) Type() protoreflect.EnumType {
+	return &file_core_entrypoint_process_variable_proto_enumTypes[0]
+}
+
+func (x VariableActionType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use VariableActionType.Descriptor instead.
+func (VariableActionType) EnumDescriptor() ([]byte, []int) {
+	return file_core_entrypoint_process_variable_proto_rawDescGZIP(), []int{0}
+}
+
 type Variables struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Actions       []*VariablesAction     `protobuf:"bytes,1,rep,name=actions,proto3" json:"actions,omitempty"`
@@ -68,7 +117,7 @@ func (x *Variables) GetActions() []*VariablesAction {
 
 type VariablesAction struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Type          string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Type          VariableActionType     `protobuf:"varint,1,opt,name=type,proto3,enum=process.VariableActionType" json:"type,omitempty"`
 	VariableName  string                 `protobuf:"bytes,2,opt,name=variable_name,json=variableName,proto3" json:"variable_name,omitempty"`
 	Value         *variable.Variable     `protobuf:"bytes,3,opt,name=value,proto3" json:"value,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -105,11 +154,11 @@ func (*VariablesAction) Descriptor() ([]byte, []int) {
 	return file_core_entrypoint_process_variable_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *VariablesAction) GetType() string {
+func (x *VariablesAction) GetType() VariableActionType {
 	if x != nil {
 		return x.Type
 	}
-	return ""
+	return VariableActionType_VARIABLE_ACTION_TYPE_UNSPECIFIED
 }
 
 func (x *VariablesAction) GetVariableName() string {
@@ -132,11 +181,15 @@ const file_core_entrypoint_process_variable_proto_rawDesc = "" +
 	"\n" +
 	"&core/entrypoint/process/variable.proto\x12\aprocess\x1a'core/entrypoint/variable/variable.proto\"?\n" +
 	"\tVariables\x122\n" +
-	"\aactions\x18\x01 \x03(\v2\x18.process.VariablesActionR\aactions\"t\n" +
-	"\x0fVariablesAction\x12\x12\n" +
-	"\x04type\x18\x01 \x01(\tR\x04type\x12#\n" +
+	"\aactions\x18\x01 \x03(\v2\x18.process.VariablesActionR\aactions\"\x91\x01\n" +
+	"\x0fVariablesAction\x12/\n" +
+	"\x04type\x18\x01 \x01(\x0e2\x1b.process.VariableActionTypeR\x04type\x12#\n" +
 	"\rvariable_name\x18\x02 \x01(\tR\fvariableName\x12(\n" +
-	"\x05value\x18\x03 \x01(\v2\x12.variable.VariableR\x05valueB\x92\x01\n" +
+	"\x05value\x18\x03 \x01(\v2\x12.variable.VariableR\x05value*y\n" +
+	"\x12VariableActionType\x12$\n" +
+	" VARIABLE_ACTION_TYPE_UNSPECIFIED\x10\x00\x12\x1c\n" +
+	"\x18VARIABLE_ACTION_TYPE_SET\x10\x01\x12\x1f\n" +
+	"\x1bVARIABLE_ACTION_TYPE_DELETE\x10\x02B\x92\x01\n" +
 	"\vcom.processB\rVariableProtoP\x01Z8github.com/ideagate/model/gen-go/core/entrypoint/process\xa2\x02\x03PXX\xaa\x02\aProcess\xca\x02\aProcess\xe2\x02\x13Process\\GPBMetadata\xea\x02\aProcessb\x06proto3"
 
 var (
@@ -151,20 +204,23 @@ func file_core_entrypoint_process_variable_proto_rawDescGZIP() []byte {
 	return file_core_entrypoint_process_variable_proto_rawDescData
 }
 
+var file_core_entrypoint_process_variable_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_core_entrypoint_process_variable_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_core_entrypoint_process_variable_proto_goTypes = []any{
-	(*Variables)(nil),         // 0: process.Variables
-	(*VariablesAction)(nil),   // 1: process.VariablesAction
-	(*variable.Variable)(nil), // 2: variable.Variable
+	(VariableActionType)(0),   // 0: process.VariableActionType
+	(*Variables)(nil),         // 1: process.Variables
+	(*VariablesAction)(nil),   // 2: process.VariablesAction
+	(*variable.Variable)(nil), // 3: variable.Variable
 }
 var file_core_entrypoint_process_variable_proto_depIdxs = []int32{
-	1, // 0: process.Variables.actions:type_name -> process.VariablesAction
-	2, // 1: process.VariablesAction.value:type_name -> variable.Variable
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 0: process.Variables.actions:type_name -> process.VariablesAction
+	0, // 1: process.VariablesAction.type:type_name -> process.VariableActionType
+	3, // 2: process.VariablesAction.value:type_name -> variable.Variable
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_core_entrypoint_process_variable_proto_init() }
@@ -177,13 +233,14 @@ func file_core_entrypoint_process_variable_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_core_entrypoint_process_variable_proto_rawDesc), len(file_core_entrypoint_process_variable_proto_rawDesc)),
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_core_entrypoint_process_variable_proto_goTypes,
 		DependencyIndexes: file_core_entrypoint_process_variable_proto_depIdxs,
+		EnumInfos:         file_core_entrypoint_process_variable_proto_enumTypes,
 		MessageInfos:      file_core_entrypoint_process_variable_proto_msgTypes,
 	}.Build()
 	File_core_entrypoint_process_variable_proto = out.File

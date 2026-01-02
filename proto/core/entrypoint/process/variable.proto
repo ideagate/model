@@ -9,7 +9,13 @@ message Variables {
 }
 
 message VariablesAction {
-  string            type          = 1;
+  VariableActionType            type          = 1;
   string            variable_name = 2;
   variable.Variable value         = 3;
+}
+
+enum VariableActionType {
+  VARIABLE_ACTION_TYPE_UNSPECIFIED = 0;
+  VARIABLE_ACTION_TYPE_SET         = 1;
+  VARIABLE_ACTION_TYPE_DELETE      = 2;
 }

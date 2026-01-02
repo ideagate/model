@@ -25,9 +25,9 @@ export interface Variables {
  */
 export interface VariablesAction {
     /**
-     * @generated from protobuf field: string type = 1;
+     * @generated from protobuf field: process.VariableActionType type = 1;
      */
-    type: string;
+    type: VariableActionType;
     /**
      * @generated from protobuf field: string variable_name = 2;
      */
@@ -36,6 +36,23 @@ export interface VariablesAction {
      * @generated from protobuf field: variable.Variable value = 3;
      */
     value?: Variable;
+}
+/**
+ * @generated from protobuf enum process.VariableActionType
+ */
+export enum VariableActionType {
+    /**
+     * @generated from protobuf enum value: VARIABLE_ACTION_TYPE_UNSPECIFIED = 0;
+     */
+    UNSPECIFIED = 0,
+    /**
+     * @generated from protobuf enum value: VARIABLE_ACTION_TYPE_SET = 1;
+     */
+    SET = 1,
+    /**
+     * @generated from protobuf enum value: VARIABLE_ACTION_TYPE_DELETE = 2;
+     */
+    DELETE = 2
 }
 // @generated message type with reflection information, may provide speed optimized methods
 class Variables$Type extends MessageType<Variables> {
@@ -88,14 +105,14 @@ export const Variables = new Variables$Type();
 class VariablesAction$Type extends MessageType<VariablesAction> {
     constructor() {
         super("process.VariablesAction", [
-            { no: 1, name: "type", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 1, name: "type", kind: "enum", T: () => ["process.VariableActionType", VariableActionType, "VARIABLE_ACTION_TYPE_"] },
             { no: 2, name: "variable_name", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
             { no: 3, name: "value", kind: "message", T: () => Variable }
         ]);
     }
     create(value?: PartialMessage<VariablesAction>): VariablesAction {
         const message = globalThis.Object.create((this.messagePrototype!));
-        message.type = "";
+        message.type = 0;
         message.variableName = "";
         if (value !== undefined)
             reflectionMergePartial<VariablesAction>(this, message, value);
@@ -106,8 +123,8 @@ class VariablesAction$Type extends MessageType<VariablesAction> {
         while (reader.pos < end) {
             let [fieldNo, wireType] = reader.tag();
             switch (fieldNo) {
-                case /* string type */ 1:
-                    message.type = reader.string();
+                case /* process.VariableActionType type */ 1:
+                    message.type = reader.int32();
                     break;
                 case /* string variable_name */ 2:
                     message.variableName = reader.string();
@@ -127,9 +144,9 @@ class VariablesAction$Type extends MessageType<VariablesAction> {
         return message;
     }
     internalBinaryWrite(message: VariablesAction, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string type = 1; */
-        if (message.type !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.type);
+        /* process.VariableActionType type = 1; */
+        if (message.type !== 0)
+            writer.tag(1, WireType.Varint).int32(message.type);
         /* string variable_name = 2; */
         if (message.variableName !== "")
             writer.tag(2, WireType.LengthDelimited).string(message.variableName);
